@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: one;
+        src: url("./fonts/Digi Delbar3.ttf");
+    }
+    @font-face {
+        font-family:faNum;
+        src: url("./fonts/IRANSansWeb(FaNum)_Medium.ttf");
+    }
+    @font-face {
+        font-family:iranLight;
+        src: url("./fonts/IRANSansWeb(FaNum)_Light.ttf");
+    }
+    @font-face {
+        font-family:vazir;
+        src: url("./fonts/Vazir/Vazir.ttf");
+    }
+
+    body {
+        font-family: vazir;
+        direction: rtl;
+        overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar{
+        width: 1rem;
+    }
+    
+    /* ::-webkit-scrollbar-track{
+        @apply bg-gray-20;
+    }
+     */
+    ::-webkit-scrollbar-thumb{
+        @apply bg-primary rounded-3xl m-3;
+    }
+    
+}
+
+@layer utilities {
+    .container-primary {
+        @apply mx-auto sm:px-10 md:px-20 lg:px-36;
+    }
+    .li-header {
+        @apply hover:shadow-border-b-white transition-all cursor-pointer;
+    }
+
+    .li-sidebar{
+       @apply transition-all cursor-pointer hover:text-secondary
+    }
+    .center-position {
+        @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+    }
+    .btn-primary {
+        @apply bg-white text-primary rounded-[2rem] py-3 px-8 hover:bg-secondary hover:text-white transition-all duration-500;
+    }
+    .btn-secondary {
+        @apply bg-primary text-white rounded-[2.5rem] py-3 px-5 hover:bg-secondary hover:text-white transition-all duration-500;
+    }
+    .form-contact {
+        @apply w-full border-0 border-b-2 border-primary  focus:border-secondary focus:border-b-4;
+    }
+    .form-error {
+        @apply text-sm rounded-xl text-white bg-secondary  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:right-2 after:text-secondary;
+    }
+  
+}
