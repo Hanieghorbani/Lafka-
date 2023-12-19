@@ -8,48 +8,51 @@
         src: url("./fonts/Digi Delbar3.ttf");
     }
     @font-face {
-        font-family:faNum;
+        font-family: faNum;
         src: url("./fonts/IRANSansWeb(FaNum)_Medium.ttf");
     }
     @font-face {
-        font-family:iranLight;
+        font-family: iranLight;
         src: url("./fonts/IRANSansWeb(FaNum)_Light.ttf");
     }
     @font-face {
-        font-family:vazir;
+        font-family: vazir;
         src: url("./fonts/Vazir/Vazir.ttf");
     }
 
     body {
-        font-family: vazir;
+        font-family: iranLight;
         direction: rtl;
         overflow-x: hidden;
     }
 
-    ::-webkit-scrollbar{
+    ::-webkit-scrollbar {
         width: 1rem;
     }
-    
+
     /* ::-webkit-scrollbar-track{
         @apply bg-gray-20;
     }
      */
-    ::-webkit-scrollbar-thumb{
+    ::-webkit-scrollbar-thumb {
         @apply bg-primary rounded-3xl m-3;
     }
-    
 }
 
 @layer utilities {
     .container-primary {
-        @apply mx-auto sm:px-10 md:px-20 lg:px-36;
+        @apply mx-auto sm:px-10 md:px-20 lg:px-20;
     }
     .li-header {
-        @apply hover:shadow-border-b-white transition-all cursor-pointer;
+        @apply hover:text-secondary transition-all cursor-pointer;
     }
 
-    .li-sidebar{
-       @apply transition-all cursor-pointer hover:text-secondary
+    .badge-header {
+        @apply absolute top-0 -left-1 text-xs h-3.5 w-3.5 flex items-center justify-center bg-black/80 rounded-full font-[faNum];
+    }
+
+    .li-sidebar {
+        @apply transition-all cursor-pointer hover:text-secondary;
     }
     .center-position {
         @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
@@ -66,5 +69,4 @@
     .form-error {
         @apply text-sm rounded-xl text-white bg-secondary  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:right-2 after:text-secondary;
     }
-  
 }
