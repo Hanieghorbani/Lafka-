@@ -1,0 +1,158 @@
+
+#home {
+    position: absolute;
+    left: 0;
+}
+
+#home #home-content {
+    background-color: #f9faff;
+    margin-top: 12px;
+}
+#home #home-content .home-content-title {
+    padding-top: 25px;
+}
+#home #home-content .home-content-title .welcome {
+    font-size: 18px;
+    font-family: "lalezar";
+}
+#home #home-content .home-content-title .name {
+    font-size: 18px;
+    font-family: "lalezar";
+    color: #1943da;
+}
+#home #home-content .home-content-boxes {
+    margin-top: 25px;
+}
+#home #home-content .home-content-boxes .box {
+    background-color: #fdfdff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+}
+#home #home-content .home-content-boxes .box .home-box {
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-title span {
+    font-family: "lalezar";
+    font-size: 22px;
+    font-weight: bold;
+    position: relative;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-title span::before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 3px;
+    background-color: #1943da;
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 0px 5px 1px #1943da81;
+    box-shadow: 0px 0px 5px 1px #1943da81;
+    top: 50%;
+    right: -15px;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-title span::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 3px;
+    background-color: #1943da;
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 0px 5px 1px #1943da81;
+    box-shadow: 0px 0px 5px 1px #1943da81;
+    bottom: 50%;
+    left: -15px;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-value {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 14px 0;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-value .home-box-price span {
+    font-weight: bold;
+    font-size: 18px;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-value .home-box-result span {
+    font-weight: bold;
+    font-size: 15px;
+    color: #1ad61a;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-text span {
+    color: #a3abb1;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-icon {
+    border-radius: 50%;
+    padding: 20px;
+}
+#home #home-content .home-content-boxes .box .home-box .home-box-icon i {
+    font-size: 30px;
+    color: #1943da;
+}
+#home #home-content .home-content-chart {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+}
+#home #home-content .home-content-latset-users {
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    border-radius: 5px;
+}
+#home #home-content .home-content-latset-users .home-content-users-title {
+    padding: 20px 15px;
+}
+#home #home-content .home-content-latset-users .home-content-users-title span {
+    font-size: 18px;
+    font-family: "lalezar";
+}
+#home #home-content .home-content-latset-users .home-content-users-title span .signup {
+    color: #1943da;
+}
+#home #home-content .home-content-latset-users .home-content-users-table {
+    padding: 0 10px;
+}
+#home #home-content .home-content-latset-users .home-content-users-table table thead {
+    background-color: #f2f7fd;
+}
+#home #home-content .home-content-latset-users .home-content-users-table table thead tr th {
+    border: none;
+    color: #67747e;
+    text-align: center;
+    font-size: 18px;
+    font-family: "lalezar";
+}
+#home #home-content .home-content-latset-users .home-content-users-table table tbody tr {
+    vertical-align: middle;
+}
+#home #home-content .home-content-latset-users .home-content-users-table table tbody tr .profile-table {
+    width: 40px;
+    border-radius: 50%;
+}
+#home #home-content .home-content-latset-users .home-content-users-table table tbody tr td {
+    text-align: center;
+}
+#content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+/*# sourceMappingURL=main.css.map */
