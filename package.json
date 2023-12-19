@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^40.2.0",
+    "@ckeditor/ckeditor5-react": "^6.2.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.17",
@@ -23,6 +25,8 @@
     "react-router-dom": "^6.21.0",
     "react-scripts": "5.0.1",
     "react-scroll": "^1.9.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.10.1",
     "swiper": "^11.0.5",
     "web-vitals": "^2.1.4",
     "wowjs": "^1.1.3",
