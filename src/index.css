@@ -50,9 +50,8 @@
     .badge-header {
         @apply absolute top-0 -left-1 text-xs h-3.5 w-3.5 flex items-center justify-center bg-black/80 rounded-full font-[faNum];
     }
-
     .li-sidebar {
-        @apply transition-all cursor-pointer hover:text-secondary;
+        @apply transition-all cursor-pointer hover:text-secondary text-white;
     }
     .center-position {
         @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;

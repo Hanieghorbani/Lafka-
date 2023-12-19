@@ -10,7 +10,7 @@ module.exports = {
         primary: "#a5102e",
         info: "#e4584b",
         secondary: "#F2CE5F",
-        minorTX: "#303952",
+        dark: "#333333",
       },
       boxShadow: {
         "border-b-secondary": "0 3px 0px 0px #F2CE5F",
