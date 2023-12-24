@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primary: "#a5102e",
         info: "#e4584b",
-        secondary: "#F2CE5F",
+        secondary: "#f9c744",
         dark: "#333333",
       },
       boxShadow: {
@@ -20,6 +20,7 @@ module.exports = {
         "img-burst3": "url('../public/imgs/bg/vintage-burst3.png')",
         "img-tomato": "url('../public/imgs/bg/blur-tomato.png')",
         "img-fries": "url('../public/imgs/bg/blur-fries (1).png')",
+        "img-cheese": "url('../public/imgs/bg/blur-cheese.png')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",
