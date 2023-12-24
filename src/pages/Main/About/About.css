@@ -1,0 +1,11 @@
+.swiper-slide {
+    height: auto !important;
+}
+
+.imgRecentNews{
+    @apply sm:w-full md:w-1/2 !important;
+}
+
+.swiperNews .swiper-wrapper{
+   @apply mb-20;
+}
