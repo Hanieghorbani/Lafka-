@@ -4,7 +4,7 @@
 
 @layer base {
     @font-face {
-        font-family: one;
+        font-family: delbar;
         src: url("./fonts/Digi Delbar3.ttf");
     }
     @font-face {
@@ -57,7 +57,7 @@
         @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
     }
     .btn-primary {
-        @apply bg-white text-primary rounded-[2rem] py-3 px-8 hover:bg-secondary hover:text-white transition-all duration-500;
+        @apply bg-primary cursor-pointer shadow-2xl text-white rounded-[2rem] py-3 px-8 hover:bg-dark transition-all duration-500;
     }
     .btn-secondary {
         @apply bg-primary text-white rounded-[2.5rem] py-3 px-5 hover:bg-secondary hover:text-white transition-all duration-500;

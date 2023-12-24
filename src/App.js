@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import routes from "./Routes"
-import ScrollToTop from "./components/ScrollToTopbar/ScrollToTopbar"
+import ScrollToTop from "./components/Main/ScrollToTopbar/ScrollToTopbar"
 import AOS from "aos"
 import { useRoutes } from "react-router-dom"
 function App() {
@@ -24,7 +24,7 @@ function App() {
     }
   }
   return (
-    <div className="ov overflow-x-hidden">
+    <div className="overflow-x-hidden">
       {router}
       {isScrollBtnVisible && <ScrollToTop />}
     </div>

@@ -17,9 +17,8 @@ module.exports = {
         "border-b-white": "0 2px 0px 0px white",
       },
       backgroundImage: {
-        "img-primary": "url('../public/imgs/gray-bg.jpg')",
-        "img-people": "url('../public/imgs/people.jpg')",
-        "img-dark": "url('../public/imgs/footer-bg.jpg')",
+        "img-burst3": "url('../public/imgs/bg/vintage-burst3.png')",
+        "img-tomato": "url('../public/imgs/bg/blur-tomato.png')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",
@@ -28,7 +27,7 @@ module.exports = {
       },
     },
     screens: {
-      sm: "350px",
+      sm: "280px",
       smMd:'500px',
       md: "768px",
       mdLg:'850px',

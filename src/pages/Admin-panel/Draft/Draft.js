@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import swal from "sweetalert"
-import Editor from "../../../components/Editor/Editor"
+import Editor from "../../../components/Main/Editor/Editor"
 import { useNavigate, useParams } from "react-router-dom"
 export default function Draft() {
   const localStorageData = JSON.parse(localStorage.getItem("user"))
