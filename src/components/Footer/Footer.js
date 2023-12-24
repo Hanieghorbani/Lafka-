@@ -14,7 +14,7 @@ export default function Footer() {
         alt=""
         className="mx-auto"
       />
-      <div className="flex justify-between items-center mt-20">
+      <div className="flex sm:flex-col md:flex-row gap-5 justify-between items-center mt-20">
         <div className="flex gap-3 justify-between text-white text-xl">
           <FaFacebookF className="li-footer" />
           <FaInstagram className="li-footer" />
