@@ -44,7 +44,7 @@
         @apply mx-auto sm:px-10 md:px-20 lg:px-20;
     }
     .li-header {
-        @apply hover:text-secondary transition-all cursor-pointer;
+        @apply text-white hover:text-secondary transition-all cursor-pointer;
     }
 
     .badge-header {
@@ -64,6 +64,12 @@
     }
     .btn-order {
         @apply border-2 text-xs  rounded-[2.5rem] py-2 px-3 hover:border-black hover:text-primary transition-all duration-500;
+    }
+    .btn-yearStory {
+        @apply  rounded-[2.5rem] py-3 px-5 bg-gray-300 hover:text-white  hover:bg-info transition-all duration-500 text-gray-500 font-[faNum];
+    }
+    .btn-yearStorySelect {
+        @apply text-white rounded-[2.5rem] py-3 px-5 bg-info  font-[faNum];
     }
 
     .li-footer{

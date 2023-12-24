@@ -22,6 +22,7 @@ module.exports = {
         "img-tomato": "url('../public/imgs/bg/blur-tomato.png')",
         "img-fries": "url('../public/imgs/bg/blur-fries (1).png')",
         "img-cheese": "url('../public/imgs/bg/blur-cheese.png')",
+        "img-about": "url('../public/imgs/bg/back-about-title-burger.jpg')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",

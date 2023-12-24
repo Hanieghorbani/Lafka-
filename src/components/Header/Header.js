@@ -4,6 +4,7 @@ import { FaBars } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
+import { Link } from "react-router-dom"
 
 export default function Header() {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false)
@@ -27,15 +28,17 @@ export default function Header() {
 
   return (
     <div
-      className={` w-full z-50 bg-primary text-white container-primary py-5 ${
-        isFixedTopbar ? "sticky top-0" : 'fixed top-0'
+      className={` w-full z-50 text-white container-primary py-5 ${
+        isFixedTopbar ? "static top-0 bg-inherit" : 'fixed top-0 bg-primary'
       }`}
     >
+
+    {/* top header  */}
       <div className="flex items-center sm:justify-center xl:justify-between w-1/2  mx-auto">
         {/* xl */}
-        <ul className="gap-5 sm:hidden xl:flex">
-          <li className="li-header">خانه</li>
-          <li className="li-header">درباره ما</li>
+        <ul className="gap-5 sm:hidden xl:flex text-sm">
+          <Link to={'/'} className="li-header">خانه</Link>
+          <Link to={'/about'} className="li-header">درباره ما</Link>
           <li className="li-header">شعبه ها</li>
         </ul>
 
@@ -47,16 +50,19 @@ export default function Header() {
         />
 
         {/* xl */}
-        <ul className="gap-5 sm:hidden xl:flex">
+        <ul className="gap-5 sm:hidden xl:flex text-sm">
           <li className="li-header">سفارش آنلاین</li>
           <li className="li-header">وبلاگ</li>
           <li className="li-header">تماس با ما</li>
         </ul>
       </div>
-      <div className="flex justify-between items-center">
+
+
+      {/* bottom header  */}
+      <div className="flex justify-between items-center -mt-7">
         {/* right section */}
         {/* md */}
-        <div className="shadow-xl p-3 rounded-3xl sm:hidden md:block">
+        <div className="shadow-xl p-2 rounded-3xl sm:hidden md:flex flex-col items-center">
           <p className=" text-gray-300">برای سفارش آنلاین تماس بگیرید</p>
           <p className="flex gap-2 items-center mt-1">
             <FaPhoneAlt />

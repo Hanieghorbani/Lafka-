@@ -1,8 +1,24 @@
-import React from "react"
+import React,{useState,useEffect} from "react"
 
 export default function EndOfHeader() {
+  const [isFixedTopbar, setIsFixedTopbar] = useState(true)
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+  const handleScroll = () => {
+    if (window.scrollY > 67) {
+      setIsFixedTopbar(false)
+    } else {
+      setIsFixedTopbar(true)
+    }
+  }
   return (
-    <div className="bg-primary container-primary flex flex-col items-center relative overflow-hidden">
+    <div className={`bg-primary container-primary flex flex-col items-center relative overflow-hidden ${!isFixedTopbar ? 'pt-60' : 'pt-0'}`}>
       <img
         src="/imgs/bg/blur-tomato.png"
         alt=""
