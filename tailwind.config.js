@@ -19,6 +19,7 @@ module.exports = {
       backgroundImage: {
         "img-burst3": "url('../public/imgs/bg/vintage-burst3.png')",
         "img-tomato": "url('../public/imgs/bg/blur-tomato.png')",
+        "img-fries": "url('../public/imgs/bg/blur-fries (1).png')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",
