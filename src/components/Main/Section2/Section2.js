@@ -1,16 +1,14 @@
 import React from "react"
 import InfosBox from "./InfosBox"
+import HeaderSection from "../HeaderSection/HeaderSection"
 export default function Section2() {
   return (
     <div className="bg-secondary bg-img-cheese bg-cover py-20 container-primary">
-      <div className="flex flex-col items-center text-white gap-10">
-        <h2 className="font-[delbar] sm:text-3xl sm:text-center md:text-5xl lg:text-6xl">
-          یک برگر سالم دوست دارید؟ … بفرمایید!
-        </h2>
-        <p className="text-xl text-center">
-          اما به هر حال ، هر روز آنها را می خوریم
-        </p>
-      </div>
+      <HeaderSection
+        title={"یک برگر سالم دوست دارید؟ … بفرمایید!"}
+        desc={"          اما به هر حال ، هر روز آنها را می خوریم"}
+        textWhite={true}
+      />
 
       <div className="grid sm:grid-cols-1 md:grid-cols-3 mt-20 gap-10">
         <div className="space-y-10 bg-yellow-100/30 rounded-xl p-5">

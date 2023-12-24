@@ -65,6 +65,10 @@
     .btn-order {
         @apply border-2 text-xs  rounded-[2.5rem] py-2 px-3 hover:border-black hover:text-primary transition-all duration-500;
     }
+
+    .li-footer{
+        @apply transition-all cursor-pointer hover:opacity-60 text-white
+    }
     .form-contact {
         @apply w-full border-0 border-b-2 border-primary  focus:border-secondary focus:border-b-4;
     }
