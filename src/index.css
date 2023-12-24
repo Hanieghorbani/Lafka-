@@ -60,7 +60,10 @@
         @apply bg-primary cursor-pointer shadow-2xl text-white rounded-[2rem] py-3 px-8 hover:bg-dark transition-all duration-500;
     }
     .btn-secondary {
-        @apply bg-primary text-white rounded-[2.5rem] py-3 px-5 hover:bg-secondary hover:text-white transition-all duration-500;
+        @apply bg-price text-white rounded-[2.5rem] py-3 px-5 hover:bg-secondary hover:text-white transition-all duration-500;
+    }
+    .btn-order {
+        @apply border-2 text-xs  rounded-[2.5rem] py-2 px-3 hover:border-black hover:text-primary transition-all duration-500;
     }
     .form-contact {
         @apply w-full border-0 border-b-2 border-primary  focus:border-secondary focus:border-b-4;
