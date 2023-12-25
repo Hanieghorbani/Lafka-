@@ -28,7 +28,7 @@ export default function Header() {
 
   return (
     <div
-      className={` w-full z-50 text-white container-primary py-5 ${
+      className={` w-full z-50 text-white container-primary transition-all duration-1000' py-5 ${
         isFixedTopbar ? "static top-0 bg-inherit" : 'fixed top-0 bg-primary'
       }`}
     >
@@ -51,9 +51,9 @@ export default function Header() {
 
         {/* xl */}
         <ul className="gap-5 sm:hidden xl:flex text-sm">
-          <li className="li-header">سفارش آنلاین</li>
-          <li className="li-header">وبلاگ</li>
-          <li className="li-header">تماس با ما</li>
+          <Link to={'/shop'} className="li-header">سفارش آنلاین</Link>
+          <Link to={'/blogs'} className="li-header">وبلاگ</Link>
+          <Link to={'/contacts'} className="li-header">تماس با ما</Link>
         </ul>
       </div>
 

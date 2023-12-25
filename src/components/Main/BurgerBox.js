@@ -14,7 +14,7 @@ export default function BurgerBox({ price, img, name }) {
         <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
       </div>
 
-      <div className="flex flex-col items-center gap-3 mt-5 p-5">
+      <div className="flex flex-col items-center gap-3 mt-1 p-5">
         <h5 className="">{name}</h5>
         <p className="text-gray-500 text-center text-sm">
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده

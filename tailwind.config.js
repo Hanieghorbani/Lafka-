@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primary: "#a5102e",
         info: "#e4584b",
-        price:'#4d2c21',
+        price: "#4d2c21",
         secondary: "#f9c744",
         dark: "#333333",
       },
@@ -23,7 +23,12 @@ module.exports = {
         "img-fries": "url('../public/imgs/bg/blur-fries (1).png')",
         "img-cheese": "url('../public/imgs/bg/blur-cheese.png')",
         "img-about": "url('../public/imgs/bg/back-about-title-burger.jpg')",
-        "img-location": "url('../public/imgs/bg/back-locations-title-burger.jpg')",
+        "img-location":
+          "url('../public/imgs/bg/back-locations-title-burger.jpg')",
+        "img-shop":
+          "url('../public/imgs/bg/back-contacts-title-burger2.jpg')",
+        "img-blog":
+          "url('../public/imgs/bg/back-contacts-title-burger3.jpg')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",
@@ -33,9 +38,9 @@ module.exports = {
     },
     screens: {
       sm: "280px",
-      smMd:'500px',
+      smMd: "500px",
       md: "768px",
-      mdLg:'850px',
+      mdLg: "850px",
       lg: "976px",
       xl: "1200px",
     },

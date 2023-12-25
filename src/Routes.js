@@ -24,7 +24,7 @@ import Cart from "./pages/Main/Cart/Cart"
 import Contact from "./pages/Admin-panel/Contact/Contact"
 import Favorites from "./pages/Main/Favorites/Favorites"
 import Login from "./pages/Main/Login/Login"
-import Orders from "./pages/Main/Orders/Orders"
+import Shop from './pages/Main/Shop/Shop'
 import ProductCategory from "./pages/Main/Product-category/Product-category"
 import ProductInfo from "./pages/Main/Product-info/Product-info"
 import Register from "./pages/Main/Register/Register"
@@ -58,7 +58,7 @@ const routes = [
   { path: "/contact", element: <Contact /> },
   { path: "/favorites", element: <Favorites /> },
   { path: "/login", element: <Login /> },
-  { path: "/orders", element: <Orders /> },
+  { path: "/shop", element: <Shop /> },
   { path: "/productCategory", element: <ProductCategory /> },
   { path: "/productInfo", element: <ProductInfo /> },
   { path: "/register", element: <Register /> },

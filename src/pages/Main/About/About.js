@@ -8,7 +8,7 @@ import "swiper/css/pagination"
 import "./About.css"
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules"
-import CommentBox from "../../../components/About/CommentBox/CommentBox"
+import CommentBox from "../../../components/Main/CommentBox/CommentBox"
 import Footer from "../../../components/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 export default function About() {
@@ -31,7 +31,7 @@ export default function About() {
 
   return (
     <div className="">
-     <TopSection subTitle={'درباره ما'} bg={'bg-img-about'}/>
+      <TopSection subTitle={"درباره ما"} bg={"bg-img-about"} />
 
       {/* section 2  */}
       <div className="md:w-2/3 mx-auto py-20 container-primary">
@@ -49,7 +49,11 @@ export default function About() {
       </div>
       {/* end of section 2  */}
 
-        <img src="/imgs/bg/sandwich-board.png" alt="" className="container-primary"/>
+      <img
+        src="/imgs/bg/sandwich-board.png"
+        alt=""
+        className="container-primary"
+      />
 
       {/* our story  */}
       <div className="flex items-center flex-col mt-20 md:w-1/2 mx-auto container-primary">
@@ -87,7 +91,11 @@ export default function About() {
             در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را
             می طلبد
           </p>
-          <img src="/imgs/logos/signature-white-130x60.png" alt="" className="mb-10 md:mb-0"/>
+          <img
+            src="/imgs/logos/signature-white-130x60.png"
+            alt=""
+            className="mb-10 md:mb-0"
+          />
         </div>
       </div>
       {/* end of section 3  */}
