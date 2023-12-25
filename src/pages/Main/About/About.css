@@ -7,5 +7,10 @@
 }
 
 .swiperNews .swiper-wrapper{
-   @apply mb-20;
+   @apply sm:mb-5 md:mb-10;
+}
+
+
+.swiper-pagination-bullet-active{
+    @apply bg-info
 }
