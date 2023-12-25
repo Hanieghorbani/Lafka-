@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Header from "../../../components/Header/Header"
-import HeaderSection from "../../../components/Main/HeaderSection/HeaderSection"
-import { SiCodechef } from "react-icons/si"
+
 import { Swiper, SwiperSlide } from "swiper/react"
 // Import Swiper styles
 import "swiper/css"
@@ -11,6 +10,7 @@ import "./About.css"
 import { Autoplay, Pagination } from "swiper/modules"
 import CommentBox from "../../../components/About/CommentBox/CommentBox"
 import Footer from "../../../components/Footer/Footer"
+import TopSection from "../../../components/Main/TopSection/TopSection"
 export default function About() {
   const [isFixedTopbar, setIsFixedTopbar] = useState(true)
 
@@ -31,19 +31,7 @@ export default function About() {
 
   return (
     <div className="">
-      <div className="bg-img-about bg-cover overflow-hidden sm:h-[70vh] md:h-screen">
-        <Header />
-        {/* section 1  */}
-        <div
-          className={`text-white text-center ${
-            !isFixedTopbar ? "sm:py-[15rem] md:py-[20rem]" : "sm:pt-16 md:pt-24"
-          }`}
-        >
-          <p className="text-xl">خانه / درباره ما</p>
-          <h1 className="font-[delbar] sm:text-5xl md:text-8xl">درباره ما</h1>
-        </div>
-        {/* end of section 1  */}
-      </div>
+     <TopSection subTitle={'درباره ما'} bg={'bg-img-about'}/>
 
       {/* section 2  */}
       <div className="md:w-2/3 mx-auto py-20 container-primary">

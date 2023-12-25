@@ -39,7 +39,7 @@ export default function Header() {
         <ul className="gap-5 sm:hidden xl:flex text-sm">
           <Link to={'/'} className="li-header">خانه</Link>
           <Link to={'/about'} className="li-header">درباره ما</Link>
-          <li className="li-header">شعبه ها</li>
+          <Link to={'/locations'} className="li-header">شعبه ها</Link>
         </ul>
 
         {/* show logo, all times*/}

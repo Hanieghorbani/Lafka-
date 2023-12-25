@@ -53,7 +53,7 @@ const routes = [
   { path: "/", element: <Index /> },
   { path: "/about", element: <About /> },
   { path: "/blogs", element: <Blogs /> },
-  { path: "/branches", element: <Branches /> },
+  { path: "/locations", element: <Branches /> },
   { path: "/cart", element: <Cart /> },
   { path: "/contact", element: <Contact /> },
   { path: "/favorites", element: <Favorites /> },
