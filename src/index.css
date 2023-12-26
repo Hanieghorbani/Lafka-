@@ -69,11 +69,11 @@
         @apply  rounded-[2.5rem] sm:py-2 sm:px-3 md:py-3 md:px-5 bg-gray-300 hover:text-white  hover:bg-info transition-all duration-500 text-gray-500 font-[faNum];
     }
     .btn-yearStorySelect {
-        @apply text-white rounded-[2.5rem] sm:py-2 sm:px-3 md:py-3 md:px-5 bg-info  font-[faNum];
+        @apply text-white rounded-[2.5rem] sm:py-2 sm:px-3 md:py-3 md:px-5 bg-info  font-[faNum] hover:bg-dark transition-all duration-500;
     }
 
     .li-footer{
-        @apply transition-all cursor-pointer hover:opacity-60 text-white
+        @apply transition-all cursor-pointer hover:opacity-60 text-white;
     }
     .form-contact {
         @apply w-full border-0 bg-zinc-100  focus:bg-zinc-200 rounded-xl ;
