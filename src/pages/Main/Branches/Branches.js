@@ -8,7 +8,7 @@ export default function Branches() {
     <div className="">
       <TopSection subTitle={"شعبه ها"} bg={"bg-img-location"} />
       <div className="grid sm:grid-cols-1 md:grid-cols-2 ">
-        <div className="bg-secondary container-primary sm:py-9 md:py-0 md:p-12 sm:space-y-5 md:space-y-10">
+        <div className="bg-secondary container-primary sm:py-9  md:p-12 sm:space-y-5 md:space-y-10">
           <h1 className="sm:text-xl md:text-3xl">ما را در نزدیکی خود پیدا کنید</h1>
           <p className="text-zinc-700 md:leading-5 md:leading-9">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با

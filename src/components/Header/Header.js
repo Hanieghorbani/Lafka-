@@ -53,7 +53,7 @@ export default function Header() {
         <ul className="gap-5 sm:hidden xl:flex text-sm">
           <Link to={'/shop'} className="li-header">سفارش آنلاین</Link>
           <Link to={'/blogs'} className="li-header">وبلاگ</Link>
-          <Link to={'/contacts'} className="li-header">تماس با ما</Link>
+          <Link to={'/contact'} className="li-header">تماس با ما</Link>
         </ul>
       </div>
 

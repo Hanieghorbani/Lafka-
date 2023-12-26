@@ -25,10 +25,10 @@ module.exports = {
         "img-about": "url('../public/imgs/bg/back-about-title-burger.jpg')",
         "img-location":
           "url('../public/imgs/bg/back-locations-title-burger.jpg')",
-        "img-shop":
-          "url('../public/imgs/bg/back-contacts-title-burger2.jpg')",
-        "img-blog":
-          "url('../public/imgs/bg/back-contacts-title-burger3.jpg')",
+        "img-shop": "url('../public/imgs/bg/back-contacts-title-burger2.jpg')",
+        "img-blog": "url('../public/imgs/bg/back-contacts-title-burger3.jpg')",
+        "img-contact":
+          "url('../public/imgs/bg/back-contacts-title-burger.jpg')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",

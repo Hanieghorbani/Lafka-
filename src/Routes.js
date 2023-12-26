@@ -21,7 +21,7 @@ import About from "./pages/Main/About/About"
 import Blogs from "./pages/Main/Blogs/Blogs"
 import Branches from "./pages/Main/Branches/Branches"
 import Cart from "./pages/Main/Cart/Cart"
-import Contact from "./pages/Admin-panel/Contact/Contact"
+import Contact from './pages/Main/Contacts/Contacts'
 import Favorites from "./pages/Main/Favorites/Favorites"
 import Login from "./pages/Main/Login/Login"
 import Shop from './pages/Main/Shop/Shop'

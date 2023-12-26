@@ -76,9 +76,9 @@
         @apply transition-all cursor-pointer hover:opacity-60 text-white
     }
     .form-contact {
-        @apply w-full border-0 border-b-2 border-primary  focus:border-secondary focus:border-b-4;
+        @apply w-full border-0 bg-zinc-100  focus:bg-zinc-200 rounded-xl ;
     }
     .form-error {
-        @apply text-sm rounded-xl text-white bg-secondary  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:right-2 after:text-secondary;
+        @apply text-sm rounded-xl relative text-white bg-red-200 border border-info text-info  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:left-2 after:top-[-0.8rem] after:text-red-200;
     }
 }
