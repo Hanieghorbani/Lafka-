@@ -41,7 +41,6 @@ export default function Cart() {
                 type="text"
                 className=" border-0 bg-zinc-200  focus:bg-zinc-300 rounded-xl"
                 placeholder="کد تخفیف"
-                style={{ boxShadow: "none" }}
               />
               <button className="btn-yearStorySelect">اعمال کد</button>
             </div>

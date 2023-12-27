@@ -6,9 +6,12 @@ import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Link } from "react-router-dom"
 import ProductCartBox from "../Main/ProductCartBox/ProductCartBoxInSide"
+import { AiOutlineSearch } from "react-icons/ai"
+
 export default function Header() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
+  const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
   const [isFixedTopbar, setIsFixedTopbar] = useState(true)
 
   useEffect(() => {
@@ -102,7 +105,10 @@ export default function Header() {
             <CiShoppingCart className="li-header" />
           </div>
 
-          <CiSearch className="li-header" />
+          <CiSearch
+            className="li-header"
+            onClick={() => setIsOpenSideSearch(true)}
+          />
         </div>
 
         {/* sm */}
@@ -238,13 +244,15 @@ export default function Header() {
                             تماس با ما
                           </Link>
 
-                          <Link
-                            to={"/search"}
+                          <li
+                            onClick={()=>{
+                              setIsOpenSidebarMenu(false)
+                              setIsOpenSideSearch(true)
+                            }}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
                           >
                             جستجو
-                          </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -360,7 +368,10 @@ export default function Header() {
                       </div>
 
                       <div className="flex items-center justify-between px-4 sm:px-6 mt-8">
-                        <Link to={'/cart'} className="bg-zinc-300 shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center">
+                        <Link
+                          to={"/cart"}
+                          className="bg-zinc-300 shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
+                        >
                           {" "}
                           <CiShoppingCart className="text-xl font-bold" />
                           مشاهده سبد خرید{" "}
@@ -369,6 +380,99 @@ export default function Header() {
                           <FaCreditCard />
                           تصویه حساب
                         </button>
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
+      {/* sidebar for  search   */}
+      <Transition.Root show={isOpenSideSearch} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-50"
+          onClose={() => setIsOpenSideSearch(false)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="pointer-events-none  fixed inset-y-0 right-0 flex  md:w-1/2 lg:1/3 pl-10">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500 sm:duration-700"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-500 sm:duration-700"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <Dialog.Panel className="pointer-events-auto w-full relative">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-in-out duration-500"
+                      enterFrom="opacity-0"
+                      enterTo="opacity-100"
+                      leave="ease-in-out duration-500"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
+                        <button
+                          type="button"
+                          className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          onClick={() => setIsOpenSideSearch(false)}
+                        >
+                          <span className="absolute -inset-2.5" />
+                          <span className="sr-only">Close panel</span>
+                          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      </div>
+                    </Transition.Child>
+                    <div className="flex h-full flex-col py-6 shadow-xl bg-dark text-white">
+                      {/* top section  */}
+                      <div className="px-4 sm:px-6 py-5 bg-black/20">
+                        <Dialog.Title className="text-lg flex justify-between items-center">
+                          جستجو
+                          <div className="flex text-2xl gap-3">
+                            <Link to={"/login"}>
+                              <CiUser className="li-header" />
+                            </Link>
+
+                            <Link to={"/favorites"} className="relative">
+                              <span className="badge-header text-white">0</span>
+                              <CiHeart className="li-header" />
+                            </Link>
+                          </div>
+                        </Dialog.Title>
+                      </div>
+
+                      <div className="relative mt-6 px-4 sm:px-6 flex flex-col gap-3 justify-center items-center">
+                        {/* content section  */}
+                        <div className="relative w-full">
+                          <input
+                            type="text"
+                            className="form-contact"
+                            placeholder="جستجوی محصولات"
+                          />
+                          <AiOutlineSearch className=" absolute top-1 left-2 text-dark cursor-pointer text-3xl" />
+                        </div>
+
+                        <span className="text-xs">برای جستجو تایپ کنید...</span>
                       </div>
                     </div>
                   </Dialog.Panel>
