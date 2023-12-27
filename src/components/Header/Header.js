@@ -245,7 +245,7 @@ export default function Header() {
                           </Link>
 
                           <li
-                            onClick={()=>{
+                            onClick={() => {
                               setIsOpenSidebarMenu(false)
                               setIsOpenSideSearch(true)
                             }}
@@ -367,7 +367,7 @@ export default function Header() {
                         </p>
                       </div>
 
-                      <div className="flex items-center justify-between px-4 sm:px-6 mt-8">
+                      <div className="flex sm:flex-col md:flex-row sm:gap-5 md:gap-0 md:items-center justify-between px-4 sm:px-6 mt-8">
                         <Link
                           to={"/cart"}
                           className="bg-zinc-300 shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
@@ -469,7 +469,9 @@ export default function Header() {
                             className="form-contact"
                             placeholder="جستجوی محصولات"
                           />
-                          <AiOutlineSearch className=" absolute top-1 left-2 text-dark cursor-pointer text-3xl" />
+                          <Link to={'/search'}>
+                            <AiOutlineSearch className=" absolute top-1 left-2 text-dark cursor-pointer text-3xl" />
+                          </Link>
                         </div>
 
                         <span className="text-xs">برای جستجو تایپ کنید...</span>

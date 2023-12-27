@@ -29,6 +29,8 @@ module.exports = {
         "img-blog": "url('../public/imgs/bg/back-contacts-title-burger3.jpg')",
         "img-contact":
           "url('../public/imgs/bg/back-contacts-title-burger.jpg')",
+        "img-search":
+          "url('../public/imgs/bg/back-contacts-title-burger2.jpg')",
       },
       animation: {
         "spin-slow": "spin 20s linear infinite",
