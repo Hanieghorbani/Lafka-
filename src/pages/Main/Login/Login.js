@@ -13,7 +13,7 @@ export default function Login() {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .required("نام الزامی است")
+      .required("نام کاربری یا آدرس ایمیل الزامی است")
       .min(7, "نام باید حداقل ۳ حرف داشته باشد"),
     password: Yup.string().required("گذرواژه الزامی است"),
   })

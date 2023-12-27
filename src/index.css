@@ -26,6 +26,10 @@
         overflow-x: hidden;
     }
 
+    input{
+        box-shadow: none !important;
+    }
+
     ::-webkit-scrollbar {
         width: 1rem;
     }
