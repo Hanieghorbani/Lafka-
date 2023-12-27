@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from "react"
 
 import Header from "../../Header/Header"
+import useScroll from "../../../hooks/useScroll"
 export default function TopSection({ subTitle, bg, desc, bgHead, textColor }) {
-  const [isFixedTopbar, setIsFixedTopbar] = useState(true)
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const handleScroll = () => {
-    if (window.scrollY > 67) {
-      setIsFixedTopbar(false)
-    } else {
-      setIsFixedTopbar(true)
-    }
-  }
+  const isFixedTopbar = useScroll(67)
   return (
     <div className={`bg-cover overflow-hidden sm:min-h-[70vh] ${bg}`}>
       <div className={bgHead}>

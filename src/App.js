@@ -3,26 +3,14 @@ import routes from "./Routes"
 import ScrollToTop from "./components/Main/ScrollToTopbar/ScrollToTopbar"
 import AOS from "aos"
 import { useRoutes } from "react-router-dom"
+import useScroll from "./hooks/useScroll"
 function App() {
   useEffect(() => {
     AOS.init({})
   }, [])
   const router = useRoutes(routes)
-  const [isScrollBtnVisible, setIsScrollBtnVisible] = useState(false)
-  useEffect(() => {
-    window.addEventListener("scroll", handleShowScroll)
-    return () => {
-      window.removeEventListener("scroll", handleShowScroll)
-    }
-  }, [])
+  const isScrollBtnVisible = useScroll(400)
 
-  const handleShowScroll = () => {
-    if (window.scrollY > 400) {
-      setIsScrollBtnVisible(true)
-    } else {
-      setIsScrollBtnVisible(false)
-    }
-  }
   return (
     <div className="overflow-x-hidden">
       {router}

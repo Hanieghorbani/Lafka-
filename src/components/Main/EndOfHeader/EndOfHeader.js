@@ -1,22 +1,8 @@
 import React,{useState,useEffect} from "react"
-
+import useScroll from "../../../hooks/useScroll"
 export default function EndOfHeader() {
-  const [isFixedTopbar, setIsFixedTopbar] = useState(true)
+  const isFixedTopbar = useScroll(67)
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const handleScroll = () => {
-    if (window.scrollY > 67) {
-      setIsFixedTopbar(false)
-    } else {
-      setIsFixedTopbar(true)
-    }
-  }
   return (
     <div className={`bg-primary container-primary flex flex-col items-center relative overflow-hidden ${!isFixedTopbar ? 'pt-60' : 'pt-0'}`}>
       <img

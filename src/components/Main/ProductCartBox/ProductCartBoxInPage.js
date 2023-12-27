@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { BsFillTrashFill } from "react-icons/bs"
 import { IoCloseOutline } from "react-icons/io5"
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci"
+import Counter from "../Counter/Counter"
 export default function ProductCartBoxInPage({ img, name, count, price }) {
   const [mainCount, setMainCount] = useState(count)
   return (
@@ -15,21 +16,7 @@ export default function ProductCartBoxInPage({ img, name, count, price }) {
       />
       <p className="text-zinc-500 cursor-pointer hover:text-primary">{name}</p>
       <p className="font-[faNum]">{price}تومان</p>
-      <p className="font-[faNum] flex items-center gap-3">
-        <CiSquarePlus
-          className="text-3xl cursor-pointer"
-          onClick={() => setMainCount((prev) => prev + 1)}
-        />{" "}
-        {mainCount}{" "}
-        <CiSquareMinus
-          className="text-3xl cursor-pointer"
-          onClick={() => {
-            if (mainCount > 0) {
-              setMainCount((prev) => prev - 1)
-            }
-          }}
-        />
-      </p>
+      <Counter count={count}/>
       <p className="font-[faNum]">{price * mainCount} تومان</p>
     </div>
   )

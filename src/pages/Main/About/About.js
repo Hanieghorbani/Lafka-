@@ -11,24 +11,9 @@ import { Autoplay, Pagination } from "swiper/modules"
 import CommentBox from "../../../components/Main/CommentBox/CommentBox"
 import Footer from "../../../components/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
+import useScroll from "../../../hooks/useScroll"
 export default function About() {
-  const [isFixedTopbar, setIsFixedTopbar] = useState(true)
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const handleScroll = () => {
-    if (window.scrollY > 67) {
-      setIsFixedTopbar(false)
-    } else {
-      setIsFixedTopbar(true)
-    }
-  }
-
+  const isFixedTopbar = useScroll(67)
   return (
     <div className="">
       <TopSection subTitle={"درباره ما"} bg={"bg-img-about"} />

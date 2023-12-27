@@ -1,33 +1,23 @@
 import React, { useState, useEffect, Fragment } from "react"
+// icons 
 import { FaPhoneAlt } from "react-icons/fa"
 import { FaBars, FaCreditCard } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
+import { FiUserPlus } from "react-icons/fi"
+import { AiOutlineSearch } from "react-icons/ai"
+// end of icons 
+
+
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Link } from "react-router-dom"
 import ProductCartBox from "../Main/ProductCartBox/ProductCartBoxInSide"
-import { AiOutlineSearch } from "react-icons/ai"
-
+import useScroll from "../../hooks/useScroll"
 export default function Header() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
-  const [isFixedTopbar, setIsFixedTopbar] = useState(true)
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const handleScroll = () => {
-    if (window.scrollY > 67) {
-      setIsFixedTopbar(false)
-    } else {
-      setIsFixedTopbar(true)
-    }
-  }
+  const isFixedTopbar = useScroll(67)
 
   return (
     <div
@@ -469,7 +459,7 @@ export default function Header() {
                             className="form-contact"
                             placeholder="جستجوی محصولات"
                           />
-                          <Link to={'/search'}>
+                          <Link to={"/search"}>
                             <AiOutlineSearch className=" absolute top-1 left-2 text-dark cursor-pointer text-3xl" />
                           </Link>
                         </div>

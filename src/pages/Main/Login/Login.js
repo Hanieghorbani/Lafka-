@@ -3,7 +3,10 @@ import Header from "../../../components/Header/Header"
 import Footer from "../../../components/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
+import useScroll from "../../../hooks/useScroll"
+
 export default function Login() {
+  const isFixedTopbar = useScroll(67)
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")
   const initialValues = {
@@ -18,22 +21,6 @@ export default function Login() {
     password: Yup.string().required("گذرواژه الزامی است"),
   })
 
-  const [isFixedTopbar, setIsFixedTopbar] = useState(true)
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const handleScroll = () => {
-    if (window.scrollY > 67) {
-      setIsFixedTopbar(false)
-    } else {
-      setIsFixedTopbar(true)
-    }
-  }
   return (
     <div>
       <div className="bg-primary">

@@ -1,6 +1,19 @@
-import React from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import { FaRegHeart } from "react-icons/fa"
+import { Dialog, Transition } from "@headlessui/react"
+import { XMarkIcon } from "@heroicons/react/24/outline"
+import { Link } from "react-router-dom"
+import EnergyBox from "./EnergyBox/EnergyBox"
+import Counter from "./Counter/Counter"
+// icons
+import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
+import { GiScales } from "react-icons/gi"
+import { FaHeartbeat } from "react-icons/fa"
+
+// end of icons
+
 export default function BurgerBox({ price, img, name }) {
+  const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
   return (
     <div>
       <div className="relative border p-3 rounded-2xl">
@@ -20,8 +33,149 @@ export default function BurgerBox({ price, img, name }) {
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
           از طراحان گرافیک است
         </p>
-        <button className="btn-order font-bold mt-4">سفارش دهید</button>
+        <button
+          className="btn-order font-bold mt-4"
+          onClick={() => setIsOpenSidebarOrder(true)}
+        >
+          سفارش دهید
+        </button>
       </div>
+
+      <Transition.Root show={isOpenSidebarOrder} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-50"
+          onClose={() => setIsOpenSidebarOrder(false)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="pointer-events-none  fixed inset-y-0 right-0 flex pl-10">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500 sm:duration-700"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-500 sm:duration-700"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <Dialog.Panel className="pointer-events-auto w-full relative">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-in-out duration-500"
+                      enterFrom="opacity-0"
+                      enterTo="opacity-100"
+                      leave="ease-in-out duration-500"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
+                        <button
+                          type="button"
+                          className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          onClick={() => setIsOpenSidebarOrder(false)}
+                        >
+                          <span className="absolute -inset-2.5" />
+                          <span className="sr-only">Close panel</span>
+                          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      </div>
+                    </Transition.Child>
+                    <div className="flex h-full flex-col py-6 shadow-xl bg-dark text-white">
+                      {/* top section  */}
+                      <div className="px-4 sm:px-6 py-5 bg-black/20">
+                        <Dialog.Title className="text-lg flex justify-between items-center">
+                          اطلاعات محصول
+                          <div className="flex text-2xl gap-3">
+                            <Link to={"/login"}>
+                              <CiUser className="li-header" />
+                            </Link>
+
+                            <Link to={"/favorites"} className="relative">
+                              <span className="badge-header text-white">0</span>
+                              <CiHeart className="li-header" />
+                            </Link>
+                          </div>
+                        </Dialog.Title>
+                      </div>
+
+                      <div className="relative mt-6 px-4 sm:px-6 space-y-5">
+                        {/* content section  */}
+                        <h1 className="text-2xl">برگر گوشت رویال</h1>
+                        <p className="text-sm text-zinc-300">
+                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                          چاپ و با استفاده از طراحان گرافیک است
+                        </p>
+
+                        {/* scale  */}
+                        <div className="flex gap-2 items-center bg-zinc-200 w-1/3 rounded-2xl p-2 text-dark text-sm">
+                          <GiScales className="text-lg" />
+                          <p>
+                            سایز: <span className="font-[faNum]">300</span> گرم
+                          </p>
+                        </div>
+                        {/* end of  scale  */}
+
+                        {/* energy info  */}
+                        <div className="grid grid-cols-5 gap-5">
+                          <EnergyBox title="انرژی" value=" 34 کال" di="29%" />
+                          <EnergyBox title="پروتئین" value=" 34 گرم" di="64%" />
+                          <EnergyBox title="چربی" value=" 34 گرم" di="17%" />
+                          <EnergyBox
+                            title="حداکثر چربی"
+                            value=" 34 گرم"
+                            di="10%"
+                          />
+                          <EnergyBox
+                            title="کربوهیدرات"
+                            value=" 34 گرم"
+                            di="7%"
+                          />
+                        </div>
+                        <p className="text-xs text-zinc-300">
+                          *DI: مصرف روزانه را بر اساس رژیم 2000 کالری توصیه می
+                          شود
+                        </p>
+                        {/*end of energy info  */}
+
+                        <div className="flex gap-3 items-center text-sm">
+                          <FaHeartbeat className="text-info text-xl" />
+                          <p>آلرژی زا: شیر ، تخم مرغ ، سویا ، گلوتن</p>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-2xl">
+                            <span className="font-[faNum]">93000</span>تومان
+                          </h3>
+
+                          <div className="flex items-center gap-2">
+                            <Counter count={1} />
+                            <button className="btn-yearStorySelect text-sm">
+                              سفارش
+                            </button>
+                            <CiHeart className="text-5xl cursor-pointer hover:text-info" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
     </div>
   )
 }
