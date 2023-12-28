@@ -3,19 +3,19 @@ import { FaRegHeart } from "react-icons/fa"
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Link } from "react-router-dom"
-import EnergyBox from "./EnergyBox/EnergyBox"
-import Counter from "./Counter/Counter"
+import EnergyBox from "../EnergyBox/EnergyBox"
+import Counter from "../Counter/Counter"
 // icons
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
 import { FaHeartbeat } from "react-icons/fa"
 
 // end of icons
-
+import "./BurgerBox.css"
 export default function BurgerBox({ price, img, name }) {
   const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
   return (
-    <div>
+    <div className="burgerBox">
       <div className="relative border p-3 rounded-2xl">
         <p className="bg-price text-secondary rounded-xl p-2 inline text-xs absolute top-5 right-5">
           <span className="font-[faNum]">
@@ -23,8 +23,10 @@ export default function BurgerBox({ price, img, name }) {
           </span>{" "}
           تومان
         </p>
-        <img src={`/imgs/foods/${img}`} className=" cursor-pointer w-full" />
-        <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
+        <Link to={"/productInfo/1"}>
+          <img src={`/imgs/foods/${img}`} className=" cursor-pointer w-full" />
+          <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
+        </Link>
       </div>
 
       <div className="flex flex-col items-center gap-3 mt-1 p-5">
@@ -61,7 +63,7 @@ export default function BurgerBox({ price, img, name }) {
 
           <div className="fixed inset-0 overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
-              <div className="pointer-events-none  fixed inset-y-0 right-0 flex pl-10">
+              <div className="pointer-events-none fixed inset-y-0 right-0 flex pl-10 w-[98%] md:w-1/2">
                 <Transition.Child
                   as={Fragment}
                   enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -71,7 +73,7 @@ export default function BurgerBox({ price, img, name }) {
                   leaveFrom="translate-x-0"
                   leaveTo="translate-x-full"
                 >
-                  <Dialog.Panel className="pointer-events-auto w-full relative">
+                  <Dialog.Panel className="pointer-events-auto  w-full relative">
                     <Transition.Child
                       as={Fragment}
                       enter="ease-in-out duration-500"
@@ -98,21 +100,11 @@ export default function BurgerBox({ price, img, name }) {
                       <div className="px-4 sm:px-6 py-5 bg-black/20">
                         <Dialog.Title className="text-lg flex justify-between items-center">
                           اطلاعات محصول
-                          <div className="flex text-2xl gap-3">
-                            <Link to={"/login"}>
-                              <CiUser className="li-header" />
-                            </Link>
-
-                            <Link to={"/favorites"} className="relative">
-                              <span className="badge-header text-white">0</span>
-                              <CiHeart className="li-header" />
-                            </Link>
-                          </div>
                         </Dialog.Title>
                       </div>
 
-                      <div className="relative mt-6 px-4 sm:px-6 space-y-5">
-                        {/* content section  */}
+                      {/* content section  */}
+                      <div className="relative mt-6 px-4 sm:px-6 space-y-5 sm:overflow-y-scroll lg:overflow-y-hidden overflow-x-hidden contentBurgerBox">
                         <h1 className="text-2xl">برگر گوشت رویال</h1>
                         <p className="text-sm text-zinc-300">
                           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
@@ -120,7 +112,7 @@ export default function BurgerBox({ price, img, name }) {
                         </p>
 
                         {/* scale  */}
-                        <div className="flex gap-2 items-center bg-zinc-200 w-1/3 rounded-2xl p-2 text-dark text-sm">
+                        <div className="flex gap-2 items-center bg-zinc-200 md:w-1/3 sm:w-1/2 rounded-2xl p-2 text-dark text-sm">
                           <GiScales className="text-lg" />
                           <p>
                             سایز: <span className="font-[faNum]">300</span> گرم
@@ -129,7 +121,7 @@ export default function BurgerBox({ price, img, name }) {
                         {/* end of  scale  */}
 
                         {/* energy info  */}
-                        <div className="grid grid-cols-5 gap-5">
+                        <div className="grid sm:grid-cols-3 lg:grid-cols-5 md:gap-5 sm:gap-2">
                           <EnergyBox title="انرژی" value=" 34 کال" di="29%" />
                           <EnergyBox title="پروتئین" value=" 34 گرم" di="64%" />
                           <EnergyBox title="چربی" value=" 34 گرم" di="17%" />
@@ -154,7 +146,7 @@ export default function BurgerBox({ price, img, name }) {
                           <FaHeartbeat className="text-info text-xl" />
                           <p>آلرژی زا: شیر ، تخم مرغ ، سویا ، گلوتن</p>
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex sm:flex-col lg:flex-row items-center justify-between sm:gap-5 lg:gap-0">
                           <h3 className="text-2xl">
                             <span className="font-[faNum]">93000</span>تومان
                           </h3>

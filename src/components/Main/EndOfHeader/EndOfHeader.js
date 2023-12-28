@@ -4,7 +4,7 @@ export default function EndOfHeader() {
   const isFixedTopbar = useScroll(67)
 
   return (
-    <div className={`bg-primary container-primary flex flex-col items-center relative overflow-hidden ${!isFixedTopbar ? 'pt-60' : 'pt-0'}`}>
+    <div className={`bg-primary container-primary flex flex-col items-center relative overflow-hidden `}>
       <img
         src="/imgs/bg/blur-tomato.png"
         alt=""

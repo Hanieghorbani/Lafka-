@@ -1,5 +1,5 @@
 import React from "react"
-import BurgerBox from "../BurgerBox"
+import BurgerBox from "../BurgerBox/BurgerBox"
 import HeaderSection from "../HeaderSection/HeaderSection"
 export default function BestSelling() {
   return (

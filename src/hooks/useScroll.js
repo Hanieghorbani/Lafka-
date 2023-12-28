@@ -7,13 +7,14 @@ export default function useScroll({ init }) {
     return () => {
       window.removeEventListener("scroll", handleShowScroll)
     }
-  }, [])
+  },[])
 
   const handleShowScroll = () => {
+    console.log(window.scrollY );
     if (window.scrollY > init) {
-      setIsVisible(true)
+      setIsVisible(window.scrollY)
     } else {
-      setIsVisible(false)
+      setIsVisible(window.scrollY)
     }
   }
 

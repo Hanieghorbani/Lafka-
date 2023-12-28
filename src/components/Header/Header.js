@@ -1,12 +1,11 @@
 import React, { useState, useEffect, Fragment } from "react"
-// icons 
+// icons
 import { FaPhoneAlt } from "react-icons/fa"
 import { FaBars, FaCreditCard } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { FiUserPlus } from "react-icons/fi"
 import { AiOutlineSearch } from "react-icons/ai"
-// end of icons 
-
+// end of icons
 
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
@@ -17,12 +16,27 @@ export default function Header() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
-  const isFixedTopbar = useScroll(67)
+  // const { scrollY, isFixedTopbar } = useScroll(100);
+  const [isFixed, setIsFixed] = useState(false)
+  useEffect(() => {
+    window.addEventListener("scroll", handleShowScroll)
+    return () => {
+      window.removeEventListener("scroll", handleShowScroll)
+    }
+  },[])
 
+  const handleShowScroll = () => {
+    console.log(window.scrollY );
+    if (window.scrollY > 67) {
+      setIsFixed(window.scrollY)
+    } else {
+      setIsFixed(window.scrollY)
+    }
+  }
   return (
     <div
       className={` w-full z-50 text-white container-primary transition-all duration-1000' py-5 ${
-        isFixedTopbar ? "static top-0 bg-inherit" : "fixed top-0 bg-primary"
+        isFixed ? "fixed top-0 bg-primary mb-40" : "static top-0 bg-inherit"
       }`}
     >
       {/* top header  */}

@@ -1,7 +1,7 @@
 import React from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Footer/Footer"
-import BurgerBox from "../../../components/Main/BurgerBox"
+import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 export default function Search() {
   return (
     <div>

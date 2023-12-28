@@ -30,16 +30,11 @@
         box-shadow: none !important;
     }
 
-    ::-webkit-scrollbar {
-        width: 1rem;
-    }
-
-    /* ::-webkit-scrollbar-track{
-        @apply bg-gray-20;
-    }
-     */
     ::-webkit-scrollbar-thumb {
-        @apply bg-primary rounded-3xl m-3;
+        @apply bg-dark  !important;
+    }
+    ::-webkit-scrollbar-thumb {
+        @apply w-2  !important;
     }
 }
 
@@ -81,6 +76,9 @@
     }
     .form-contact {
         @apply w-full border-0 text-black bg-zinc-100  focus:bg-zinc-200 rounded-xl ;
+    }
+    .form-comment {
+        @apply w-full border-0 text-black bg-white  focus:bg-zinc-100 rounded-xl;
     }
     .form-error {
         @apply text-sm rounded-xl relative text-white bg-red-200 border border-info text-info  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:left-2 after:top-[-0.8rem] after:text-red-200;

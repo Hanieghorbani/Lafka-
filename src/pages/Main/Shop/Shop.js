@@ -1,6 +1,6 @@
 import React from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
-import BurgerBox from "../../../components/Main/BurgerBox"
+import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 import Footer from "../../../components/Footer/Footer"
 export default function Orders() {
   return (
