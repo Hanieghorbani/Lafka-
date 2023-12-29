@@ -12,7 +12,7 @@ import { FaHeartbeat, FaRegUserCircle, FaStar, FaRegStar } from "react-icons/fa"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import StarRatings from "react-star-ratings"
-
+import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 export default function ProductInfo() {
   const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
   const [rating, setRating] = useState(0)
@@ -70,7 +70,7 @@ export default function ProductInfo() {
         <Header />
       </div>
 
-      <div className="my-20 ">
+      <div className="my-20 mt-52">
         {/* main info  */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10 items-center container-primary">
           <img
@@ -260,6 +260,7 @@ export default function ProductInfo() {
                       </div>
                     </div>
 
+                    {/* create comment  */}
                     <Formik
                       initialValues={initialValues}
                       validationSchema={validationSchema}
@@ -345,6 +346,30 @@ export default function ProductInfo() {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* suggestions products */}
+        <div className="grid sm:grid-cols-1 md:grid-cols-4 gap-10 container-primary">
+          <div className="md:col-span-1">
+            <p className="text-center">شاید شما این را نیز دوست داشته باشید…</p>
+          </div>
+          <div className="md:col-span-3 grid sm:grid-cols-1 md:grid-cols-3 gap-5">
+            <BurgerBox
+              price="320000"
+              img="burger18-300x300 (1).jpg"
+              name="برگر گوشت رویال"
+            />
+            <BurgerBox
+              price="180000"
+              img="burger20-300x300.jpg"
+              name="برگر ساده رویال"
+            />
+            <BurgerBox
+              price="99000"
+              img="shake5-300x300.jpg"
+              name="برگر ساده رویال"
+            />
           </div>
         </div>
       </div>

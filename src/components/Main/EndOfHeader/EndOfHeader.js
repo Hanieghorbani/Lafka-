@@ -1,10 +1,7 @@
 import React,{useState,useEffect} from "react"
-import useScroll from "../../../hooks/useScroll"
 export default function EndOfHeader() {
-  const isFixedTopbar = useScroll(67)
-
   return (
-    <div className={`bg-primary container-primary flex flex-col items-center relative overflow-hidden `}>
+    <div className={`bg-primary container-primary flex flex-col items-center relative mt-40`}>
       <img
         src="/imgs/bg/blur-tomato.png"
         alt=""

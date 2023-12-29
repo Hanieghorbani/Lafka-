@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const contextData = createContext({
+const ContextData = createContext({
     isLoggedIn: false,
     token: null,
     userInfos: {},
@@ -8,4 +8,4 @@ const contextData = createContext({
     logout: () => {},
 })
 
-export default contextData
+export default ContextData

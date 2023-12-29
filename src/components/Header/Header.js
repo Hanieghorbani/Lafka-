@@ -1,48 +1,50 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useState, useEffect, Fragment, useContext } from "react"
 // icons
 import { FaPhoneAlt } from "react-icons/fa"
 import { FaBars, FaCreditCard } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { FiUserPlus } from "react-icons/fi"
 import { AiOutlineSearch } from "react-icons/ai"
+import { IoIosLogOut } from "react-icons/io"
 // end of icons
 
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Link } from "react-router-dom"
 import ProductCartBox from "../Main/ProductCartBox/ProductCartBoxInSide"
-import useScroll from "../../hooks/useScroll"
+import ContextData from "../../ContextData/ContextData"
 export default function Header() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
-  // const { scrollY, isFixedTopbar } = useScroll(100);
   const [isFixed, setIsFixed] = useState(false)
+  const contextDatas = useContext(ContextData)
   useEffect(() => {
+    console.log(contextDatas);
     window.addEventListener("scroll", handleShowScroll)
     return () => {
       window.removeEventListener("scroll", handleShowScroll)
     }
-  },[])
+  }, [])
 
   const handleShowScroll = () => {
-    console.log(window.scrollY );
+    // console.log(window.scrollY)
     if (window.scrollY > 67) {
-      setIsFixed(window.scrollY)
+      setIsFixed(true)
     } else {
-      setIsFixed(window.scrollY)
+      setIsFixed(false)
     }
   }
   return (
     <div
-      className={` w-full z-50 text-white container-primary transition-all duration-1000' py-5 ${
-        isFixed ? "fixed top-0 bg-primary mb-40" : "static top-0 bg-inherit"
+      className={`w-full  z-50 text-white container-primary transition-all duration-500 py-5 fixed top-0 ${
+        isFixed ? " bg-primary" : "bg-inherit"
       }`}
     >
       {/* top header  */}
       <div className="flex items-center sm:justify-center xl:justify-between w-1/2  mx-auto">
         {/* xl */}
-        <ul className="gap-5 sm:hidden xl:flex text-sm">
+        <div className="gap-5 sm:hidden xl:flex text-sm">
           <Link to={"/"} className="li-header">
             خانه
           </Link>
@@ -52,17 +54,19 @@ export default function Header() {
           <Link to={"/locations"} className="li-header">
             شعبه ها
           </Link>
-        </ul>
+        </div>
 
         {/* show logo, all times*/}
         <img
-          className="w-100 h-24"
+          className={`w-100 transition-all duration-500 ${
+            isFixed ? "h-20" : "h-[6.5rem]"
+          }`}
           src="/imgs/logos/flame-burgers-logo-clean.png"
           alt="logo"
         />
 
         {/* xl */}
-        <ul className="gap-5 sm:hidden xl:flex text-sm">
+        <div className="gap-5 sm:hidden xl:flex text-sm">
           <Link to={"/shop"} className="li-header">
             سفارش آنلاین
           </Link>
@@ -72,7 +76,7 @@ export default function Header() {
           <Link to={"/contact"} className="li-header">
             تماس با ما
           </Link>
-        </ul>
+        </div>
       </div>
 
       {/* bottom header  */}
@@ -96,9 +100,13 @@ export default function Header() {
 
         {/* lg */}
         <div className="shadow-xl p-3 rounded-3xl text-3xl gap-4 sm:hidden xl:flex">
-          <Link to={"/login"}>
-            <CiUser className="li-header" />
-          </Link>
+          {contextDatas.isLoggedIn ? (
+            <Link to={"/login"}>
+              <CiUser className="li-header" />
+            </Link>
+          ) : (
+            <IoIosLogOut className="li-header"/>
+          )}
 
           <Link to={"/favorites"} className="relative">
             <span className="badge-header text-white">0</span>
@@ -220,7 +228,7 @@ export default function Header() {
                             درباره ما
                           </Link>
                           <Link
-                            href="#features"
+                            to={"/locations"}
                             className="li-sidebar"
                             onClick={() => setIsOpenSidebarMenu(false)}
                           >

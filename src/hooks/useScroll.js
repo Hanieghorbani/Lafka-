@@ -10,11 +10,11 @@ export default function useScroll({ init }) {
   },[])
 
   const handleShowScroll = () => {
-    console.log(window.scrollY );
+    // console.log(window.scrollY );
     if (window.scrollY > init) {
-      setIsVisible(window.scrollY)
+      setIsVisible(true)
     } else {
-      setIsVisible(window.scrollY)
+      setIsVisible(false)
     }
   }
 

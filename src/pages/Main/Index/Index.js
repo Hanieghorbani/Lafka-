@@ -11,8 +11,8 @@ export default function Index() {
   
 
   return (
-    <div className=" overflow-hidden">
-    <div className=" bg-primary">
+    <div className="relative overflow-hidden">
+    <div className=" bg-primary ">
        <Header />
       <EndOfHeader />
     </div>
