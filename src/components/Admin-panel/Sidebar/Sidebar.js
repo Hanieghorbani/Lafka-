@@ -20,7 +20,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri"
 export default function Sidebar() {
   return (
     <div className="bg-zinc-100 w-[20%] fixed right-0">
-    {/* logo  */}
+      {/* logo  */}
       <img src="/imgs/pAdmin/logo.png" alt="" className="w-1/2 mx-auto pt-7" />
 
       {/* context and links  */}
@@ -29,35 +29,35 @@ export default function Sidebar() {
           <IoHomeOutline />
           <p>صفحه اصلی</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"products"}>
           <MdOutlineProductionQuantityLimits />
           <p>محصولات</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"articles"}>
           <MdLibraryBooks />
           <p>مقاله ها</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"users"}>
           <HiOutlineUsers />
           <p>کاربران</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"comments"}>
           <AiOutlineComment />
           <p>نظرات کاربران</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"messages"}>
           <FaEnvelopeOpenText />
           <p>پیغام کاربران</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"offers"}>
           <MdOutlineLocalOffer />
           <p>کدهای تخفیف</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"discount"}>
           <BiSolidOffer />
           <p>تخفیف همگانی</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"tickets"}>
           <BsTicketDetailed />
           <p>تیکت ها</p>
         </Link>
