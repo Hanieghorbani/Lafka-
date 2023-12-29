@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Header from "../../../components/Header/Header"
+import Header from "../../../components/Main/Header/Header"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 // Import Swiper styles
@@ -9,7 +9,7 @@ import "./About.css"
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules"
 import CommentBox from "../../../components/Main/CommentBox/CommentBox"
-import Footer from "../../../components/Footer/Footer"
+import Footer from "../../../components/Main/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 export default function About() {
   return (

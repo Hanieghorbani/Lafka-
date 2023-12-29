@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import Header from "../../Header/Header"
+import Header from "../Header/Header"
 export default function TopSection({ subTitle, bg, desc, bgHead, textColor }) {
   return (
     <div className={`bg-cover overflow-hidden sm:min-h-[75vh] md:h-[100vh] ${bg}`}>

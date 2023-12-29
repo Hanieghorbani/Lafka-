@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react"
 import routes from "./Routes"
-import ScrollToTop from "./components/Main/ScrollToTopbar/ScrollToTopbar"
+import ScrollToTop from "./components/Main/ScrollToTop/ScrollToTop"
 import AOS from "aos"
 import { useRoutes } from "react-router-dom"
 import useScroll from "./hooks/useScroll"
@@ -26,7 +26,6 @@ function App() {
   useEffect(() => {
     const localStorageToken = JSON.parse(localStorage.getItem("user"))
     if (localStorageToken) {
-      // const config = { Authorization: `Bearer ${localStorageToken.token}` }
       const config = {
         headers: {
           Authorization: `Bearer ${localStorageToken.token}`,

@@ -11,8 +11,8 @@ import { IoIosLogOut } from "react-icons/io"
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Link } from "react-router-dom"
-import ProductCartBox from "../Main/ProductCartBox/ProductCartBoxInSide"
-import ContextData from "../../ContextData/ContextData"
+import ProductCartBox from "../ProductCartBox/ProductCartBoxInSide"
+import ContextData from "../../../ContextData/ContextData"
 export default function Header() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)

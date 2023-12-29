@@ -1,7 +1,7 @@
 import React from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import BlogBox from "../../../components/Main/BlogBox/BlogBox"
-import Footer from "../../../components/Footer/Footer"
+import Footer from "../../../components/Main/Footer/Footer"
 export default function Blogs() {
   return (
     <div>

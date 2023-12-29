@@ -1,7 +1,7 @@
 import React from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
-import Footer from "../../../components/Footer/Footer"
+import Footer from "../../../components/Main/Footer/Footer"
 export default function Orders() {
   return (
     <div>

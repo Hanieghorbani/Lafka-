@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import FavoriteBox from "../../../components/Main/FavoriteBox/FavoriteBox"
-import Footer from "../../../components/Footer/Footer"
+import Footer from "../../../components/Main/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 export default function Favorites() {
 

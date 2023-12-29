@@ -83,4 +83,10 @@
     .form-error {
         @apply text-sm rounded-xl relative text-white bg-red-200 border border-info text-info  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:left-2 after:top-[-0.8rem] after:text-red-200;
     }
+    .pAdmin-links-sidebar a {
+        @apply flex gap-2 items-center
+    }
+    .pAdmin-links-sidebar svg {
+        @apply text-2xl
+    }
 }

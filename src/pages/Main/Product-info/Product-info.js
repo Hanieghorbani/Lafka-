@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react"
-import Header from "../../../components/Header/Header"
-import Footer from "../../../components/Footer/Footer"
+import Header from "../../../components/Main/Header/Header"
+import Footer from "../../../components/Main/Footer/Footer"
 import EnergyBox from "../../../components/Main/EnergyBox/EnergyBox"
 import Counter from "../../../components/Main/Counter/Counter"
 // icons

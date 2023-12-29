@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
-import Footer from "../../../components/Footer/Footer"
+import Footer from "../../../components/Main/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 export default function Contacts() {

@@ -1,6 +1,6 @@
 import React from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
-import Footer from "../../../components/Footer/Footer"
+import Footer from "../../../components/Main/Footer/Footer"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 export default function Search() {
   return (

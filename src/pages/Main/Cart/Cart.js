@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
-import Header from "../../../components/Header/Header"
+import Header from "../../../components/Main/Header/Header"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import ProductCartBoxInPage from "../../../components/Main/ProductCartBox/ProductCartBoxInPage"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
-import Footer from '../../../components/Footer/Footer'
+import Footer from '../../../components/Main/Footer/Footer'
 export default function Cart() {
   return (
     <div>

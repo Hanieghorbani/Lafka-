@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
-import Header from "../../../components/Header/Header"
-import Footer from "../../../components/Footer/Footer"
+import Header from "../../../components/Main/Header/Header"
+import Footer from "../../../components/Main/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import useFetch from "../../../hooks/useFetch"
