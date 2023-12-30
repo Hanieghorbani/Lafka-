@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment, useContext } from "react"
 // icons
 import { FaPhoneAlt } from "react-icons/fa"
-import { FaBars, FaCreditCard } from "react-icons/fa6"
+import { FaBars, FaCreditCard,FaAngleDown } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { FiUserPlus } from "react-icons/fi"
 import { AiOutlineSearch } from "react-icons/ai"
@@ -20,7 +20,7 @@ export default function Header() {
   const [isFixed, setIsFixed] = useState(false)
   const contextDatas = useContext(ContextData)
   useEffect(() => {
-    console.log(contextDatas);
+    console.log(contextDatas)
     window.addEventListener("scroll", handleShowScroll)
     return () => {
       window.removeEventListener("scroll", handleShowScroll)
@@ -41,8 +41,17 @@ export default function Header() {
         isFixed ? " bg-primary" : "bg-inherit"
       }`}
     >
+      {/* show admin panel for admins  */}
+      {contextDatas.userInfos.role == "ADMIN" && (
+        <Link to={'/p-admin'} className=" absolute -top-10 right-10 bg-secondary p-4 pb-2 rounded-b-3xl cursor-pointer flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark">
+          <p>پنل ادمین</p>
+          <FaAngleDown className="group-hover:rotate-180 transition-all duration-500"/>
+        </Link>
+      )}
+      {/*end of show admin panel for admins  */}
+
       {/* top header  */}
-      <div className="flex items-center sm:justify-center xl:justify-between w-1/2  mx-auto">
+      <div className="flex items-center sm:justify-center xl:justify-between w-1/2  mx-auto relative">
         {/* xl */}
         <div className="gap-5 sm:hidden xl:flex text-sm">
           <Link to={"/"} className="li-header">
@@ -56,7 +65,6 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* show logo, all times*/}
         <img
           className={`w-100 transition-all duration-500 ${
             isFixed ? "h-20" : "h-[6.5rem]"
@@ -65,7 +73,6 @@ export default function Header() {
           alt="logo"
         />
 
-        {/* xl */}
         <div className="gap-5 sm:hidden xl:flex text-sm">
           <Link to={"/shop"} className="li-header">
             سفارش آنلاین
@@ -105,7 +112,7 @@ export default function Header() {
               <CiUser className="li-header" />
             </Link>
           ) : (
-            <IoIosLogOut className="li-header"/>
+            <IoIosLogOut className="li-header" />
           )}
 
           <Link to={"/favorites"} className="relative">

@@ -19,12 +19,12 @@ import { RiLogoutBoxRLine } from "react-icons/ri"
 
 export default function Sidebar() {
   return (
-    <div className="bg-zinc-100 w-[20%] fixed right-0">
+    <div className="bg-zinc-100 w-[20%] sticky right-0">
       {/* logo  */}
       <img src="/imgs/pAdmin/logo.png" alt="" className="w-1/2 mx-auto pt-7" />
 
       {/* context and links  */}
-      <div className="pAdmin-links-sidebar space-y-10 px-10 text-lg font-bold text-zinc-700 mt-10 overflow-y-scroll h-[75vh] mb-10">
+      <div className="pAdmin-links-sidebar space-y-10 px-10 text-lg font-bold text-zinc-700 mt-10 overflow-y-auto h-[75vh] mb-10">
         <Link to={"/p-admin"}>
           <IoHomeOutline />
           <p>صفحه اصلی</p>

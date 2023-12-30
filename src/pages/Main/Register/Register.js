@@ -52,9 +52,7 @@ export default function Register() {
           }).then(() => {
             navigate("/contact")
           })
-        } else if (
-          err.response.status == 409
-        ) {
+        } else if (err.response.status == 409) {
           swal({
             text: "ایمیل یا نام کاربری تکراری است.",
             icon: "error",
@@ -74,7 +72,8 @@ export default function Register() {
       .matches(
         /09(1[0-9]|3[1-9]|2[1-9]|9[0-9])-?[0-9]{3}-?[0-9]{4}/,
         "شماره مویابل را به درستی وارد کنید"
-      ),
+      )
+      .max(11, "شماره مویابل را به درستی وارد کنید"),
     username: Yup.string()
       .required("نام کاربری الزامی است")
       .matches(

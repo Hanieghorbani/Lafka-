@@ -26,7 +26,7 @@
         overflow-x: hidden;
     }
 
-    input{
+    input {
         box-shadow: none !important;
     }
 
@@ -65,17 +65,17 @@
         @apply border-2 text-xs  rounded-[2.5rem] py-2 px-3 hover:border-black hover:text-primary transition-all duration-500;
     }
     .btn-yearStory {
-        @apply  rounded-[2.5rem] sm:py-2 sm:px-3 md:py-3 md:px-5 bg-gray-300 hover:text-white  hover:bg-info transition-all duration-500 text-gray-500 font-[faNum];
+        @apply rounded-[2.5rem] sm:py-2 sm:px-3 md:py-3 md:px-5 bg-gray-300 hover:text-white  hover:bg-info transition-all duration-500 text-gray-500 font-[faNum];
     }
     .btn-yearStorySelect {
         @apply text-white rounded-[2.5rem] sm:py-2 sm:px-3 md:py-3 md:px-5 bg-info  font-[faNum] hover:bg-dark transition-all duration-500;
     }
 
-    .li-footer{
+    .li-footer {
         @apply transition-all cursor-pointer hover:opacity-60 text-white;
     }
     .form-contact {
-        @apply w-full border-0 text-black bg-zinc-100  focus:bg-zinc-200 rounded-xl ;
+        @apply w-full border-0 text-black bg-zinc-100  focus:bg-zinc-200 rounded-xl;
     }
     .form-comment {
         @apply w-full border-0 text-black bg-white  focus:bg-zinc-100 rounded-xl;
@@ -83,10 +83,34 @@
     .form-error {
         @apply text-sm rounded-xl relative text-white bg-red-200 border border-info text-info  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:left-2 after:top-[-0.8rem] after:text-red-200;
     }
+
+
+    /* admin panel  */
     .pAdmin-links-sidebar a {
-        @apply flex gap-2 items-center
+        @apply flex gap-2 items-center;
     }
     .pAdmin-links-sidebar svg {
-        @apply text-2xl
+        @apply text-2xl;
     }
+    .dataTable th,
+    .dataTable td {
+        @apply p-3 my-10;
+    }
+    .dataTable tr {
+        @apply bg-zinc-100 border-b-8 border-zinc-200;
+    }
+    .dataTable th:first-child,
+    .dataTable td:first-child {
+        @apply rounded-r-xl;
+    }
+    .dataTable th:last-child,
+    .dataTable td:last-child {
+        @apply  rounded-l-xl;
+    }
+
+    .btn {
+        @apply text-white rounded-xl sm:py-2 sm:px-3 md:py-2 md:px-5 font-[faNum] hover:bg-dark transition-all duration-500;
+    }
+
+    /* end of admin panel  */
 }

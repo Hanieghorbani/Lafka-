@@ -89,7 +89,7 @@ export default function Login() {
               </p>
             </div>
             <div className="relative">
-              <label htmlFor="identifier" className="text-sm text-zinc-500">
+              <label htmlFor="identifier" className="text-sm text-zinc-700">
                 نام کاربر یا آدرس ایمیل*
               </label>
               <Field
@@ -106,12 +106,12 @@ export default function Login() {
               />
             </div>
             <div className="relative">
-              <label htmlFor="password" className="text-sm text-zinc-500">
+              <label htmlFor="password" className="text-sm text-zinc-700">
                 گذرواژه*
               </label>
               <Field
                 className="form-contact"
-                type="text"
+                type="password"
                 id="password"
                 name="password"
                 style={{ boxShadow: "none" }}

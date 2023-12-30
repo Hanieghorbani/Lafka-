@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-export default function useFetch({ url, methodType, dataBody,dataHeader }) {
-  const [datas, setDatas] = useState([])
-  const [errs, setErrs] = useState("")
+// import React, { useEffect, useState } from "react"
+// import axios from "axios"
+// export default function useFetch({ url, method }) {
+//   const [datas, setDatas] = useState([])
+//   const [errs, setErrs] = useState("")
 
-  function fetchData(){
-        axios
-      .methodType(url,dataBody,dataHeader)
-      .then((res) => setDatas(res))
-      .catch((err) => setErrs(err))
-  }
+//     axios
+//       .method()
+//       .then((res) => setDatas(res))
+//       .catch((err) => setErrs(err))
 
-
-  return [datas, errs,fetchData]
-}
+//   return [datas, errs]
+// }
