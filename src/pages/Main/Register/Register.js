@@ -19,6 +19,31 @@ export default function Register() {
     password: "",
     confirmPassword: "",
   }
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("نام و نام خانوادگی الزامی است"),
+    phone: Yup.string()
+      .required("شماره موبایل الزامی است")
+      .matches(
+        /09(1[0-9]|3[1-9]|2[1-9]|9[0-9])-?[0-9]{3}-?[0-9]{4}/,
+        "شماره مویابل را به درستی وارد کنید"
+      )
+      .max(11, "شماره مویابل را به درستی وارد کنید"),
+    username: Yup.string()
+      .required("نام کاربری الزامی است")
+      .matches(
+        /^[a-zA-Z0-9-]+$/,
+        "در نام کاربری فقط استفاده از حروف انگلیسی، اعداد و ـ (زیر خط) مجاز است."
+      ),
+    email: Yup.string()
+      .email("ایمیل را به درستی وارد کنید")
+      .required("ایمیل الزامی است"),
+    password: Yup.string()
+      .required("گذرواژه الزامی است")
+      .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد"),
+    confirmPassword: Yup.string()
+      .required("تکرار رمز عبور الزامی است")
+      .oneOf([Yup.ref("password"), null], "تکرار رمز عبور مطابقت ندارد"),
+  })
   function userLogin(values, { resetForm }) {
     const config = {
       headers: {
@@ -64,32 +89,6 @@ export default function Register() {
         }
       })
   }
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("نام و نام خانوادگی الزامی است"),
-    phone: Yup.string()
-      .required("شماره موبایل الزامی است")
-      .matches(
-        /09(1[0-9]|3[1-9]|2[1-9]|9[0-9])-?[0-9]{3}-?[0-9]{4}/,
-        "شماره مویابل را به درستی وارد کنید"
-      )
-      .max(11, "شماره مویابل را به درستی وارد کنید"),
-    username: Yup.string()
-      .required("نام کاربری الزامی است")
-      .matches(
-        /^[a-zA-Z0-9-]+$/,
-        "در نام کاربری فقط استفاده از حروف انگلیسی، اعداد و ـ (زیر خط) مجاز است."
-      ),
-    email: Yup.string()
-      .email("ایمیل را به درستی وارد کنید")
-      .required("ایمیل الزامی است"),
-    password: Yup.string()
-      .required("گذرواژه الزامی است")
-      .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد"),
-    confirmPassword: Yup.string()
-      .required("تکرار رمز عبور الزامی است")
-      .oneOf([Yup.ref("password"), null], "تکرار رمز عبور مطابقت ندارد"),
-  })
 
   return (
     <div className="">

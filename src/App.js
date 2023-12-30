@@ -11,7 +11,7 @@ function App() {
     AOS.init({})
   }, [])
   const router = useRoutes(routes)
-  const isScrollBtnVisible = useScroll(400)
+  const [isScrollBtnVisible] = useScroll(400)
   const [token, setToken] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userInfos, setUserInfos] = useState([])
@@ -23,6 +23,7 @@ function App() {
     localStorage.setItem("user", JSON.stringify({ token }))
   }, [])
 
+  //for get user data
   useEffect(() => {
     const localStorageToken = JSON.parse(localStorage.getItem("user"))
     if (localStorageToken) {

@@ -37,6 +37,7 @@ const routes = [
     children: [
       { path: "", element: <MainAdminPanel /> },
       { path: "users", element: <Users /> },
+      { path: "products", element: <AdminProducts /> },
       { path: "articles", element: <AdminArticles /> },
       { path: "contacts", element: <AdminContacts /> },
       { path: "comments", element: <Comments /> },

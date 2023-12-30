@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react"
 
-export default function useScroll({ init }) {
+export default function useScroll(init) {
   const [isVisible, setIsVisible] = useState(false)
-  useEffect(() => {
-    window.addEventListener("scroll", handleShowScroll)
-    return () => {
-      window.removeEventListener("scroll", handleShowScroll)
-    }
-  },[])
 
-  const handleShowScroll = () => {
-    // console.log(window.scrollY );
-    if (window.scrollY > init) {
+  function handleShowScroll() {
+    if (window.pageYOffset > init) {
       setIsVisible(true)
     } else {
       setIsVisible(false)
     }
   }
+  window.addEventListener("scroll", handleShowScroll)
 
   return [isVisible]
 }

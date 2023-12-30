@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment, useContext } from "react"
 // icons
 import { FaPhoneAlt } from "react-icons/fa"
-import { FaBars, FaCreditCard,FaAngleDown } from "react-icons/fa6"
+import { FaBars, FaCreditCard, FaAngleDown } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { FiUserPlus } from "react-icons/fi"
 import { AiOutlineSearch } from "react-icons/ai"
@@ -13,28 +13,15 @@ import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Link } from "react-router-dom"
 import ProductCartBox from "../ProductCartBox/ProductCartBoxInSide"
 import ContextData from "../../../ContextData/ContextData"
+import useScroll from "../../../hooks/useScroll"
 export default function Header() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
-  const [isFixed, setIsFixed] = useState(false)
+  // const [isFixed, setIsFixed] = useState(false)
+  const [isFixed] = useScroll(67)
   const contextDatas = useContext(ContextData)
-  useEffect(() => {
-    console.log(contextDatas)
-    window.addEventListener("scroll", handleShowScroll)
-    return () => {
-      window.removeEventListener("scroll", handleShowScroll)
-    }
-  }, [])
 
-  const handleShowScroll = () => {
-    // console.log(window.scrollY)
-    if (window.scrollY > 67) {
-      setIsFixed(true)
-    } else {
-      setIsFixed(false)
-    }
-  }
   return (
     <div
       className={`w-full  z-50 text-white container-primary transition-all duration-500 py-5 fixed top-0 ${
@@ -43,9 +30,12 @@ export default function Header() {
     >
       {/* show admin panel for admins  */}
       {contextDatas.userInfos.role == "ADMIN" && (
-        <Link to={'/p-admin'} className=" absolute -top-10 right-10 bg-secondary p-4 pb-2 rounded-b-3xl cursor-pointer flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark">
+        <Link
+          to={"/p-admin"}
+          className=" absolute -top-10 right-10 bg-secondary p-4 pb-2 rounded-b-3xl cursor-pointer flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark"
+        >
           <p>پنل ادمین</p>
-          <FaAngleDown className="group-hover:rotate-180 transition-all duration-500"/>
+          <FaAngleDown className="group-hover:rotate-180 transition-all duration-500" />
         </Link>
       )}
       {/*end of show admin panel for admins  */}
