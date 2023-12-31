@@ -51,7 +51,6 @@ export default function Products() {
     axios
       .get("http://localhost:8000/v1/courses")
       .then((res) => {
-        console.log(res, "11")
         setProducts(res.data)
       })
       .catch((err) => console.log(err))
@@ -61,7 +60,6 @@ export default function Products() {
     axios
       .get("http://localhost:8000/v1/category")
       .then((res) => {
-        console.log(res)
         setCategorys(res.data)
       })
       .catch((err) => console.log(err))
@@ -98,25 +96,32 @@ export default function Products() {
     })
   }
 
-  function addNewProductHandler(values) {
-    console.log(values,coverFile)
+  function addNewProductHandler(values, { resetForm }) {
+    console.log(values, coverFile)
     const formData = new FormData()
-    formData.append('name',values.name)
-    formData.append('description',values.description)
-    formData.append('shortName',values.url)
-    formData.append('categoryID',values.category)
-    formData.append('price',values.price)
-    formData.append('scale',values.scale)
-    formData.append('stock',values.stock)
-    formData.append('cover',coverFile)
+    formData.append("name", values.name)
+    formData.append("description", values.description)
+    formData.append("shortName", values.url)
+    formData.append("categoryID", values.category)
+    formData.append("price", values.price)
+    formData.append("scale", values.scale)
+    formData.append("stock", values.stock)
+    formData.append("cover", coverFile)
 
-    console.log(formData);
+    console.log(formData)
     axios
-    .post("http://localhost:8000/v1/courses/",formData,config2)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => console.log(err))
+      .post("http://localhost:8000/v1/courses/", formData, config2)
+      .then((res) => {
+        swal({
+          title: "محصول جدید با موفقیت اضافه شد",
+          icon: "success",
+          buttons: "تایید",
+        }).then(() => {
+          getAllProducts()
+          resetForm()
+        })
+      })
+      .catch((err) => console.log(err))
   }
   return (
     <div>
@@ -291,7 +296,7 @@ export default function Products() {
             {/* login btn  */}
             <div className="flex items-center justify-center col-span-2">
               <button type="submit" className="btn bg-green-400 text-sm w-1/2">
-                افزودن محصول جدید
+                افزودن
               </button>
             </div>
           </Form>

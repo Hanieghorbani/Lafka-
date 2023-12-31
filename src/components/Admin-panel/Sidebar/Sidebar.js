@@ -61,7 +61,7 @@ export default function Sidebar() {
           <BsTicketDetailed />
           <p>تیکت ها</p>
         </Link>
-        <Link to={"/p-admin"}>
+        <Link to={"category"}>
           <TbCategory />
           <p>دسته بندی ها</p>
         </Link>

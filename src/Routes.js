@@ -7,7 +7,7 @@ import AdminProducts from "./pages/Admin-panel/Products/Products"
 // import Menus from "./pages/Admin-panel/Menus/Menus"
 import AdminArticles from "./pages/Admin-panel/Articles/Articles"
 // import Draft from "./pages/Admin-panel/Draft/Draft"
-// import AdminCategory from "./pages/Admin-panel/Category/Category"
+import AdminCategory from "./pages/Admin-panel/Category/Category"
 import AdminContacts from "./pages/Admin-panel/Messages/Messages"
 // import Sessions from "./pages/Admin-panel/Sessions/Sessions"
 import Comments from "./pages/Admin-panel/Comments/Comments"
@@ -44,6 +44,7 @@ const routes = [
       { path: "offers", element: <Offers /> },
       { path: "discount", element: <DiscountG /> },
       { path: "tickets", element: <AdminTickets /> },
+      { path: "category", element: <AdminCategory /> },
     ],
   },
   { path: "/", element: <Index /> },
