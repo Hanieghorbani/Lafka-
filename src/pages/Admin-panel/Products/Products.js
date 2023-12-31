@@ -4,27 +4,48 @@ import axios from "axios"
 import swal from "sweetalert"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
+import { Link } from "react-router-dom"
 export default function Products() {
   const [products, setProducts] = useState([])
+  const [categorys, setCategorys] = useState([])
+  const [prodCategory, setProdCategory] = useState("")
+  const [coverFile, setCoverFile] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
+  const config1 = {
     headers: {
       Authorization: `Bearer ${localStorageToken.token}`,
       "Content-Type": "application/json",
     },
   }
+  const config2 = {
+    headers: {
+      Authorization: `Bearer ${localStorageToken.token}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  }
   const initialValues = {
     name: "",
-    username: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
+    price: "",
+    // file: "",
+    description: "",
+    url: "",
+    category: "",
+    scale: "",
+    stock: "",
   }
   const validationSchema = Yup.object().shape({
+    name: Yup.string().required("نام محصول الزامی است"),
+    price: Yup.string().required("قیمت محصول الزامی است"),
+    // file: Yup.file().required("تصویر محصول الزامی است"),
+    description: Yup.string().required("توضیحات محصول الزامی است"),
+    url: Yup.string().required("لینک کوتاه محصول الزامی است"),
+    category: Yup.string().required("دسته بندی محصول الزامی است"),
+    scale: Yup.string().required("وزن محصول الزامی است"),
+    stock: Yup.string().required("موجودی محصول الزامی است"),
   })
   useEffect(() => {
     getAllProducts()
+    getAllCategorys()
   }, [])
   function getAllProducts() {
     axios
@@ -36,6 +57,15 @@ export default function Products() {
       .catch((err) => console.log(err))
   }
 
+  function getAllCategorys() {
+    axios
+      .get("http://localhost:8000/v1/category")
+      .then((res) => {
+        console.log(res)
+        setCategorys(res.data)
+      })
+      .catch((err) => console.log(err))
+  }
   function removeProductHandler(id) {
     swal({
       text: "آیا از حذف این دوره اطمینان دارید؟",
@@ -44,7 +74,7 @@ export default function Products() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/courses/${id}`, config)
+          .delete(`http://localhost:8000/v1/courses/${id}`, config1)
           .then(() => {
             swal({
               text: "محصول با موفقیت حذف شد",
@@ -67,32 +97,47 @@ export default function Products() {
       }
     })
   }
+
+  function addNewProductHandler(values) {
+    console.log(values,coverFile)
+    const formData = new FormData()
+    formData.append('name',values.name)
+    formData.append('description',values.description)
+    formData.append('shortName',values.url)
+    formData.append('categoryID',values.category)
+    formData.append('price',values.price)
+    formData.append('scale',values.scale)
+    formData.append('stock',values.stock)
+    formData.append('cover',coverFile)
+
+    console.log(formData);
+    axios
+    .post("http://localhost:8000/v1/courses/",formData,config2)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => console.log(err))
+  }
   return (
     <div>
-      <div>
+      <div className=" mt-20">
+        <h1 className="text-2xl font-bold col-span-2 mb-10">
+          افزودن محصول جدید
+        </h1>
+
         <Formik
           initialValues={initialValues}
-          onSubmit={userLogin}
           validationSchema={validationSchema}
+          onSubmit={addNewProductHandler}
         >
-          <Form className="bg-white space-y-7 w-[40%] p-10 rounded-2xl">
-            <h1 className="text-3xl text-center">عضویت</h1>
-            <div className="text-center">
-              <p className=" text-zinc-600">
-                قبلا ثبت نام کرده اید؟{" "}
-                <Link to={"/login"} className="text-info">
-                  وارد شوید
-                </Link>
-              </p>
-            </div>
-
+          <Form className="bg-zinc-100 grid grid-cols-2 gap-8 p-10 rounded-2xl">
             {/* name  */}
-            <div className="relative">
+            <div className="">
               <label htmlFor="name" className="text-sm text-zinc-700">
-                نام و نام خانوادگی*
+                نام محصول
               </label>
               <Field
-                className="form-contact"
+                className="form-create-product"
                 type="text"
                 id="name"
                 name="name"
@@ -104,104 +149,149 @@ export default function Products() {
               />
             </div>
 
-            {/* user name  */}
-            <div className="relative">
-              <label htmlFor="username" className="text-sm text-zinc-700">
-                نام کاربری*
+            {/* descs*/}
+            <div className="">
+              <label htmlFor="description" className="text-sm text-zinc-700">
+                توضیحات محصول
               </label>
               <Field
-                className="form-contact"
+                className="form-create-product"
                 type="text"
-                id="username"
-                name="username"
+                id="description"
+                name="description"
               />
               <ErrorMessage
-                name="username"
+                name="description"
                 component="div"
                 className="error form-error  md:w-1/2"
               />
             </div>
 
             {/* phone  */}
-            <div className="relative">
-              <label htmlFor="phone" className="text-sm text-zinc-700">
-                شماره موبایل*
+            <div className="">
+              <label htmlFor="url" className="text-sm text-zinc-700">
+                لینک محصول
               </label>
               <Field
-                className="form-contact"
+                className="form-create-product"
                 type="text"
-                id="phone"
-                name="phone"
+                id="url"
+                name="url"
               />
               <ErrorMessage
-                name="phone"
+                name="url"
                 component="div"
                 className="error form-error  md:w-1/2"
               />
             </div>
 
-            {/* email  */}
-            <div className="relative">
-              <label htmlFor="email" className="text-sm text-zinc-700">
-                آدرس ایمیل*
+            {/* category  */}
+            <div className="">
+              <label htmlFor="category" className="text-sm text-zinc-700">
+                دسته بندی محصول
               </label>
-              <Field
-                className="form-contact"
-                type="email"
-                id="email"
-                name="email"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
 
-            {/* password  */}
-            <div className="relative">
-              <label htmlFor="password" className="text-sm text-zinc-700">
-                رمزعبور*
-              </label>
               <Field
-                className="form-contact"
-                type="password"
-                id="password"
-                name="password"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-            <div className="relative">
-              <label
-                htmlFor="confirmPassword"
-                className="text-sm text-zinc-700"
+                className="form-create-product"
+                as="select"
+                id="category"
+                name="category"
+                // onChange={(e) => setProdCategory(e.target.value)}
               >
-                تکرار رمز عبور*
+                <option value="">انتخاب کنید</option>
+                {categorys.map((category) => (
+                  <option
+                    key={category._id}
+                    value={category._id}
+                    label={category.title}
+                  />
+                ))}
+              </Field>
+              <ErrorMessage
+                name="category"
+                component="div"
+                className="error form-error  md:w-1/2"
+              />
+            </div>
+
+            {/* price  */}
+            <div className="">
+              <label htmlFor="price" className="text-sm text-zinc-700">
+                قیمت محصول
               </label>
               <Field
-                className="form-contact"
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
+                className="form-create-product"
+                type="price"
+                id="price"
+                name="price"
               />
               <ErrorMessage
-                name="confirmPassword"
+                name="price"
+                component="div"
+                className="error form-error  md:w-1/2"
+              />
+            </div>
+
+            {/* scale  */}
+            <div className="">
+              <label htmlFor="scale" className="text-sm text-zinc-700">
+                وزن محصول
+              </label>
+              <Field
+                className="form-create-product"
+                type="number"
+                id="scale"
+                name="scale"
+              />
+              <ErrorMessage
+                name="scale"
+                component="div"
+                className="error form-error  md:w-1/2"
+              />
+            </div>
+
+            {/* stock  */}
+            <div className="">
+              <label htmlFor="stock" className="text-sm text-zinc-700">
+                موجودی محصول
+              </label>
+              <Field
+                className="form-create-product"
+                type="number"
+                id="stock"
+                name="stock"
+              />
+              <ErrorMessage
+                name="stock"
+                component="div"
+                className="error form-error  md:w-1/2"
+              />
+            </div>
+
+            {/* cover  */}
+            <div className="">
+              <label htmlFor="file" className="text-sm text-zinc-700">
+                تصویر محصول
+              </label>
+              <input
+                type="file"
+                id="file"
+                className="form-create-product"
+                onChange={(e) => {
+                  setCoverFile(e.target.files[0])
+                }}
+              />
+              <ErrorMessage
+                name="file"
                 component="div"
                 className="error form-error  md:w-1/2"
               />
             </div>
 
             {/* login btn  */}
-            <div className="flex items-center justify-center">
-              <button
-                type="submit"
-                className="btn-yearStorySelect text-sm w-1/2"
-              >
-                ثبت نام
+            <div className="flex items-center justify-center col-span-2">
+              <button type="submit" className="btn bg-green-400 text-sm w-1/2">
+                افزودن محصول جدید
               </button>
             </div>
           </Form>

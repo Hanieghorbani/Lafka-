@@ -109,7 +109,11 @@
     }
 
     .btn {
-        @apply text-white rounded-xl sm:py-2 sm:px-3 md:py-2 md:px-5 font-[faNum] hover:bg-dark transition-all duration-500;
+        @apply text-white rounded-xl text-sm sm:py-2 sm:px-3 md:py-2 md:px-5 font-[faNum] hover:bg-dark transition-all duration-500;
+    }
+
+    .form-create-product{
+        @apply w-full border-0 text-black bg-white  focus:bg-zinc-200 rounded-xl;
     }
 
     /* end of admin panel  */
