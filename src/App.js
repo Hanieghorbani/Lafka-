@@ -15,6 +15,8 @@ function App() {
   const [token, setToken] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userInfos, setUserInfos] = useState([])
+  const [categorys, setCategorys] = useState([])
+  const [products, setProducts] = useState([])
 
   const login = useCallback((userInfos, token) => {
     setToken(token)
@@ -22,6 +24,22 @@ function App() {
     setUserInfos(userInfos)
     localStorage.setItem("user", JSON.stringify({ token }))
   }, [])
+
+  function getAllCategorys() {
+    axios
+      .get("http://localhost:8000/v1/category")
+      .then((res) => {
+        console.log(res)
+        setCategorys(res.data)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function getAllProducts() {
+    axios.get("http://localhost:8000/v1/courses").then((res) => {
+      setProducts(res.data)
+    })
+  }
 
   //for get user data
   useEffect(() => {
@@ -42,6 +60,11 @@ function App() {
     }
   }, [token])
 
+  useEffect(() => {
+    getAllCategorys()
+    getAllProducts()
+  }, [])
+
   return (
     <div className="overflow-x-hidden">
       <ContextData.Provider
@@ -49,6 +72,10 @@ function App() {
           login,
           isLoggedIn,
           userInfos,
+          getAllCategorys,
+          categorys,
+          getAllProducts,
+          products,
         }}
       >
         {router}

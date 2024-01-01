@@ -1,7 +1,274 @@
-import React from 'react'
-
+import axios from "axios"
+import React, { useEffect, useState } from "react"
+import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
+import swal from "sweetalert"
 export default function Comments() {
+  const [comments, setComments] = useState([])
+  const localStorageToken = JSON.parse(localStorage.getItem("user"))
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorageToken.token}`,
+      "Content-Type": "application/json",
+    },
+  }
+  useEffect(() => {
+    getAllComments()
+  }, [])
+
+  function getAllComments() {
+    axios
+      .get("http://localhost:8000/v1/comments")
+      .then((res) => {
+        setComments(res.data)
+        console.log(res)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function remvoeComment(id) {
+    swal({
+      text: "آیا از حذف این کامنت اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "حذف"],
+    }).then((res) => {
+      if (res) {
+        axios
+          .delete(`http://localhost:8000/v1/comments/${id}`, config)
+          .then(() => {
+            swal({
+              text: "کامنت با موفقیت حذف شد",
+              icon: "success",
+              dangerMode: false,
+              buttons: "تایید",
+            }).then(() => {
+              getAllComments()
+            })
+          })
+          .catch((err) => console.log(err))
+      }
+    })
+  }
+
+  function showCommentBody(name, body) {
+    swal({
+      text: `${name}: ${body}`,
+      buttons: "تایید",
+    })
+  }
+
+  function banUser(id) {
+    swal({
+      text: "آیا از بن کردن کاربر اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "بن"],
+    }).then((res) => {
+      if (res) {
+        axios
+          .put(`http://localhost:8000/v1/users/ban/${id}`, {}, config)
+          .then(() => {
+            swal({
+              text: "کاربر با موفقیت بن شد",
+              icon: "success",
+              dangerMode: false,
+              buttons: "تایید",
+            }).then(() => {
+              getAllComments()
+            })
+          })
+          .catch((err) => console.log(err))
+      }
+    })
+  }
+
+  function answerComment(id) {
+    swal({
+      text: "متن پاسخ را وارد کنید:",
+      content: "input",
+      buttons: "ارسال",
+    }).then((value) => {
+      if (value.trim()) {
+        const body = {
+          body: value,
+        }
+        axios
+          .post(`http://localhost:8000/v1/comments/answer/${id}`, body, config)
+          .then(() => {
+            swal({
+              text: "پیغام شما ارسال شد",
+              icon: "success",
+              dangerMode: false,
+              buttons: "تایید",
+            }).then(() => {
+              getAllComments()
+            })
+          })
+          .catch((err) => {
+            swal({
+              title: "پیغام شما ارسال نشد!",
+              icon: "error",
+              buttons: "تایید",
+            })
+            console.log(err)
+          })
+      }
+    })
+  }
+
+  function acceptComment(id) {
+    swal({
+      text: "آیااز تایید کامنت اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "تایید"],
+    }).then((res) => {
+      if (res) {
+        axios
+          .put(`http://localhost:8000/v1/comments/accept/${id}`, {}, config)
+          .then(() => {
+            swal({
+              text: "کامنت با موفقیت تایید شد",
+              icon: "success",
+              dangerMode: false,
+              buttons: "بستن",
+            }).then(() => {
+              getAllComments()
+            })
+          })
+          .catch((err) => {
+            swal({
+              icon: "error",
+              buttons: "تایید",
+            })
+            console.log(err)
+          })
+      }
+    })
+  }
+  function rejectComment(id) {
+    swal({
+      text: "آیااز رد کامنت اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "رد"],
+    }).then((res) => {
+      if (res) {
+        axios
+          .put(`http://localhost:8000/v1/comments/reject/${id}`, {}, config)
+          .then(() => {
+            swal({
+              text: "کامنت با موفقیت رد شد",
+              icon: "success",
+              dangerMode: false,
+              buttons: "بستن",
+            }).then(() => {
+              getAllComments()
+            })
+          })
+          .catch((err) => console.log(err))
+      }
+    })
+  }
   return (
-    <div>Comments</div>
+    <div>
+      <DataTable title={"لیست کامنت ها"}>
+        <table className="dataTable w-full text-center border-collapse mt-10">
+          <thead>
+            <tr>
+              <th>شناسه</th>
+              <th>کاربر</th>
+              <th>امتیاز</th>
+              <th>محصول</th>
+              <th>مشاهده</th>
+              <th>پاسخ</th>
+              <th>ویرایش</th>
+              <th>تایید/رد</th>
+              <th>حذف</th>
+              <th>بن</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comments.map((comment, index) => (
+              <tr key={comment._id}>
+                <td
+                  className={
+                    comment.answer
+                      ? "bg-green-400 text-white"
+                      : "bg-info text-white"
+                  }
+                >
+                  {index + 1}
+                </td>
+                <td>{comment.creator.name}</td>
+                <td>{comment.score}</td>
+                <td>{comment.course}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn bg-blue-400"
+                    onClick={() =>
+                      showCommentBody(comment.creator.name, comment.body)
+                    }
+                  >
+                    مشاهده
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn bg-green-400 "
+                    onClick={() => answerComment(comment._id)}
+                  >
+                    پاسخ
+                  </button>
+                </td>
+                <td>
+                  <button type="button" className="btn bg-blue-400 ">
+                    ویرایش
+                  </button>
+                </td>
+                {comment.answer ? (
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-green-400 "
+                      onClick={() => rejectComment(comment._id)}
+                    >
+                      رد
+                    </button>
+                  </td>
+                ) : (
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-info"
+                      onClick={() => acceptComment(comment._id)}
+                    >
+                      تایید
+                    </button>
+                  </td>
+                )}
+
+                <td>
+                  <button
+                    type="button"
+                    className="btn bg-info"
+                    onClick={() => remvoeComment(comment._id)}
+                  >
+                    حذف
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn bg-gray-400"
+                    onClick={() => banUser(comment.creator._id)}
+                  >
+                    بن
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </DataTable>
+    </div>
   )
 }

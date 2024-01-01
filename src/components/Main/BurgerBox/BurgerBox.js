@@ -12,7 +12,7 @@ import { FaHeartbeat } from "react-icons/fa"
 
 // end of icons
 import "./BurgerBox.css"
-export default function BurgerBox({ price, img, name }) {
+export default function BurgerBox({ price, cover, name, shortName }) {
   const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
   return (
     <div className="burgerBox">
@@ -23,8 +23,11 @@ export default function BurgerBox({ price, img, name }) {
           </span>{" "}
           تومان
         </p>
-        <Link to={"/productInfo/1"}>
-          <img src={`/imgs/foods/${img}`} className=" cursor-pointer w-full" />
+        <Link to={`/productInfo/${shortName}`}>
+          <img
+            src={`http://localhost:8000/courses/covers/${cover}`}
+            className=" cursor-pointer w-full"
+          />
           <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
         </Link>
       </div>

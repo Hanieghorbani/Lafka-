@@ -56,8 +56,8 @@ const routes = [
   { path: "/favorites", element: <Favorites /> },
   { path: "/login", element: <Login /> },
   { path: "/shop", element: <Shop /> },
-  { path: "/productCategory", element: <ProductCategory /> },
-  { path: "/productInfo/:productId", element: <ProductInfo /> },
+  { path: "/productCategory/:shortName", element: <ProductCategory /> },
+  { path: "/productInfo/:shortName", element: <ProductInfo /> },
   { path: "/register", element: <Register /> },
   { path: "/search", element: <Search /> },
 ]

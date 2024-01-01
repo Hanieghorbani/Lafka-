@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import axios from "axios"
 import swal from "sweetalert"
+import Swal from "sweetalert2"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { Link } from "react-router-dom"
+import ContextData from "../../../ContextData/ContextData"
 export default function Category() {
-  const [categorys, setCategorys] = useState([])
+  const contextDatas = useContext(ContextData)
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config = {
     headers: {
@@ -23,17 +25,8 @@ export default function Category() {
     title: Yup.string().required("عنوان دسته بندی الزامی است"),
   })
   useEffect(() => {
-    getAllCategorys()
+    contextDatas.getAllCategorys()
   }, [])
-  function getAllCategorys() {
-    axios
-      .get("http://localhost:8000/v1/category")
-      .then((res) => {
-        console.log(res)
-        setCategorys(res.data)
-      })
-      .catch((err) => console.log(err))
-  }
   function removeCategoryHandler(id) {
     swal({
       text: "آیا از حذف این دسته بندی اطمینان دارید؟",
@@ -50,63 +43,42 @@ export default function Category() {
               dangerMode: false,
               buttons: "تایید",
             }).then(() => {
-              getAllCategorys()
+              contextDatas.getAllCategorys()
             })
-          }).catch(err=>console.log(err))
-        // fetch(`http://localhost:4000/v1/category/${id}`, {
-        //   method: "DELETE",
-        //   headers: {
-        //     Authorization: `Bearer ${localStorageData.token}`,
-        //   },
-        // }).then((res) => {
-        //   if (res.ok) {
-        //     swal({
-        //       text: "دسته بندی با موفقیت حذف شد",
-        //       icon: "success",
-        //       dangerMode: false,
-        //       buttons: "تایید",
-        //     }).then(() => {
-        //       getAllCategories()
-        //     })
-        //   }
-        // })
+          })
+          .catch((err) => console.log(err))
       }
     })
   }
 
   function updateCategory(id) {
-    // Swal.fire({
-    //   title: "اطلاعات جدید را وارد کنید",
-    //   html:
-    //     '<input type="text" id="newTitle" class="swal2-input" placeholder="عنوان جدید">' +
-    //     '<input type="text" id="newShortName" class="swal2-input" placeholder="نام کوتاه جدید">',
-    //   showCancelButton: true,
-    //   confirmButtonText: "ثبت",
-    //   cancelButtonText: "لغو",
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     const newTitle = document.getElementById("newTitle").value
-    //     const newShortName = document.getElementById("newShortName").value
-    //     // انجام عملیات مربوط به ورودی‌ها
-    //     if (newTitle.trim().length && newShortName.trim().length) {
-    //       fetch(`http://localhost:4000/v1/category/${id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Authorization: `Bearer ${localStorageData.token}`,
-    //         },
-    //         body: JSON.stringify({
-    //           title: newTitle,
-    //           name: newShortName,
-    //         }),
-    //       })
-    //         .then((res) => res.json())
-    //         .then((res) => {
-    //           getAllCategories()
-    //         })
-    //     }
-    //   }
-    // })
+    Swal.fire({
+      title: "اطلاعات جدید را وارد کنید",
+      html:
+        '<input type="text" id="newTitle" class="swal2-input" placeholder="عنوان جدید">' +
+        '<input type="text" id="newShortName" class="swal2-input" placeholder="نام کوتاه جدید">',
+      showCancelButton: true,
+      confirmButtonText: "ثبت",
+      cancelButtonText: "لغو",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newTitle = document.getElementById("newTitle").value
+        const newShortName = document.getElementById("newShortName").value
+        // انجام عملیات مربوط به ورودی‌ها
+        if (newTitle.trim().length && newShortName.trim().length) {
+          const newInfosCate = { title: newTitle, name: newShortName }
+          axios
+            .put(
+              `http://localhost:8000/v1/category/${id}`,
+              newInfosCate,
+              config
+            )
+            .then(() => {
+              contextDatas.getAllCategorys()
+            })
+        }
+      }
+    })
   }
 
   function addNewCategoryHandler(values, { resetForm }) {
@@ -119,7 +91,7 @@ export default function Category() {
           icon: "success",
           buttons: "تایید",
         }).then(() => {
-          getAllCategorys()
+          contextDatas.getAllCategorys()
           resetForm()
         })
       })
@@ -195,7 +167,7 @@ export default function Category() {
             </tr>
           </thead>
           <tbody>
-            {categorys.map((category, index) => (
+            {contextDatas.categorys.map((category, index) => (
               <tr key={category._id}>
                 <td>{index + 1}</td>
                 <td>{category.title}</td>
