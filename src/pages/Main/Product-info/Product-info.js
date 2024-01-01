@@ -105,6 +105,10 @@ export default function ProductInfo() {
       .catch((err) => console.log(err))
   }
 
+  function addCartHandler(infos) {
+    contextDatas.setCart((prev) => [...prev, infos])
+  }
+
   return (
     <div>
       <div className="bg-primary">
@@ -177,7 +181,10 @@ export default function ProductInfo() {
 
                   <div className="flex items-center sm:justify-between md:justify-start gap-2">
                     <Counter count={1} />
-                    <button className="btn-yearStorySelect text-sm w-1/3">
+                    <button
+                      className="btn-yearStorySelect text-sm w-1/3"
+                      onClick={() => addCartHandler(productInfo)}
+                    >
                       سفارش
                     </button>
                     <CiHeart className="text-5xl cursor-pointer hover:text-info" />
@@ -304,20 +311,6 @@ export default function ProductInfo() {
                                               }
                                             </p>
                                           </div>
-
-                                          {/* <div className="flex text-secondary ">
-                                            {Array(comment.score)
-                                              .fill(1)
-                                              .map((star) => (
-                                                <FaStar />
-                                              ))}
-
-                                            {Array(5 - comment.score)
-                                              .fill(0)
-                                              .map((star) => (
-                                                <FaRegStar />
-                                              ))}
-                                          </div> */}
                                         </div>
                                         {/* body  */}
                                         <div>

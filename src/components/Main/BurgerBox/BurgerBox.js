@@ -12,7 +12,14 @@ import { FaHeartbeat } from "react-icons/fa"
 
 // end of icons
 import "./BurgerBox.css"
-export default function BurgerBox({ price, cover, name, shortName }) {
+export default function BurgerBox({
+  price,
+  cover,
+  name,
+  shortName,
+  description,
+  scale,
+}) {
   const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
   return (
     <div className="burgerBox">
@@ -34,10 +41,7 @@ export default function BurgerBox({ price, cover, name, shortName }) {
 
       <div className="flex flex-col items-center gap-3 mt-1 p-5">
         <h5 className="">{name}</h5>
-        <p className="text-gray-500 text-center text-sm">
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-          از طراحان گرافیک است
-        </p>
+        <p className="text-gray-500 text-center text-sm">{description}</p>
         <button
           className="btn-order font-bold mt-4"
           onClick={() => setIsOpenSidebarOrder(true)}
@@ -108,17 +112,15 @@ export default function BurgerBox({ price, cover, name, shortName }) {
 
                       {/* content section  */}
                       <div className="relative mt-6 px-4 sm:px-6 space-y-5 sm:overflow-y-scroll lg:overflow-y-hidden overflow-x-hidden contentBurgerBox">
-                        <h1 className="text-2xl">برگر گوشت رویال</h1>
-                        <p className="text-sm text-zinc-300">
-                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
-                          چاپ و با استفاده از طراحان گرافیک است
-                        </p>
+                        <h1 className="text-2xl">{name}</h1>
+                        <p className="text-sm text-zinc-300">{description}</p>
 
                         {/* scale  */}
                         <div className="flex gap-2 items-center bg-zinc-200 md:w-1/3 sm:w-1/2 rounded-2xl p-2 text-dark text-sm">
                           <GiScales className="text-lg" />
                           <p>
-                            سایز: <span className="font-[faNum]">300</span> گرم
+                            سایز: <span className="font-[faNum]">{scale}</span>{" "}
+                            گرم
                           </p>
                         </div>
                         {/* end of  scale  */}
@@ -151,7 +153,11 @@ export default function BurgerBox({ price, cover, name, shortName }) {
                         </div>
                         <div className="flex sm:flex-col lg:flex-row items-center justify-between sm:gap-5 lg:gap-0">
                           <h3 className="text-2xl">
-                            <span className="font-[faNum]">93000</span>تومان
+                            <span className="font-[faNum]">
+                              
+                              {new Intl.NumberFormat().format(price)}
+                            </span>
+                            تومان
                           </h3>
 
                           <div className="flex items-center gap-2">

@@ -17,7 +17,8 @@ function App() {
   const [userInfos, setUserInfos] = useState([])
   const [categorys, setCategorys] = useState([])
   const [products, setProducts] = useState([])
-
+  const [infos, setInfos] = useState([])
+  const [cart,setCart] = useState([])
   const login = useCallback((userInfos, token) => {
     setToken(token)
     setIsLoggedIn(true)
@@ -37,6 +38,13 @@ function App() {
   function getAllProducts() {
     axios.get("http://localhost:8000/v1/courses").then((res) => {
       setProducts(res.data)
+    })
+  }
+
+  function getInfos() {
+    axios.get("http://localhost:8000/v1/infos/index").then((res) => {
+      setInfos(res.data)
+      console.log(res.data)
     })
   }
 
@@ -62,6 +70,7 @@ function App() {
   useEffect(() => {
     getAllCategorys()
     getAllProducts()
+    getInfos()
   }, [])
 
   return (
@@ -75,6 +84,9 @@ function App() {
           categorys,
           getAllProducts,
           products,
+          infos,
+          cart,
+          setCart,
         }}
       >
         {router}

@@ -84,7 +84,7 @@ export default function Header() {
           <p className=" text-gray-300">برای سفارش آنلاین تماس بگیرید</p>
           <p className="flex gap-2 items-center mt-1">
             <FaPhoneAlt />
-            <span className="font-[faNum]">09121234567</span>
+            <span className="font-[faNum]">{contextDatas.infos.phone}</span>
           </p>
         </div>
 
