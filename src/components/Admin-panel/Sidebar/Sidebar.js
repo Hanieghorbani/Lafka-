@@ -24,12 +24,12 @@ export default function Sidebar() {
       <img src="/imgs/pAdmin/logo.png" alt="" className="w-1/2 mx-auto pt-7" />
 
       {/* context and links  */}
-      <div className="pAdmin-links-sidebar space-y-10 px-10 text-lg font-bold text-zinc-700 mt-10 overflow-y-auto h-[80vh] mb-10">
+      <div className="pAdmin-links-sidebar space-y-10 px-10 text-lg font-bold text-zinc-700 mt-10 overflow-y-auto h-[80vh] pb-10">
         <Link to={"/p-admin"}>
           <IoHomeOutline />
           <p>صفحه اصلی</p>
         </Link>
-        <Link to={"products"}>
+        <Link to={"products/1"}>
           <MdOutlineProductionQuantityLimits />
           <p>محصولات</p>
         </Link>
@@ -37,11 +37,11 @@ export default function Sidebar() {
           <MdLibraryBooks />
           <p>مقاله ها</p>
         </Link>
-        <Link to={"users"}>
+        <Link to={"users/1"}>
           <HiOutlineUsers />
           <p>کاربران</p>
         </Link>
-        <Link to={"comments"}>
+        <Link to={"comments/1"}>
           <AiOutlineComment />
           <p>نظرات کاربران</p>
         </Link>

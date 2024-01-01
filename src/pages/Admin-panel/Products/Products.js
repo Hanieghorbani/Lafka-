@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import axios from "axios"
 import swal from "sweetalert"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { Link } from "react-router-dom"
+import Pagination from "../../../components/Pagination/Pagination"
+import ContextData from "../../../ContextData/ContextData"
 export default function Products() {
-  const [products, setProducts] = useState([])
-  const [categorys, setCategorys] = useState([])
+  // const [products, setProducts] = useState([])
+  const [shownItems, setShownItems] = useState([])
+  // const [categorys, setCategorys] = useState([])
   const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
+  const contextDatas = useContext(ContextData)
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config1 = {
     headers: {
@@ -44,26 +48,26 @@ export default function Products() {
     stock: Yup.string().required("موجودی محصول الزامی است"),
   })
   useEffect(() => {
-    getAllProducts()
-    getAllCategorys()
+    contextDatas.getAllProducts()
+    contextDatas.getAllCategorys()
   }, [])
-  function getAllProducts() {
-    axios
-      .get("http://localhost:8000/v1/courses")
-      .then((res) => {
-        setProducts(res.data)
-      })
-      .catch((err) => console.log(err))
-  }
+  // function getAllProducts() {
+  //   axios
+  //     .get("http://localhost:8000/v1/courses")
+  //     .then((res) => {
+  //       setProducts(res.data)
+  //     })
+  //     .catch((err) => console.log(err))
+  // }
 
-  function getAllCategorys() {
-    axios
-      .get("http://localhost:8000/v1/category")
-      .then((res) => {
-        setCategorys(res.data)
-      })
-      .catch((err) => console.log(err))
-  }
+  // function getAllCategorys() {
+  //   axios
+  //     .get("http://localhost:8000/v1/category")
+  //     .then((res) => {
+  //       setCategorys(res.data)
+  //     })
+  //     .catch((err) => console.log(err))
+  // }
   function removeProductHandler(id) {
     swal({
       text: "آیا از حذف این دوره اطمینان دارید؟",
@@ -80,7 +84,7 @@ export default function Products() {
               dangerMode: false,
               buttons: "تایید",
             }).then(() => {
-              getAllProducts()
+              contextDatas.getAllProducts()
             })
           })
           .catch((err) => {
@@ -117,7 +121,7 @@ export default function Products() {
           icon: "success",
           buttons: "تایید",
         }).then(() => {
-          getAllProducts()
+          contextDatas.getAllProducts()
           resetForm()
         })
       })
@@ -204,7 +208,7 @@ export default function Products() {
                 // onChange={(e) => setProdCategory(e.target.value)}
               >
                 <option value="">انتخاب کنید</option>
-                {categorys.map((category) => (
+                {contextDatas.categorys.map((category) => (
                   <option
                     key={category._id}
                     value={category._id}
@@ -317,7 +321,7 @@ export default function Products() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
+            {shownItems.map((product, index) => (
               <tr key={product._id}>
                 <td>{index + 1}</td>
                 <td>{product.name}</td>
@@ -349,6 +353,13 @@ export default function Products() {
             ))}
           </tbody>
         </table>
+
+        <Pagination
+          items={contextDatas.products}
+          itemsCount={5}
+          pathname="/p-admin/products"
+          setShownItems={setShownItems}
+        />
       </DataTable>
     </div>
   )

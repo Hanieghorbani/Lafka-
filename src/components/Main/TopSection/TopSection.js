@@ -35,9 +35,9 @@ export default function TopSection({
       )}
       {/* section 1  */}
       <div
-        className={` text-center space-y-16 mt-10 ${
-          textColor ? textColor : "text-white"
-        }`}
+        className={` text-center space-y-16 ${
+          showCategory ? "mt-10" : "mt-60"
+        } ${textColor ? textColor : "text-white"}`}
       >
         <p className="text-xl">خانه / {subTitle}</p>
         <h1 className="font-[delbar] sm:text-5xl md:text-7xl">{subTitle}</h1>

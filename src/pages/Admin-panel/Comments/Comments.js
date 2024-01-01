@@ -2,8 +2,10 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import swal from "sweetalert"
+import Pagination from "../../../components/Pagination/Pagination"
 export default function Comments() {
   const [comments, setComments] = useState([])
+  const [shownItems, setShownItems] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config = {
     headers: {
@@ -20,7 +22,6 @@ export default function Comments() {
       .get("http://localhost:8000/v1/comments")
       .then((res) => {
         setComments(res.data)
-        console.log(res)
       })
       .catch((err) => console.log(err))
   }
@@ -185,7 +186,7 @@ export default function Comments() {
             </tr>
           </thead>
           <tbody>
-            {comments.map((comment, index) => (
+            {shownItems.map((comment, index) => (
               <tr key={comment._id}>
                 <td
                   className={
@@ -269,6 +270,13 @@ export default function Comments() {
           </tbody>
         </table>
       </DataTable>
+
+      <Pagination
+        items={comments}
+        itemsCount={5}
+        pathname="/p-admin/comments"
+        setShownItems={setShownItems}
+      />
     </div>
   )
 }

@@ -26,7 +26,7 @@ export default function BurgerBox({ price, cover, name, shortName }) {
         <Link to={`/productInfo/${shortName}`}>
           <img
             src={`http://localhost:8000/courses/covers/${cover}`}
-            className=" cursor-pointer w-full"
+            className=" cursor-pointer w-full h-[20rem]"
           />
           <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
         </Link>

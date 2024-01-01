@@ -29,7 +29,6 @@ function App() {
     axios
       .get("http://localhost:8000/v1/category")
       .then((res) => {
-        console.log(res)
         setCategorys(res.data)
       })
       .catch((err) => console.log(err))

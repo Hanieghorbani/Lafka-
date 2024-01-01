@@ -64,7 +64,7 @@ export default function Header() {
         />
 
         <div className="gap-5 sm:hidden xl:flex text-sm">
-          <Link to={"/shop"} className="li-header">
+          <Link to={"/shop/1"} className="li-header">
             سفارش آنلاین
           </Link>
           <Link to={"/blogs"} className="li-header">

@@ -5,9 +5,11 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import swal from "sweetalert"
 import { Formik, Form, Field, ErrorMessage } from "formik"
+import Pagination from "../../../components/Pagination/Pagination"
 import * as Yup from "yup"
 export default function Users() {
   const [users, setUsers] = useState([])
+  const [shownItems,setShownItems] = useState([])
   const [selectUser, setSelectUser] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config = {
@@ -303,7 +305,7 @@ export default function Users() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {shownItems.map((user, index) => (
               <tr key={user._id}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
@@ -350,6 +352,13 @@ export default function Users() {
           </tbody>
         </table>
       </DataTable>
+
+      <Pagination
+        items={users}
+        itemsCount={5}
+        pathname="/p-admin/users"
+        setShownItems={setShownItems}
+      />
     </div>
   )
 }
