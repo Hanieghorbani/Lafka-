@@ -173,7 +173,6 @@ export default function Comments() {
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>
             <tr>
-              <th>شناسه</th>
               <th>کاربر</th>
               <th>امتیاز</th>
               <th>محصول</th>
@@ -188,15 +187,6 @@ export default function Comments() {
           <tbody>
             {shownItems.map((comment, index) => (
               <tr key={comment._id}>
-                <td
-                  className={
-                    comment.answer
-                      ? "bg-green-400 text-white"
-                      : "bg-info text-white"
-                  }
-                >
-                  {index + 1}
-                </td>
                 <td>{comment.creator.name}</td>
                 <td>{comment.score}</td>
                 <td>{comment.course}</td>
@@ -209,20 +199,6 @@ export default function Comments() {
                     }
                   >
                     مشاهده
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-green-400 "
-                    onClick={() => answerComment(comment._id)}
-                  >
-                    پاسخ
-                  </button>
-                </td>
-                <td>
-                  <button type="button" className="btn bg-blue-400 ">
-                    ویرایش
                   </button>
                 </td>
                 {comment.answer ? (
@@ -250,12 +226,18 @@ export default function Comments() {
                 <td>
                   <button
                     type="button"
-                    className="btn bg-info"
-                    onClick={() => remvoeComment(comment._id)}
+                    className="btn bg-blue-400 "
+                    onClick={() => answerComment(comment._id)}
                   >
-                    حذف
+                    پاسخ
                   </button>
                 </td>
+                <td>
+                  <button type="button" className="btn bg-gray-400 ">
+                    ویرایش
+                  </button>
+                </td>
+
                 <td>
                   <button
                     type="button"
@@ -263,6 +245,15 @@ export default function Comments() {
                     onClick={() => banUser(comment.creator._id)}
                   >
                     بن
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn bg-info"
+                    onClick={() => remvoeComment(comment._id)}
+                  >
+                    حذف
                   </button>
                 </td>
               </tr>

@@ -260,9 +260,6 @@ export default function Users() {
   }
 
   function changeUserHandler(values) {
-    // axios.put("http://localhost:4000/v1/users/", values, config)
-    console.log(values)
-
     swal({
       text: "برای این قسمت هنوز api نوشته نشده.فقط کاربر میتواند از طریق پنل کاربری اقدام به به روزرسانی اطلاعات خود کند",
       icon: "success",
@@ -271,21 +268,6 @@ export default function Users() {
     }).then(() => {
       getAllUsers()
     })
-
-    
-    //get token => error password not correct
-    // const datas = {
-    //   identifier: selectUser.username,
-    //   password: selectUser.password,
-    // }
-    // axios
-    //   .post("http://localhost:8000/v1/auth/login", datas, config)
-    //   .then((res) => {
-    //     console.log(res)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
   }
   return (
     <div>

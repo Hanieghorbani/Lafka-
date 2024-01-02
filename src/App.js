@@ -25,6 +25,7 @@ function App() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
+  
   const login = useCallback((userInfos, token) => {
     setToken(token)
     setIsLoggedIn(true)

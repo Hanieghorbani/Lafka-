@@ -39,7 +39,7 @@ export default function TopSection({
           showCategory ? "mt-10" : "mt-60"
         } ${textColor ? textColor : "text-white"}`}
       >
-        <p className="text-xl">خانه / {subTitle}</p>
+        <p className="text-xl"><Link to={'/'}>خانه</Link> / {subTitle}</p>
         <h1 className="font-[delbar] sm:text-5xl md:text-7xl">{subTitle}</h1>
         <p className="text-xl md:w-2/3 mx-auto leading-9 pb-10 container-primary">
           {desc}

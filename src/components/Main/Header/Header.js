@@ -15,13 +15,8 @@ import ProductCartBox from "../ProductCartBox/ProductCartBoxInSide"
 import ContextData from "../../../ContextData/ContextData"
 import useScroll from "../../../hooks/useScroll"
 export default function Header() {
-  // const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
-  // const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
-  // const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
-  // const [isFixed, setIsFixed] = useState(false)
   const [isFixed] = useScroll(67)
   const contextDatas = useContext(ContextData)
-
   return (
     <div
       className={`w-full  z-50 text-white container-primary transition-all duration-500 py-5 fixed top-0 ${
@@ -98,7 +93,7 @@ export default function Header() {
         {/* lg */}
         <div className="shadow-xl p-3 rounded-3xl text-3xl gap-4 sm:hidden xl:flex">
           {contextDatas.isLoggedIn ? (
-            <Link to={"/login"}>
+            <Link to={"/my-account"}>
               <CiUser className="li-header" />
             </Link>
           ) : (

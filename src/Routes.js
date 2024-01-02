@@ -4,12 +4,10 @@ import AdminPanel from "./pages/Admin-panel/index"
 import MainAdminPanel from "./pages/Admin-panel/Main/Main"
 import Users from "./pages/Admin-panel/Users/Users"
 import AdminProducts from "./pages/Admin-panel/Products/Products"
-// import Menus from "./pages/Admin-panel/Menus/Menus"
 import AdminArticles from "./pages/Admin-panel/Articles/Articles"
 // import Draft from "./pages/Admin-panel/Draft/Draft"
 import AdminCategory from "./pages/Admin-panel/Category/Category"
 import AdminContacts from "./pages/Admin-panel/Messages/Messages"
-// import Sessions from "./pages/Admin-panel/Sessions/Sessions"
 import Comments from "./pages/Admin-panel/Comments/Comments"
 import Offers from "./pages/Admin-panel/Offers/Offers"
 import DiscountG from "./pages/Admin-panel/DiscountG/DiscountG"
@@ -30,7 +28,32 @@ import ProductInfo from "./pages/Main/Product-info/Product-info"
 import Register from "./pages/Main/Register/Register"
 import Search from "./pages/Main/Search/Search"
 
+// user panel 
+import UserPanel from "./pages/UserPanel/Index"
+import MainUserPanel from "./pages/UserPanel/Main/Main"
+import Orders from "./pages/UserPanel/Orders/Orders"
+import ViewOrder from "./pages/UserPanel/ViewOrder/ViewOrder"
+import UserProducts from "./pages/UserPanel/Products/Products"
+import UserTickets from "./pages/UserPanel/Tickets/Tickets"
+import SendTicket from "./pages/UserPanel/Tickets/SendTicket"
+import TicketAnswer from "./pages/UserPanel/Tickets/TicketAnswer"
+import EditAccount from "./pages/UserPanel/EditAccount/EditAccount"
 const routes = [
+  { path: "/", element: <Index /> },
+  { path: "/about", element: <About /> },
+  { path: "/blogs", element: <Blogs /> },
+  { path: "/locations", element: <Branches /> },
+  { path: "/cart", element: <Cart /> },
+  { path: "/contact", element: <Contact /> },
+  { path: "/favorites", element: <Favorites /> },
+  { path: "/login", element: <Login /> },
+  { path: "/shop/:page", element: <Shop /> },
+  { path: "/productCategory/:shortName", element: <ProductCategory /> },
+  { path: "/productInfo/:shortName", element: <ProductInfo /> },
+  { path: "/register", element: <Register /> },
+  { path: "/search", element: <Search /> },
+
+  //admin panel
   {
     path: "/p-admin/*",
     element: <AdminPanel />,
@@ -47,19 +70,21 @@ const routes = [
       { path: "category", element: <AdminCategory /> },
     ],
   },
-  { path: "/", element: <Index /> },
-  { path: "/about", element: <About /> },
-  { path: "/blogs", element: <Blogs /> },
-  { path: "/locations", element: <Branches /> },
-  { path: "/cart", element: <Cart /> },
-  { path: "/contact", element: <Contact /> },
-  { path: "/favorites", element: <Favorites /> },
-  { path: "/login", element: <Login /> },
-  { path: "/shop/:page", element: <Shop /> },
-  { path: "/productCategory/:shortName", element: <ProductCategory /> },
-  { path: "/productInfo/:shortName", element: <ProductInfo /> },
-  { path: "/register", element: <Register /> },
-  { path: "/search", element: <Search /> },
+// user panel 
+  {
+    path: "/my-account/*",
+    element: <UserPanel />,
+    children: [
+      { path: "", element: <MainUserPanel /> },
+      { path: "orders", element: <Orders /> },
+      { path: "view-order/:orderID", element: <ViewOrder /> },
+      { path: "products", element: <UserProducts /> },
+      { path: "tickets", element: <UserTickets /> },
+      { path: "send-ticket", element: <SendTicket /> },
+      { path: "tickets/answer/:id", element: <TicketAnswer /> },
+      { path: "edit-account", element: <EditAccount /> },
+    ],
+  },
 ]
 
 export default routes

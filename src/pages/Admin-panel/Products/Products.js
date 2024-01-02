@@ -4,16 +4,15 @@ import axios from "axios"
 import swal from "sweetalert"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import { Link } from "react-router-dom"
 import Pagination from "../../../components/Pagination/Pagination"
 import ContextData from "../../../ContextData/ContextData"
+import { useParams } from "react-router-dom"
 export default function Products() {
-  // const [products, setProducts] = useState([])
   const [shownItems, setShownItems] = useState([])
-  // const [categorys, setCategorys] = useState([])
   const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
   const contextDatas = useContext(ContextData)
+  const { page } = useParams()
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config1 = {
     headers: {
@@ -30,7 +29,6 @@ export default function Products() {
   const initialValues = {
     name: "",
     price: "",
-    // file: "",
     description: "",
     url: "",
     category: "",
@@ -40,7 +38,6 @@ export default function Products() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("نام محصول الزامی است"),
     price: Yup.string().required("قیمت محصول الزامی است"),
-    // file: Yup.file().required("تصویر محصول الزامی است"),
     description: Yup.string().required("توضیحات محصول الزامی است"),
     url: Yup.string().required("لینک کوتاه محصول الزامی است"),
     category: Yup.string().required("دسته بندی محصول الزامی است"),
@@ -51,23 +48,6 @@ export default function Products() {
     contextDatas.getAllProducts()
     contextDatas.getAllCategorys()
   }, [])
-  // function getAllProducts() {
-  //   axios
-  //     .get("http://localhost:8000/v1/courses")
-  //     .then((res) => {
-  //       setProducts(res.data)
-  //     })
-  //     .catch((err) => console.log(err))
-  // }
-
-  // function getAllCategorys() {
-  //   axios
-  //     .get("http://localhost:8000/v1/category")
-  //     .then((res) => {
-  //       setCategorys(res.data)
-  //     })
-  //     .catch((err) => console.log(err))
-  // }
   function removeProductHandler(id) {
     swal({
       text: "آیا از حذف این دوره اطمینان دارید؟",
@@ -310,7 +290,6 @@ export default function Products() {
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>
             <tr>
-              <th>شناسه</th>
               <th>عنوان</th>
               <th>مبلغ</th>
               <th>موجودی</th>
@@ -323,7 +302,6 @@ export default function Products() {
           <tbody>
             {shownItems.map((product, index) => (
               <tr key={product._id}>
-                <td>{index + 1}</td>
                 <td>{product.name}</td>
                 <td>
                   {product.price === 0
