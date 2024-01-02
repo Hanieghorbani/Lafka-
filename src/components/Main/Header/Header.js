@@ -373,9 +373,19 @@ export default function Header() {
                       <div className="relative mt-6 px-4 sm:px-6">
                         {/* content section  */}
                         <ul className="flex flex-col space-y-5 text-white">
-                          {contextDatas.cart.map((item) => (
-                            <ProductCartBox key={item._id} {...item} />
-                          ))}
+                          {contextDatas.cart.length ? (
+                            <>
+                              {contextDatas.cart.map((item) => (
+                                <ProductCartBox key={item._id} {...item} />
+                              ))}
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-lg text-zinc-200">
+                                هنوز هیچ محصولی به سبد خرید خود اضافه نکردید!
+                              </span>
+                            </>
+                          )}
                         </ul>
                       </div>
 
@@ -413,6 +423,7 @@ export default function Header() {
                           onClick={() =>
                             contextDatas.setIsOpenSidebarCart(false)
                           }
+                          disabled= {!contextDatas.cart.length}
                         >
                           <FaCreditCard />
                           تصویه حساب

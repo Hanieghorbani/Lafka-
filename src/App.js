@@ -62,6 +62,23 @@ function App() {
     }
   }
 
+  function minesCart(prodInfos, removeAll) {
+    console.log(removeAll);
+    if (prodInfos.count > 1 && !removeAll) {
+      const minesCountProd = cart.map((prod) => {
+        return prod._id == prodInfos._id
+          ? { ...prod, count: prod.count - 1 }
+          : prod
+      })
+      setCart(minesCountProd)
+      localStorage.setItem("cart", JSON.stringify(minesCountProd))
+    } else if (prodInfos.count == 1 || removeAll) {
+      const filterdCart = cart.filter((prod) => prod._id !== prodInfos._id)
+      setCart(filterdCart)
+      localStorage.setItem("cart", JSON.stringify(filterdCart))
+    }
+  }
+
   function getInfos() {
     axios.get("http://localhost:8000/v1/infos/index").then((res) => {
       setInfos(res.data)
@@ -121,7 +138,8 @@ function App() {
           isOpenSidebarCart,
           setIsOpenSidebarCart,
           isOpenSideSearch,
-          setIsOpenSideSearch
+          setIsOpenSideSearch,
+          minesCart,
         }}
       >
         {router}

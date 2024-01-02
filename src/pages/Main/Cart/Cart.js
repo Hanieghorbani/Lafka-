@@ -18,9 +18,17 @@ export default function Cart() {
       <div className="grid sm:grid-col-1 lg:grid-cols-3 container-primary my-20 gap-10">
         <div className="lg:col-span-2 ">
           <div className="space-y-5">
-            {contextDatas.cart.map((item) => (
-              <ProductCartBoxInPage key={item._id} {...item} />
-            ))}
+            {contextDatas.cart.length ? (
+              <>
+                {contextDatas.cart.map((item) => (
+                  <ProductCartBoxInPage key={item._id} {...item} />
+                ))}
+              </>
+            ) : (
+              <>
+                <span className="text-lg text-zinc-700">هنوز هیچ محصولی به سبد خرید خود اضافه نکردید!</span>
+              </>
+            )}
           </div>
           <div className="flex sm:flex-col md:flex-row md:justify-between items-center text-sm mt-20 border-t-2 border-b-2 py-5">
             <div className="flex sm:flex-col md:flex-row items-center md:w-1/2 gap-2 sm:mb-5 md:mb-0">
@@ -44,7 +52,7 @@ export default function Cart() {
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5 border-b-2 pt-7 pb-3">
             {contextDatas.products
               .sort()
-              .slice(0, contextDatas.cart.length)
+              .slice(0, contextDatas.cart.length + 1 )
               .map((prod) => (
                 <BurgerBox key={prod._id} {...prod} />
               ))}

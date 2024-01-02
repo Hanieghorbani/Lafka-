@@ -1,7 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import { BsFillTrashFill } from "react-icons/bs"
 import { IoCloseOutline } from "react-icons/io5"
-export default function ProductCartBox({ cover, name, price,count }) {
+import ContextData from "../../../ContextData/ContextData"
+export default function ProductCartBox(prodInfos) {
+  const {cover, name, price,count} = prodInfos
+  const contextDatas = useContext(ContextData)
   return (
     <div className="flex items-center justify-between bg-zinc-300 p-4 rounded-2xl relative">
       <div className="flex items-center sm:gap-1 md:gap-5">
@@ -24,8 +27,8 @@ export default function ProductCartBox({ cover, name, price,count }) {
         </div>
       </div>
 
-      <BsFillTrashFill className="text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:hidden md:block" />
-      <IoCloseOutline className="absolute top-0 right-1 text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden" />
+      <BsFillTrashFill className="text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:hidden md:block" onClick={()=>contextDatas.minesCart(prodInfos,true)}/>
+      <IoCloseOutline className="absolute top-0 right-1 text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden" onClick={()=>contextDatas.minesCart(prodInfos,true)}/>
     </div>
   )
 }

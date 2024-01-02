@@ -33,7 +33,7 @@ export default function BurgerBox({
         <Link to={`/productInfo/${shortName}`}>
           <img
             src={`http://localhost:8000/courses/covers/${cover}`}
-            className=" cursor-pointer w-full h-[20rem]"
+            className=" cursor-pointer w-full"
           />
           <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
         </Link>
