@@ -5,6 +5,8 @@ import AOS from "aos"
 import { useRoutes } from "react-router-dom"
 import useScroll from "./hooks/useScroll"
 import ContextData from "./ContextData/ContextData"
+import { toast, ToastContainer } from "react-toastify"
+
 import axios from "axios"
 function App() {
   useEffect(() => {
@@ -60,10 +62,13 @@ function App() {
       setCart(updateCart)
       localStorage.setItem("cart", JSON.stringify(updateCart))
     }
+    toast.success("محصول با موفقیت اضافه شد", {
+      position: toast.POSITION.TOP_LEFT,
+    })
   }
 
   function minesCart(prodInfos, removeAll) {
-    console.log(removeAll);
+    console.log(removeAll)
     if (prodInfos.count > 1 && !removeAll) {
       const minesCountProd = cart.map((prod) => {
         return prod._id == prodInfos._id
@@ -77,6 +82,9 @@ function App() {
       setCart(filterdCart)
       localStorage.setItem("cart", JSON.stringify(filterdCart))
     }
+    toast.success("محصول با موفقیت حذف شد", {
+      position: toast.POSITION.TOP_LEFT,
+    })
   }
 
   function getInfos() {
@@ -143,6 +151,7 @@ function App() {
         }}
       >
         {router}
+        <ToastContainer autoClose={1000} rtl />
         {isScrollBtnVisible && <ScrollToTop />}
       </ContextData.Provider>
     </div>

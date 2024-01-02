@@ -48,7 +48,6 @@ export default function ProductInfo() {
           setProductInfo(isProdInCart)
         } else {
           console.log("no exist")
-
           setProductInfo(res.data)
         }
         setIsLoading(true)

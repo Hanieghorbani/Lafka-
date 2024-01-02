@@ -21,6 +21,6 @@ export default function Counter({ count }) {
           setMainCount((prev) => prev + 1)
         }}
       />
-    </div>,
+    </div>
   ]
 }

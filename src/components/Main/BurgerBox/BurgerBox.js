@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useState, useEffect, Fragment, useContext } from "react"
 import { FaRegHeart } from "react-icons/fa"
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
@@ -9,18 +9,15 @@ import Counter from "../Counter/Counter"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
 import { FaHeartbeat } from "react-icons/fa"
+import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6"
 
 // end of icons
 import "./BurgerBox.css"
-export default function BurgerBox({
-  price,
-  cover,
-  name,
-  shortName,
-  description,
-  scale,
-}) {
+import ContextData from "../../../ContextData/ContextData"
+export default function BurgerBox(prodInfos) {
   const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
+  const contextDatas = useContext(ContextData)
+  const { price, cover, name, shortName, description, scale } = prodInfos
   return (
     <div className="burgerBox">
       <div className="relative border p-3 rounded-2xl">
@@ -154,15 +151,18 @@ export default function BurgerBox({
                         <div className="flex sm:flex-col lg:flex-row items-center justify-between sm:gap-5 lg:gap-0">
                           <h3 className="text-2xl">
                             <span className="font-[faNum]">
-                              
                               {new Intl.NumberFormat().format(price)}
                             </span>
                             تومان
                           </h3>
-
                           <div className="flex items-center gap-2">
-                            <Counter count={1} />
-                            <button className="btn-yearStorySelect text-sm">
+                            <button
+                              className="btn-yearStorySelect text-sm"
+                              onClick={() => {
+                                contextDatas.addToCart(prodInfos)
+                                setIsOpenSidebarOrder(false)
+                              }}
+                            >
                               سفارش
                             </button>
                             <CiHeart className="text-5xl cursor-pointer hover:text-info" />
