@@ -18,7 +18,11 @@ function App() {
   const [categorys, setCategorys] = useState([])
   const [products, setProducts] = useState([])
   const [infos, setInfos] = useState([])
-  const [cart,setCart] = useState([])
+  const [cart, setCart] = useState([])
+  const [countProduct, setCountProduct] = useState(1)
+  const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
+  const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
+  const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
   const login = useCallback((userInfos, token) => {
     setToken(token)
     setIsLoggedIn(true)
@@ -41,10 +45,26 @@ function App() {
     })
   }
 
+  function addToCart(prodInfos) {
+    const existingItem = cart.find((prod) => prod._id === prodInfos._id)
+    if (existingItem) {
+      const addCountProd = cart.map((prod) => {
+        return prod._id == prodInfos._id
+          ? { ...prod, count: prod.count + 1 }
+          : prod
+      })
+      setCart(addCountProd)
+      localStorage.setItem("cart", JSON.stringify(addCountProd))
+    } else {
+      const updateCart = [...cart, { ...prodInfos, count: 1 }]
+      setCart(updateCart)
+      localStorage.setItem("cart", JSON.stringify(updateCart))
+    }
+  }
+
   function getInfos() {
     axios.get("http://localhost:8000/v1/infos/index").then((res) => {
       setInfos(res.data)
-      console.log(res.data)
     })
   }
 
@@ -68,6 +88,12 @@ function App() {
   }, [token])
 
   useEffect(() => {
+    const cartInLoacalStorage = JSON.parse(localStorage.getItem("cart"))
+    if (cartInLoacalStorage) {
+      setCart(cartInLoacalStorage)
+    } else {
+      setCart([])
+    }
     getAllCategorys()
     getAllProducts()
     getInfos()
@@ -87,6 +113,15 @@ function App() {
           infos,
           cart,
           setCart,
+          addToCart,
+          countProduct,
+          setCountProduct,
+          isOpenSidebarMenu,
+          setIsOpenSidebarMenu,
+          isOpenSidebarCart,
+          setIsOpenSidebarCart,
+          isOpenSideSearch,
+          setIsOpenSideSearch
         }}
       >
         {router}

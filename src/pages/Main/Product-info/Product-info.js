@@ -36,12 +36,22 @@ export default function ProductInfo() {
     },
   }
   useEffect(() => {
-    console.log(shortName)
     axios
       .get(`http://localhost:8000/v1/courses/${shortName}`, config)
       .then((res) => {
-        setProductInfo(res.data)
+        const isProdInCart = contextDatas.cart.find(
+          (prod) => prod._id === res.data._id
+        )
+        if (isProdInCart) {
+          console.log("is exist")
+          setProductInfo(isProdInCart)
+        } else {
+          console.log("no exist")
+
+          setProductInfo(res.data)
+        }
         setIsLoading(true)
+
         console.log(res.data)
       })
       .catch((err) => console.log(err))
@@ -105,9 +115,10 @@ export default function ProductInfo() {
       .catch((err) => console.log(err))
   }
 
-  function addCartHandler(infos) {
-    contextDatas.setCart((prev) => [...prev, infos])
-  }
+  // function addCartHandler(infos) {
+  //   // contextDatas.setCart((prev) => [...prev, infos])
+  //   // localStorage.setItem('cart',)
+  // }
 
   return (
     <div>
@@ -180,10 +191,13 @@ export default function ProductInfo() {
                   </h3>
 
                   <div className="flex items-center sm:justify-between md:justify-start gap-2">
-                    <Counter count={1} />
+                    {/* <Counter count={productInfo.count || 1} /> */}
                     <button
                       className="btn-yearStorySelect text-sm w-1/3"
-                      onClick={() => addCartHandler(productInfo)}
+                      onClick={() => {
+                        contextDatas.setIsOpenSidebarCart(true)
+                        contextDatas.addToCart(productInfo)
+                      }}
                     >
                       سفارش
                     </button>

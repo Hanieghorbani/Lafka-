@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Header from "../../../components/Main/Header/Header"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import ProductCartBoxInPage from "../../../components/Main/ProductCartBox/ProductCartBoxInPage"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
-import Footer from '../../../components/Main/Footer/Footer'
+import Footer from "../../../components/Main/Footer/Footer"
+import ContextData from "../../../ContextData/ContextData"
 export default function Cart() {
+  const contextDatas = useContext(ContextData)
   return (
     <div>
       <TopSection
@@ -16,24 +18,9 @@ export default function Cart() {
       <div className="grid sm:grid-col-1 lg:grid-cols-3 container-primary my-20 gap-10">
         <div className="lg:col-span-2 ">
           <div className="space-y-5">
-            <ProductCartBoxInPage
-              name={"برگر مخصوص جالاپنو"}
-              price={120000}
-              count={2}
-              img={"burger-healthy.png"}
-            />
-            <ProductCartBoxInPage
-              name={"برگر مخصوص جالاپنو"}
-              price={120000}
-              count={2}
-              img={"burger-healthy.png"}
-            />
-            <ProductCartBoxInPage
-              name={"برگر مخصوص جالاپنو"}
-              price={120000}
-              count={2}
-              img={"burger-healthy.png"}
-            />
+            {contextDatas.cart.map((item) => (
+              <ProductCartBoxInPage key={item._id} {...item} />
+            ))}
           </div>
           <div className="flex sm:flex-col md:flex-row md:justify-between items-center text-sm mt-20 border-t-2 border-b-2 py-5">
             <div className="flex sm:flex-col md:flex-row items-center md:w-1/2 gap-2 sm:mb-5 md:mb-0">
@@ -91,10 +78,28 @@ export default function Cart() {
               </div>
               <div className="space-y-5 col-span-2 pr-5">
                 <p className="border-b-2 pb-3">
-                  <span className="font-[faNum]">650000</span> تومان
+                  <span className="font-[faNum]">
+                    {new Intl.NumberFormat().format(
+                      contextDatas.cart.reduce(
+                        (total, product) =>
+                          total + product.price * product.count,
+                        0
+                      )
+                    )}
+                  </span>{" "}
+                  تومان
                 </p>
                 <p className="border-b-2 pb-3 text-xl text-black">
-                  <span className="font-[faNum]">650000</span> تومان
+                  <span className="font-[faNum]">
+                    {new Intl.NumberFormat().format(
+                      contextDatas.cart.reduce(
+                        (total, product) =>
+                          total + product.price * product.count,
+                        0
+                      )
+                    )}
+                  </span>{" "}
+                  تومان
                 </p>
               </div>
             </div>

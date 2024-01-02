@@ -15,9 +15,9 @@ import ProductCartBox from "../ProductCartBox/ProductCartBoxInSide"
 import ContextData from "../../../ContextData/ContextData"
 import useScroll from "../../../hooks/useScroll"
 export default function Header() {
-  const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
-  const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
-  const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
+  // const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
+  // const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
+  // const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
   // const [isFixed, setIsFixed] = useState(false)
   const [isFixed] = useScroll(67)
   const contextDatas = useContext(ContextData)
@@ -102,39 +102,49 @@ export default function Header() {
               <CiUser className="li-header" />
             </Link>
           ) : (
-            <IoIosLogOut className="li-header" />
+            <Link to={"/login"}>
+              <IoIosLogOut className="li-header" />
+            </Link>
           )}
 
           <Link to={"/favorites"} className="relative">
             <span className="badge-header text-white">0</span>
             <CiHeart className="li-header" />
           </Link>
-          <div className="relative" onClick={() => setIsOpenSidebarCart(true)}>
-            <span className="badge-header ">0</span>
+          <div
+            className="relative"
+            onClick={() => contextDatas.setIsOpenSidebarCart(true)}
+          >
+            <span className="badge-header ">
+              {contextDatas.cart.reduce(
+                (total, product) => total + product.count,
+                0
+              )}
+            </span>
             <CiShoppingCart className="li-header" />
           </div>
 
           <CiSearch
             className="li-header"
-            onClick={() => setIsOpenSideSearch(true)}
+            onClick={() => contextDatas.setIsOpenSideSearch(true)}
           />
         </div>
 
         {/* sm */}
         <div
           className="xl:hidden flex items-center justify-center bg-red-500 rounded-full h-12 w-12 shadow-xl"
-          onClick={() => setIsOpenSidebarMenu(true)}
+          onClick={() => contextDatas.setIsOpenSidebarMenu(true)}
         >
           <FaBars />
         </div>
       </div>
 
       {/* sidebar menu */}
-      <Transition.Root show={isOpenSidebarMenu} as={Fragment}>
+      <Transition.Root show={contextDatas.isOpenSidebarMenu} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-50"
-          onClose={() => setIsOpenSidebarMenu(false)}
+          onClose={() => contextDatas.setIsOpenSidebarMenu(false)}
         >
           <Transition.Child
             as={Fragment}
@@ -174,7 +184,9 @@ export default function Header() {
                         <button
                           type="button"
                           className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                          onClick={() => setIsOpenSidebarMenu(false)}
+                          onClick={() =>
+                            contextDatas.setIsOpenSidebarMenu(false)
+                          }
                         >
                           <span className="absolute -inset-2.5" />
                           <span className="sr-only">Close panel</span>
@@ -191,8 +203,8 @@ export default function Header() {
                             <div
                               className="relative"
                               onClick={() => {
-                                setIsOpenSidebarMenu(false)
-                                setIsOpenSidebarCart(true)
+                                contextDatas.setIsOpenSidebarMenu(false)
+                                contextDatas.setIsOpenSidebarCart(true)
                               }}
                             >
                               <span className="badge-header">0</span>
@@ -213,50 +225,62 @@ export default function Header() {
                           <Link
                             to={"/"}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
+                            onClick={() =>
+                              contextDatas.setIsOpenSidebarMenu(false)
+                            }
                           >
                             خانه
                           </Link>
                           <Link
                             to={"/about"}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
+                            onClick={() =>
+                              contextDatas.setIsOpenSidebarMenu(false)
+                            }
                           >
                             درباره ما
                           </Link>
                           <Link
                             to={"/locations"}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
+                            onClick={() =>
+                              contextDatas.setIsOpenSidebarMenu(false)
+                            }
                           >
                             شعبه ها
                           </Link>
                           <Link
                             to={"/shop"}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
+                            onClick={() =>
+                              contextDatas.setIsOpenSidebarMenu(false)
+                            }
                           >
                             سفارش آنلاین
                           </Link>
                           <Link
                             to={"/blogs"}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
+                            onClick={() =>
+                              contextDatas.setIsOpenSidebarMenu(false)
+                            }
                           >
                             وبلاگ
                           </Link>
                           <Link
                             to={"/contact"}
                             className="li-sidebar"
-                            onClick={() => setIsOpenSidebarMenu(false)}
+                            onClick={() =>
+                              contextDatas.setIsOpenSidebarMenu(false)
+                            }
                           >
                             تماس با ما
                           </Link>
 
                           <li
                             onClick={() => {
-                              setIsOpenSidebarMenu(false)
-                              setIsOpenSideSearch(true)
+                              contextDatas.setIsOpenSidebarMenu(false)
+                              contextDatas.setIsOpenSideSearch(true)
                             }}
                             className="li-sidebar"
                           >
@@ -274,11 +298,11 @@ export default function Header() {
       </Transition.Root>
 
       {/* sidebar cart  */}
-      <Transition.Root show={isOpenSidebarCart} as={Fragment}>
+      <Transition.Root show={contextDatas.isOpenSidebarCart} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-50"
-          onClose={() => setIsOpenSidebarCart(false)}
+          onClose={() => contextDatas.setIsOpenSidebarCart(false)}
         >
           <Transition.Child
             as={Fragment}
@@ -318,7 +342,9 @@ export default function Header() {
                         <button
                           type="button"
                           className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                          onClick={() => setIsOpenSidebarCart(false)}
+                          onClick={() =>
+                            contextDatas.setIsOpenSidebarCart(false)
+                          }
                         >
                           <span className="absolute -inset-2.5" />
                           <span className="sr-only">Close panel</span>
@@ -347,24 +373,9 @@ export default function Header() {
                       <div className="relative mt-6 px-4 sm:px-6">
                         {/* content section  */}
                         <ul className="flex flex-col space-y-5 text-white">
-                          <ProductCartBox
-                            name={"برگر مخصوص جالاپنو"}
-                            price={120000}
-                            count={2}
-                            img={"burger-healthy.png"}
-                          />
-                          <ProductCartBox
-                            name={"برگر مخصوص جالاپنو"}
-                            price={120000}
-                            count={2}
-                            img={"burger-healthy.png"}
-                          />
-                          <ProductCartBox
-                            name={"برگر مخصوص جالاپنو"}
-                            price={120000}
-                            count={2}
-                            img={"burger-healthy.png"}
-                          />
+                          {contextDatas.cart.map((item) => (
+                            <ProductCartBox key={item._id} {...item} />
+                          ))}
                         </ul>
                       </div>
 
@@ -372,7 +383,16 @@ export default function Header() {
                         <p>جمع کل:</p>
                         <p>
                           {" "}
-                          <span className="font-[faNum]">560000</span> تومان
+                          <span className="font-[faNum]">
+                            {new Intl.NumberFormat().format(
+                              contextDatas.cart.reduce(
+                                (total, product) =>
+                                  total + product.price * product.count,
+                                0
+                              )
+                            )}
+                          </span>{" "}
+                          تومان
                         </p>
                       </div>
 
@@ -380,12 +400,20 @@ export default function Header() {
                         <Link
                           to={"/cart"}
                           className="bg-zinc-300 shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
+                          onClick={() =>
+                            contextDatas.setIsOpenSidebarCart(false)
+                          }
                         >
                           {" "}
                           <CiShoppingCart className="text-xl font-bold" />
                           مشاهده سبد خرید{" "}
                         </Link>
-                        <button className="bg-zinc-300  shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center">
+                        <button
+                          className="bg-zinc-300  shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
+                          onClick={() =>
+                            contextDatas.setIsOpenSidebarCart(false)
+                          }
+                        >
                           <FaCreditCard />
                           تصویه حساب
                         </button>
@@ -400,11 +428,11 @@ export default function Header() {
       </Transition.Root>
 
       {/* sidebar for  search   */}
-      <Transition.Root show={isOpenSideSearch} as={Fragment}>
+      <Transition.Root show={contextDatas.isOpenSideSearch} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-50"
-          onClose={() => setIsOpenSideSearch(false)}
+          onClose={() => contextDatas.setIsOpenSideSearch(false)}
         >
           <Transition.Child
             as={Fragment}
@@ -444,7 +472,9 @@ export default function Header() {
                         <button
                           type="button"
                           className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                          onClick={() => setIsOpenSideSearch(false)}
+                          onClick={() =>
+                            contextDatas.setIsOpenSideSearch(false)
+                          }
                         >
                           <span className="absolute -inset-2.5" />
                           <span className="sr-only">Close panel</span>

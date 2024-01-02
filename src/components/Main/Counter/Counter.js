@@ -3,8 +3,7 @@ import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6"
 
 export default function Counter({ count }) {
   const [mainCount, setMainCount] = useState(count)
-
-  return (
+  return [
     <div className="bg-zinc-200 flex justify-between text-xl items-center text-zinc-400 w-20 p-2 rounded-2xl">
       <FaCircleMinus
         className="hover:bg-white rounded-full cursor-pointer"
@@ -22,6 +21,6 @@ export default function Counter({ count }) {
           setMainCount((prev) => prev + 1)
         }}
       />
-    </div>
-  )
+    </div>,
+  ]
 }
