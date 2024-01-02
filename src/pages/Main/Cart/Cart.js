@@ -42,31 +42,12 @@ export default function Cart() {
             اين محصول را هم به شما پيشنهاد می كنيم …
           </h6>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5 border-b-2 pt-7 pb-3">
-            <BurgerBox
-              price="320000"
-              img="burger18-300x300 (1).jpg"
-              name="برگر گوشت رویال"
-            />
-            <BurgerBox
-              price="180000"
-              img="burger20-300x300.jpg"
-              name="برگر ساده رویال"
-            />
-            <BurgerBox
-              price="99000"
-              img="shake5-300x300.jpg"
-              name="برگر ساده رویال"
-            />
-            <BurgerBox
-              price="99000"
-              img="shake6-300x300.jpg"
-              name="برگر ساده رویال"
-            />
-            <BurgerBox
-              price="120000"
-              img="shake2-300x300.jpg"
-              name="برگر ساده رویال"
-            />
+            {contextDatas.products
+              .sort()
+              .slice(0, contextDatas.cart.length)
+              .map((prod) => (
+                <BurgerBox key={prod._id} {...prod} />
+              ))}
           </div>
 
           <div className="mt-7">

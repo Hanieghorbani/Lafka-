@@ -21,6 +21,7 @@ export default function ProductInfo() {
   const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
   const [rating, setRating] = useState(0)
   const [productInfo, setProductInfo] = useState([])
+  const [related, setRelated] = useState([])
   const { shortName } = useParams()
   const stars = [false, false, false, false, false]
   const [mainStar, setMainStar] = useState(stars)
@@ -55,6 +56,13 @@ export default function ProductInfo() {
         console.log(res.data)
       })
       .catch((err) => console.log(err))
+
+    axios
+      .get(`http://localhost:8000/v1/courses/related/${shortName}`)
+      .then((res) => {
+        setRelated(res.data)
+        console.log(res.data)
+      })
   }, [shortName])
   const initialValues = {
     contentText: "",
@@ -422,12 +430,9 @@ export default function ProductInfo() {
                 </p>
               </div>
               <div className="md:col-span-3 grid sm:grid-cols-1 md:grid-cols-3 gap-5">
-                {contextDatas.products
-                  .sort()
-                  .slice(0, 3)
-                  .map((product) => (
-                    <BurgerBox key={product._id} {...product} />
-                  ))}
+                {related.map((product) => (
+                  <BurgerBox key={product._id} {...product} />
+                ))}
               </div>
             </div>
           </div>
