@@ -61,7 +61,7 @@ export default function Login() {
   const validationSchema = Yup.object().shape({
     identifier: Yup.string()
       .required("نام کاربری یا آدرس ایمیل الزامی است")
-      .min(7, "نام باید حداقل ۳ حرف داشته باشد"),
+      .min(3, "نام باید حداقل ۳ حرف داشته باشد"),
     password: Yup.string().required("رمز عبور الزامی است").min(8,'رمز عبور باید حداقل 8 کاراکتر باشد'),
   })
 

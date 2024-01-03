@@ -19,7 +19,7 @@ export default function Sidebar() {
           dangerMode: false,
           buttons: "تایید",
         }).then((val) => {
-          // contextData.logout()
+          contextDatas.logout()
           navigate("/")
         })
       }
@@ -29,37 +29,37 @@ export default function Sidebar() {
     <div className="col-span-3">
       <div className="sidebar border-l-2 border-primary">
         <span className="text-zinc-700 text-xl">{contextDatas.userInfos.name}</span>
-        <ul className="mt-4">
+        <ul className="mt-4 space-y-7">
           <li className="sidebar__item">
-            <Link className="block py-4 font-bold text-xl" to={"/my-account"}>
+            <Link className="font-bold" to={"/my-account"}>
               پیشخوان
             </Link>
           </li>
           <li className="sidebar__item">
-            <Link className="block py-4 font-bold text-xl" to={"orders"}>
+            <Link className="font-bold" to={"orders"}>
               سفارشات
             </Link>
           </li>
           <li className="sidebar__item">
-            <Link className="block py-4 font-bold text-xl" to={"edit-account"}>
+            <Link className="font-bold" to={"edit-account"}>
               جزئیات حساب کاربری
             </Link>
           </li>
           <li className="sidebar__item">
             <Link
-              className="block py-4 font-bold text-xl"
+              className="font-bold"
               to={"products"}
             >
               دوره های خریداری شده
             </Link>
           </li>
           <li className="sidebar__item">
-            <Link className="block py-4 font-bold text-xl" to={"tickets"}>
+            <Link className="font-bold" to={"tickets"}>
               تیکت های پشتیبانی
             </Link>
           </li>
           <li className="sidebar__item" style={{ cursor: "pointer" }}>
-            <a className="block py-4 font-bold text-xl" onClick={logoutHandler}>
+            <a className="font-bold" onClick={logoutHandler}>
               خروج از سیستم
             </a>
           </li>

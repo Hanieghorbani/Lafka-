@@ -8,10 +8,10 @@ export default function Index() {
   return (
     <div className="w-full">
       <div className=" space-y-10 pr-12">
-        <div className="main__title">
-          <span className="main__title-text text-2xl">
+        <div className="text-xl">
+          <span className="">
             سلام{" "}
-            <span className="text-primary font-bold text-3xl">
+            <span className="text-primary font-bold">
               {authContext.userInfos.name}
             </span>
             ، به پنل کاربری خوش اومدی

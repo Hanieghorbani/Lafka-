@@ -22,23 +22,23 @@ export default function Orders() {
   return (
     <div className="w-full">
       {isLoading && (
-        <div className="pr-12 ">
+        <div className="pr-12">
           <table className=" w-full">
-            <thead className="border-b-2 " >
-              <tr className="order__table-header-list">
-                <th className="text-xl font-bold">شناسه</th>
-                <th className="text-xl font-bold">تاریخ</th>
-                <th className="text-xl font-bold">وضعیت</th>
-                <th className="text-xl font-bold">دوره</th>
-                <th className="text-xl font-bold">مبلغ</th>
-                <th className="text-xl font-bold">عملیات ها</th>
+            <thead className="border-b-2 pb-5">
+              <tr className="">
+                <th className="text-lg font-bold">شناسه</th>
+                <th className="text-lg font-bold">تاریخ</th>
+                <th className="text-lg font-bold">وضعیت</th>
+                <th className="text-lg font-bold">دوره</th>
+                <th className="text-lg font-bold">مبلغ</th>
+                <th className="text-lg font-bold">عملیات ها</th>
               </tr>
             </thead>
-            <tbody className="order__table-body">
+            <tbody className="">
               {orders.map((order, index) => (
                 <tr key={order._id} className="border-b-2">
                   <td className="text-xl">
-                    <a href="#" className="order__table-body-link">
+                    <a href="#" className="">
                       {index + 1}
                     </a>
                   </td>

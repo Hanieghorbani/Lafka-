@@ -25,13 +25,20 @@ function App() {
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
-  
+  const [reLoading, setReLoading] = useState(false)
   const login = useCallback((userInfos, token) => {
     setToken(token)
     setIsLoggedIn(true)
     setUserInfos(userInfos)
     localStorage.setItem("user", JSON.stringify({ token }))
   }, [])
+
+  const logout = useCallback(() => {
+    setToken(null)
+    setUserInfos({})
+    setIsLoggedIn(false)
+    localStorage.removeItem("user")
+  })
 
   function getAllCategorys() {
     axios
@@ -111,7 +118,7 @@ function App() {
         })
         .catch((err) => console.log(err))
     }
-  }, [token])
+  }, [token, reLoading])
 
   useEffect(() => {
     const cartInLoacalStorage = JSON.parse(localStorage.getItem("cart"))
@@ -130,6 +137,7 @@ function App() {
       <ContextData.Provider
         value={{
           login,
+          logout,
           isLoggedIn,
           userInfos,
           getAllCategorys,
@@ -149,6 +157,8 @@ function App() {
           isOpenSideSearch,
           setIsOpenSideSearch,
           minesCart,
+          reLoading,
+          setReLoading,
         }}
       >
         {router}

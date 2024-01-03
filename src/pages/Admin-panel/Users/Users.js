@@ -260,14 +260,24 @@ export default function Users() {
   }
 
   function changeUserHandler(values) {
-    swal({
-      text: "برای این قسمت هنوز api نوشته نشده.فقط کاربر میتواند از طریق پنل کاربری اقدام به به روزرسانی اطلاعات خود کند",
-      icon: "success",
-      dangerMode: false,
-      buttons: "تایید",
-    }).then(() => {
+    axios.put(`http://localhost:8000/v1/users/${selectUser._id}`,values,config).then(res=>{
+      console.log(res);
+     swal({
+      text:'ویرایش کاربر با موفقیت انجام شد',
+      icon:'success',
+      buttons:'تایید'
+     }).then(()=>{
       getAllUsers()
-    })
+     })
+    }).catch(err=>console.log(err))
+    // swal({
+    //   text: "برای این قسمت هنوز api نوشته نشده.فقط کاربر میتواند از طریق پنل کاربری اقدام به به روزرسانی اطلاعات خود کند",
+    //   icon: "success",
+    //   dangerMode: false,
+    //   buttons: "تایید",
+    // }).then(() => {
+    //   getAllUsers()
+    // })
   }
   return (
     <div>

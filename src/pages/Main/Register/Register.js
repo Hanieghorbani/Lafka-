@@ -50,8 +50,7 @@ export default function Register() {
         "Content-Type": "application/json",
       },
     }
-
-    //  resetForm()
+   
     axios
       .post("http://localhost:8000/v1/auth/register", values, config)
       .then((res) => {
@@ -64,7 +63,7 @@ export default function Register() {
           dangerMode: false,
           buttons: "ورود به پنل",
         }).then((value) => {
-          navigate("/")
+          navigate("/my-account")
         })
       })
       .catch((err) => {
