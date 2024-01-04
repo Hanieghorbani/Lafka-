@@ -71,71 +71,6 @@ export default function ProductInfo() {
           })
         }
       })
-    // fetch(`http://localhost:4000/v1/offs/${code}`, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${localStorageToken.token}`,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ course: course._id }),
-    // })
-    //   .then((res) => {
-    //     if (res.status == 404) {
-    //       swal({
-    //         title: "کد تخفیف نامعتبر است!",
-    //         icon: "error",
-    //         dangerMode: true,
-    //         buttons: "تایید",
-    //       })
-    //     } else if (res.status == 409) {
-    //       swal({
-    //         title: "این کد تخفیف قبلا استفاده شده",
-    //         icon: "error",
-    //         dangerMode: true,
-    //         buttons: "تایید",
-    //       })
-    //     } else if (res.ok) {
-    //       return res.json()
-    //     }
-    //   })
-    //   .then((result) => {
-    //     swal({
-    //       title: `مبلغ قابل پرداخت با تخفیف: ${
-    //         course.price - (course.price * result.percent) / 100
-    //       }`,
-    //       text: "تواین مرحله باید به درگاه پرداخت منتقل شده وپرداخت با موفقیت انجام بشه.الکی مثلا ما پرداخت رو انجام دادیم:)",
-    //       icon: "warning",
-    //       buttons: "پرداخت",
-    //     }).then((res) => {
-    //       if (res) {
-    //         fetch(`http://localhost:4000/v1/courses/${course._id}/register`, {
-    //           method: "POST",
-    //           headers: {
-    //             Authorization: `Bearer ${localStorageToken.token}`,
-    //             "Content-Type": "application/json",
-    //           },
-    //           body: JSON.stringify({
-    //             price: course.price - (course.price * result.percent) / 100,
-    //           }),
-    //         }).then((res) => {
-    //           if (res.ok) {
-    //             swal({
-    //               title: "تبریک! شما با موفقیت در دوره ثبت نام کردید",
-    //               icon: "success",
-    //               buttons: "تایید",
-    //             }).then(() => {
-    //               getAllInfosCourse()
-    //             })
-    //           } else {
-    //             swal({
-    //               icon: "error",
-    //               buttons: "تایید",
-    //             })
-    //           }
-    //         })
-    //       }
-    //     })
-    //   })
   }
   const config = {
     headers: {
@@ -229,10 +164,6 @@ export default function ProductInfo() {
       .catch((err) => console.log(err))
   }
 
-  // function addCartHandler(infos) {
-  //   // contextDatas.setCart((prev) => [...prev, infos])
-  //   // localStorage.setItem('cart',)
-  // }
 
   return (
     <div>

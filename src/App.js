@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react"
 import routes from "./Routes"
 import ScrollToTop from "./components/Main/ScrollToTop/ScrollToTop"
 import AOS from "aos"
-import { useRoutes } from "react-router-dom"
+import { useNavigate, useRoutes } from "react-router-dom"
 import useScroll from "./hooks/useScroll"
 import ContextData from "./ContextData/ContextData"
 import { toast, ToastContainer } from "react-toastify"
@@ -12,6 +12,7 @@ function App() {
   useEffect(() => {
     AOS.init({})
   }, [])
+  const navigate = useNavigate()
   const router = useRoutes(routes)
   const [isScrollBtnVisible] = useScroll(400)
   const [token, setToken] = useState("")
@@ -26,6 +27,7 @@ function App() {
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
   const [reLoading, setReLoading] = useState(false)
+  const [userPanelSubMenu,setUserPanelSubMenu] = useState("پیشخوان")
   const login = useCallback((userInfos, token) => {
     setToken(token)
     setIsLoggedIn(true)
@@ -52,6 +54,26 @@ function App() {
   function getAllProducts() {
     axios.get("http://localhost:8000/v1/courses").then((res) => {
       setProducts(res.data)
+    })
+  }
+
+  function logoutHandler() {
+    swal({
+      text: " آیا می خواهید از حساب کاربری خود خارج شوید؟",
+      icon: "warning",
+      buttons: ["لغو", "خروج"],
+    }).then((res) => {
+      if (res) {
+        swal({
+          text: "شما با موفقیت از حساب کاربری خود خارج شدید",
+          icon: "success",
+          dangerMode: false,
+          buttons: "تایید",
+        }).then((val) => {
+          logout()
+          navigate("/")
+        })
+      }
     })
   }
 
@@ -174,6 +196,9 @@ function App() {
           minesCart,
           reLoading,
           setReLoading,
+          logoutHandler,
+          userPanelSubMenu,
+          setUserPanelSubMenu
         }}
       >
         {router}

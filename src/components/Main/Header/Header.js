@@ -271,6 +271,22 @@ export default function Header() {
                           >
                             تماس با ما
                           </Link>
+                          <Link
+                            to={
+                              contextDatas.isLoggedIn ? "/my-account" : "/login"
+                            }
+                            className="li-sidebar"
+                            onClick={() => {
+                              contextDatas.setIsOpenSidebarMenu(false)
+                              contextDatas.setUserPanelSubMenu(
+                                "پیشخوان"
+                              )
+                            }}
+                          >
+                            {contextDatas.isLoggedIn
+                              ? "حساب کاربری"
+                              : "ورود/ثبت نام"}
+                          </Link>
 
                           <li
                             onClick={() => {
@@ -418,7 +434,7 @@ export default function Header() {
                           onClick={() =>
                             contextDatas.setIsOpenSidebarCart(false)
                           }
-                          disabled= {!contextDatas.cart.length}
+                          disabled={!contextDatas.cart.length}
                         >
                           <FaCreditCard />
                           تصویه حساب

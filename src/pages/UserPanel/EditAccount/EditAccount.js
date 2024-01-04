@@ -18,35 +18,6 @@ export default function EditAccount() {
       "Content-Type": "application/json",
     },
   }
-  // const localStorageToken = JSON.parse(localStorage.getItem("user"))
-
-  // function ChangeInfosHandler(e) {
-  //   e.preventDefault()
-
-  //   fetch(`http://localhost:8000/v1/users/`, {
-  //     method: "PUT",
-  //     headers: {
-  //       Authorization: `Bearer ${localStorageToken.token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newInfosUser),
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       swal({
-  //         text: 'اطلاعات شما بروزرسانی شد',
-  //         icon: "success",
-  //         dangerMode: false,
-  //         buttons: "تایید",
-  //       }).then(() => {
-  //         navigate('/my-account')
-  //       })
-  //     }
-  //     swal({
-  //       icon: "error",
-  //       buttons: "تایید",
-  //     })
-  //   })
-  // }
 
   const initialValues = {
     name: contextDatas.userInfos.name,
@@ -105,14 +76,14 @@ export default function EditAccount() {
 
   return (
     <div className="w-full">
-      <div className="edit">
-        <div className="edit__personal">
+      <div className="">
+        <div className="">
           <Formik
             initialValues={initialValues}
             onSubmit={userEditInfos}
             validationSchema={validationSchema}
           >
-            <Form className="bg-white grid grid-cols-2 gap-10 p-10 rounded-2xl">
+            <Form className="bg-white grid sm:grid-cols-1 md:grid-cols-2 gap-10 md:p-10 rounded-2xl">
               {/* name  */}
               <div className="relative">
                 <label htmlFor="name" className="text-sm text-zinc-700">
@@ -204,7 +175,7 @@ export default function EditAccount() {
               </div>
 
               {/* login btn  */}
-              <div className="flex items-center justify-center col-span-2">
+              <div className="flex items-center justify-center md:col-span-2">
                 <button
                   // type="submit"
                   className="btn-yearStorySelect text-sm w-1/2"

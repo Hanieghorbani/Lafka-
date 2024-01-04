@@ -29,12 +29,11 @@ import Register from "./pages/Main/Register/Register"
 import Search from "./pages/Main/Search/Search"
 import Checkout from "./pages/Main/Checkout/Checkout"
 
-// user panel 
+// user panel
 import UserPanel from "./pages/UserPanel/Index"
 import MainUserPanel from "./pages/UserPanel/Main/Main"
 import Orders from "./pages/UserPanel/Orders/Orders"
 import ViewOrder from "./pages/UserPanel/ViewOrder/ViewOrder"
-import UserProducts from "./pages/UserPanel/Products/Products"
 import EditAccount from "./pages/UserPanel/EditAccount/EditAccount"
 const routes = [
   { path: "/", element: <Index /> },
@@ -69,7 +68,7 @@ const routes = [
       { path: "category", element: <AdminCategory /> },
     ],
   },
-// user panel 
+  // user panel
   {
     path: "/my-account/*",
     element: <UserPanel />,
@@ -77,7 +76,6 @@ const routes = [
       { path: "", element: <MainUserPanel /> },
       { path: "orders", element: <Orders /> },
       { path: "view-order/:orderID", element: <ViewOrder /> },
-      { path: "products", element: <UserProducts /> },
       { path: "edit-account", element: <EditAccount /> },
     ],
   },
