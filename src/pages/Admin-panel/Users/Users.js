@@ -106,9 +106,10 @@ export default function Users() {
     swal({
       text: "نقش کاربر را وارد کنید: (ADMIN or USER)",
       content: "input",
-      buttons: "ارسال",
+      buttons: ['لغو','ارسال'],
     }).then((role) => {
-      if (role.trim()) {
+      console.log(role);
+      if (role!=null && role.trim()) {
         axios
           .put("http://localhost:8000/v1/users/role", { role, id }, config)
           .then(() => {
@@ -161,7 +162,7 @@ export default function Users() {
       >
         <Form
           id="formik-yup"
-          className="grid grid-cols-2 gap-4 bg-white p-10 rounded-2xl"
+          className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 bg-white p-10 rounded-2xl"
         >
           {/* name  */}
           <div className="text-start">
@@ -230,7 +231,7 @@ export default function Users() {
             />
           </div>
           {/* email  */}
-          <div className=" col-span-2 text-start">
+          <div className=" lg:col-span-2 text-start">
             <label htmlFor="email" className="text-sm text-zinc-700">
               آدرس ایمیل*
             </label>
@@ -248,7 +249,7 @@ export default function Users() {
           </div>
 
           {/* change btn  */}
-          <div className="flex items-center justify-center col-span-2">
+          <div className="flex items-center justify-center lg:col-span-2">
             <button type="submit" className="btn-yearStorySelect text-sm w-1/2">
               ثبت
             </button>
@@ -272,7 +273,7 @@ export default function Users() {
     }).catch(err=>console.log(err))
   }
   return (
-    <div>
+    <div className="container-primary">
       <DataTable title={"لیست کاربران"}>
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>

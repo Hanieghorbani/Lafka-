@@ -108,7 +108,7 @@ export default function Products() {
       .catch((err) => console.log(err))
   }
   return (
-    <div>
+    <div className="container-primary">
       <div className=" mt-20">
         <h1 className="text-2xl font-bold col-span-2 mb-10">
           افزودن محصول جدید
@@ -119,7 +119,7 @@ export default function Products() {
           validationSchema={validationSchema}
           onSubmit={addNewProductHandler}
         >
-          <Form className="bg-zinc-100 grid grid-cols-2 gap-8 p-10 rounded-2xl">
+          <Form className="bg-zinc-100 grid sm:grid-cols-1 md:grid-cols-2 gap-8 sm:p-4 md:p-10 rounded-2xl ">
             {/* name  */}
             <div className="">
               <label htmlFor="name" className="text-sm text-zinc-700">
@@ -185,7 +185,6 @@ export default function Products() {
                 as="select"
                 id="category"
                 name="category"
-                // onChange={(e) => setProdCategory(e.target.value)}
               >
                 <option value="">انتخاب کنید</option>
                 {contextDatas.categorys.map((category) => (
@@ -210,7 +209,7 @@ export default function Products() {
               </label>
               <Field
                 className="form-create-product"
-                type="price"
+                type="number"
                 id="price"
                 name="price"
               />
@@ -278,7 +277,7 @@ export default function Products() {
             </div>
 
             {/* login btn  */}
-            <div className="flex items-center justify-center col-span-2">
+            <div className="flex items-center justify-center md:col-span-2">
               <button type="submit" className="btn bg-green-400 text-sm w-1/2">
                 افزودن
               </button>

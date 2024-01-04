@@ -3,10 +3,13 @@ import { IoMdNotifications } from "react-icons/io"
 import { IoMoonSharp, IoHomeSharp } from "react-icons/io5"
 import ContextData from "../../../ContextData/ContextData.js"
 import { IoMdArrowDropup } from "react-icons/io"
+import { FaBars } from "react-icons/fa6"
+import { IoMdClose } from "react-icons/io";
+
 import axios from "axios"
-export default function Topbar() {
+export default function Topbar({isShowNotifs,setIsShowNotifs}) {
   const contextDatas = useContext(ContextData)
-  const [isShowNotifs, setIsShowNotifs] = useState(false)
+  // const [isShowNotifs, setIsShowNotifs] = useState(false)
   const [notifs, setNotifs] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config = {
@@ -33,28 +36,27 @@ export default function Topbar() {
       .then(() => getAllNotifs())
   }
 
-  
-
-
-
   return (
-    <div className="rounded-3xl py-3 px-7 bg-zinc-100 flex justify-between items-center w-full">
+    <div className="rounded-3xl py-3 bg-zinc-100 flex justify-between items-center w-full sm:container-primary md:px-7">
       <div className="flex gap-8 relative">
-        <IoHomeSharp className="border-2 rounded-full p-3 w-12 h-12 cursor-pointer" />
+        <FaBars className="sm:block lg:hidden border-2 rounded-full p-3 w-12 h-12 cursor-pointer" onClick={()=>contextDatas.setIsOpenSidebarMenuPAdmin(true)}/>
+        <IoHomeSharp className="sm:hidden lg:block border-2 rounded-full p-3 w-12 h-12 cursor-pointer" />
+
         <IoMdNotifications
-          className="border-2 rounded-full p-3 w-12 h-12 cursor-pointer"
+          className="sm:hidden lg:block border-2 rounded-full p-3 w-12 h-12 cursor-pointer"
           onMouseEnter={() => setIsShowNotifs(true)}
         />
-        <IoMoonSharp className="border-2 rounded-full p-3 w-12 h-12 cursor-pointer" />
+        <IoMoonSharp className="sm:hidden md:block border-2 rounded-full p-3 w-12 h-12 cursor-pointer" />
 
         {isShowNotifs && (
           <ul
-            className="absolute top-[3.7rem] rounded-xl -left-56 text-white  bg-green-400 p-4 w-[23rem] space-y-3"
+            className="absolute sm:top-[0] lg:top-[3.7rem] rounded-xl sm:-left-[14rem] lg:-left-56 text-white  bg-green-400 px-4 py-2 lg:w-[23rem] space-y-3 z-[1000]"
             onMouseLeave={() => setIsShowNotifs(false)}
           >
-            <IoMdArrowDropup className="text-green-400 text-4xl -mt-9" />
+            <IoMdArrowDropup className="text-green-400 text-4xl -mt-9 sm:hidden lg:block" />
+            <IoMdClose onClick={()=>setIsShowNotifs(false)}/>
             {notifs.length > 0 ? (
-              <>
+              <div className="space-y-3">
                 {notifs.map((notif) => (
                   <li
                     key={notif._id}
@@ -69,7 +71,7 @@ export default function Topbar() {
                     </button>
                   </li>
                 ))}
-              </>
+              </div>
             ) : (
               <li className="text-lg">هیچ پیغامی وجود ندارد!</li>
             )}

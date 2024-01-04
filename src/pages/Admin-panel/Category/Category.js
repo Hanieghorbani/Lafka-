@@ -99,7 +99,7 @@ export default function Category() {
   }
 
   return (
-    <div>
+    <div className="container-primary">
       <div className=" mt-20">
         <h1 className="text-2xl font-bold col-span-2 mb-10">
           افزودن دسته بندی جدید
@@ -110,7 +110,7 @@ export default function Category() {
           validationSchema={validationSchema}
           onSubmit={addNewCategoryHandler}
         >
-          <Form className="bg-zinc-100 grid grid-cols-2 gap-8 p-10 rounded-2xl">
+          <Form className="bg-zinc-100 grid lg:grid-cols-2 gap-8 p-10 rounded-2xl">
             {/* title*/}
             <div className="">
               <label htmlFor="title" className="text-sm text-zinc-700">
@@ -148,7 +148,7 @@ export default function Category() {
             </div>
 
             {/* login btn  */}
-            <div className="flex items-center justify-center col-span-2">
+            <div className="flex items-center justify-center lg:col-span-2">
               <button type="submit" className="btn bg-green-400 text-sm w-1/2">
                 افزودن
               </button>

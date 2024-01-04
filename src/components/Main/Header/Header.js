@@ -27,7 +27,7 @@ export default function Header() {
       {contextDatas.userInfos.role == "ADMIN" && (
         <Link
           to={"/p-admin"}
-          className=" absolute -top-10 right-10 bg-secondary p-4 pb-2 rounded-b-3xl cursor-pointer flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark"
+          className=" absolute -top-10 right-10 bg-secondary p-4 pb-2 rounded-b-3xl cursor-pointer sm:hidden md:flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark "
         >
           <p>پنل ادمین</p>
           <FaAngleDown className="group-hover:rotate-180 transition-all duration-500" />

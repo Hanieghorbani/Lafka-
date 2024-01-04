@@ -102,7 +102,7 @@ export default function Register() {
           onSubmit={userLogin}
           validationSchema={validationSchema}
         >
-          <Form className="bg-white space-y-7 w-[40%] p-10 rounded-2xl">
+          <Form className="bg-white space-y-7 md:w-2/3 lg:w-[40%] sm:p-5 lg:p-10 rounded-2xl">
             <h1 className="text-3xl text-center">عضویت</h1>
             <div className="text-center">
               <p className=" text-zinc-600">

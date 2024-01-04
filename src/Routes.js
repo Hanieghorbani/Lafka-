@@ -1,6 +1,6 @@
 // panel admin pages
 // import PAdminPrivate from "./components/Privates/PAdminPrivate"
-import AdminPanel from "./pages/Admin-panel/index"
+import AdminPanel from "./pages/Admin-panel/Index"
 import MainAdminPanel from "./pages/Admin-panel/Main/Main"
 import Users from "./pages/Admin-panel/Users/Users"
 import AdminProducts from "./pages/Admin-panel/Products/Products"

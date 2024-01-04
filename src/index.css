@@ -96,7 +96,7 @@
         @apply p-3 my-10;
     }
     .dataTable tr {
-        @apply bg-zinc-100 border-b-8 border-zinc-200;
+        @apply bg-zinc-100 border-b-8 border-zinc-200 sm:overflow-x-scroll;
     }
     .dataTable th:first-child,
     .dataTable td:first-child {

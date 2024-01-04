@@ -24,6 +24,7 @@ function App() {
   const [cart, setCart] = useState([])
   const [countProduct, setCountProduct] = useState(1)
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
+  const [isOpenSidebarMenuPAdmin, setIsOpenSidebarMenuPAdmin] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
   const [reLoading, setReLoading] = useState(false)
@@ -198,7 +199,9 @@ function App() {
           setReLoading,
           logoutHandler,
           userPanelSubMenu,
-          setUserPanelSubMenu
+          setUserPanelSubMenu,
+          isOpenSidebarMenuPAdmin,
+          setIsOpenSidebarMenuPAdmin
         }}
       >
         {router}

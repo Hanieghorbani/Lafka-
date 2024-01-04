@@ -85,9 +85,9 @@ export default function Comments() {
     swal({
       text: "متن پاسخ را وارد کنید:",
       content: "input",
-      buttons: "ارسال",
+      buttons: ['لغو','ارسال'],
     }).then((value) => {
-      if (value.trim()) {
+      if (value && value.trim()) {
         const body = {
           body: value,
         }
@@ -168,7 +168,7 @@ export default function Comments() {
     })
   }
   return (
-    <div>
+    <div className="container-primary">
       <DataTable title={"لیست کامنت ها"}>
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>
