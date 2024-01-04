@@ -30,6 +30,113 @@ export default function ProductInfo() {
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const [score, setScore] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [codeOff, setCodeOff] = useState("")
+  const [newPrice, setNewPrice] = useState("")
+  const [haveOff, setHaveOff] = useState(false)
+  function setOffHandler() {
+    console.log(codeOff)
+    const data = { course: productInfo._id }
+    axios
+      .post(`http://localhost:8000/v1/offs/${codeOff}`, data, config)
+      .then((res) => {
+        setHaveOff(true)
+        setNewPrice(
+          productInfo.price - (productInfo.price * res.data.percent) / 100
+        )
+        console.log(
+          productInfo.price - (productInfo.price * res.data.percent) / 100
+        )
+        swal({
+          text: "کد تخفیف بر روی این محصول  با هر تعدادی،اعمال شد",
+          icon: "success",
+          dangerMode: false,
+          buttons: "تایید",
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err.status === 404) {
+          swal({
+            title: "کد تخفیف نامعتبر است!",
+            icon: "error",
+            dangerMode: true,
+            buttons: "تایید",
+          })
+        } else if (err.status == 409) {
+          swal({
+            title: "این کد تخفیف قبلا استفاده شده",
+            icon: "error",
+            dangerMode: true,
+            buttons: "تایید",
+          })
+        }
+      })
+    // fetch(`http://localhost:4000/v1/offs/${code}`, {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: `Bearer ${localStorageToken.token}`,
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ course: course._id }),
+    // })
+    //   .then((res) => {
+    //     if (res.status == 404) {
+    //       swal({
+    //         title: "کد تخفیف نامعتبر است!",
+    //         icon: "error",
+    //         dangerMode: true,
+    //         buttons: "تایید",
+    //       })
+    //     } else if (res.status == 409) {
+    //       swal({
+    //         title: "این کد تخفیف قبلا استفاده شده",
+    //         icon: "error",
+    //         dangerMode: true,
+    //         buttons: "تایید",
+    //       })
+    //     } else if (res.ok) {
+    //       return res.json()
+    //     }
+    //   })
+    //   .then((result) => {
+    //     swal({
+    //       title: `مبلغ قابل پرداخت با تخفیف: ${
+    //         course.price - (course.price * result.percent) / 100
+    //       }`,
+    //       text: "تواین مرحله باید به درگاه پرداخت منتقل شده وپرداخت با موفقیت انجام بشه.الکی مثلا ما پرداخت رو انجام دادیم:)",
+    //       icon: "warning",
+    //       buttons: "پرداخت",
+    //     }).then((res) => {
+    //       if (res) {
+    //         fetch(`http://localhost:4000/v1/courses/${course._id}/register`, {
+    //           method: "POST",
+    //           headers: {
+    //             Authorization: `Bearer ${localStorageToken.token}`,
+    //             "Content-Type": "application/json",
+    //           },
+    //           body: JSON.stringify({
+    //             price: course.price - (course.price * result.percent) / 100,
+    //           }),
+    //         }).then((res) => {
+    //           if (res.ok) {
+    //             swal({
+    //               title: "تبریک! شما با موفقیت در دوره ثبت نام کردید",
+    //               icon: "success",
+    //               buttons: "تایید",
+    //             }).then(() => {
+    //               getAllInfosCourse()
+    //             })
+    //           } else {
+    //             swal({
+    //               icon: "error",
+    //               buttons: "تایید",
+    //             })
+    //           }
+    //         })
+    //       }
+    //     })
+    //   })
+  }
   const config = {
     headers: {
       Authorization: `Bearer ${localStorageToken.token}`,
@@ -190,12 +297,44 @@ export default function ProductInfo() {
                   <p>آلرژی زا: شیر ، تخم مرغ ، سویا ، گلوتن</p>
                 </div>
                 <div className="flex flex-col sm:gap-5 mt-10">
-                  <h3 className="text-2xl">
-                    <span className="font-[faNum]">
-                      {new Intl.NumberFormat().format(productInfo.price)}
-                    </span>
-                    تومان
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <div className="flex sm:flex-col md:flex-row items-center md:w-2/3 gap-2 sm:mb-5 md:mb-0">
+                      <input
+                        type="text"
+                        className=" border-0 bg-zinc-200  focus:bg-zinc-300 rounded-xl"
+                        placeholder="کد تخفیف"
+                        value={codeOff}
+                        onChange={(e) => setCodeOff(e.target.value)}
+                      />
+                      <button
+                        className="btn bg-info"
+                        onClick={setOffHandler}
+                        disabled={haveOff}
+                      >
+                        اعمال کد
+                      </button>
+                    </div>
+                    <div>
+                      <h3
+                        className={`text-2xl ${
+                          haveOff && "line-through text-zinc-400"
+                        }`}
+                      >
+                        <span className="font-[faNum]">
+                          {new Intl.NumberFormat().format(productInfo.price)}
+                        </span>
+                        تومان
+                      </h3>
+                      {haveOff && (
+                        <h3 className="text-2xl">
+                          <span className="font-[faNum]">
+                            {new Intl.NumberFormat().format(newPrice)}
+                          </span>
+                          تومان
+                        </h3>
+                      )}
+                    </div>
+                  </div>
 
                   <div className="flex items-center sm:justify-between md:justify-start gap-2">
                     {/* <Counter count={productInfo.count || 1} /> */}
@@ -203,7 +342,7 @@ export default function ProductInfo() {
                       className="btn-yearStorySelect text-sm w-1/3"
                       onClick={() => {
                         contextDatas.setIsOpenSidebarCart(true)
-                        contextDatas.addToCart(productInfo)
+                        contextDatas.addToCart(productInfo, newPrice)
                       }}
                     >
                       سفارش

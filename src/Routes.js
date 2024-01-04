@@ -27,6 +27,7 @@ import ProductCategory from "./pages/Main/Product-category/Product-category"
 import ProductInfo from "./pages/Main/Product-info/Product-info"
 import Register from "./pages/Main/Register/Register"
 import Search from "./pages/Main/Search/Search"
+import Checkout from "./pages/Main/Checkout/Checkout"
 
 // user panel 
 import UserPanel from "./pages/UserPanel/Index"
@@ -34,9 +35,6 @@ import MainUserPanel from "./pages/UserPanel/Main/Main"
 import Orders from "./pages/UserPanel/Orders/Orders"
 import ViewOrder from "./pages/UserPanel/ViewOrder/ViewOrder"
 import UserProducts from "./pages/UserPanel/Products/Products"
-import UserTickets from "./pages/UserPanel/Tickets/Tickets"
-import SendTicket from "./pages/UserPanel/Tickets/SendTicket"
-import TicketAnswer from "./pages/UserPanel/Tickets/TicketAnswer"
 import EditAccount from "./pages/UserPanel/EditAccount/EditAccount"
 const routes = [
   { path: "/", element: <Index /> },
@@ -52,6 +50,7 @@ const routes = [
   { path: "/productInfo/:shortName", element: <ProductInfo /> },
   { path: "/register", element: <Register /> },
   { path: "/search", element: <Search /> },
+  { path: "/checkout", element: <Checkout /> },
 
   //admin panel
   {
@@ -79,9 +78,6 @@ const routes = [
       { path: "orders", element: <Orders /> },
       { path: "view-order/:orderID", element: <ViewOrder /> },
       { path: "products", element: <UserProducts /> },
-      { path: "tickets", element: <UserTickets /> },
-      { path: "send-ticket", element: <SendTicket /> },
-      { path: "tickets/answer/:id", element: <TicketAnswer /> },
       { path: "edit-account", element: <EditAccount /> },
     ],
   },

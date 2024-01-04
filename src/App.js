@@ -6,7 +6,7 @@ import { useRoutes } from "react-router-dom"
 import useScroll from "./hooks/useScroll"
 import ContextData from "./ContextData/ContextData"
 import { toast, ToastContainer } from "react-toastify"
-
+import swal from "sweetalert"
 import axios from "axios"
 function App() {
   useEffect(() => {
@@ -55,18 +55,33 @@ function App() {
     })
   }
 
-  function addToCart(prodInfos) {
+  function addToCart(prodInfos, newPrice) {
     const existingItem = cart.find((prod) => prod._id === prodInfos._id)
     if (existingItem) {
-      const addCountProd = cart.map((prod) => {
-        return prod._id == prodInfos._id
-          ? { ...prod, count: prod.count + 1 }
-          : prod
-      })
-      setCart(addCountProd)
-      localStorage.setItem("cart", JSON.stringify(addCountProd))
+      if (newPrice) {
+        const addNewInfos = cart.map((prod) => {
+          return prod._id == prodInfos._id
+            ? { ...prod, count: prod.count + 1, price: newPrice }
+            : prod
+        })
+        setCart(addNewInfos)
+        localStorage.setItem("cart", JSON.stringify(addNewInfos))
+      } else {
+        const addCountProd = cart.map((prod) => {
+          return prod._id == prodInfos._id
+            ? { ...prod, count: prod.count + 1 }
+            : prod
+        })
+        setCart(addCountProd)
+        localStorage.setItem("cart", JSON.stringify(addCountProd))
+      }
     } else {
-      const updateCart = [...cart, { ...prodInfos, count: 1 }]
+      let updateCart
+      if (newPrice) {
+        updateCart = [...cart, { ...prodInfos, count: 1, price: newPrice }]
+      } else {
+        updateCart = [...cart, { ...prodInfos, count: 1 }]
+      }
       setCart(updateCart)
       localStorage.setItem("cart", JSON.stringify(updateCart))
     }

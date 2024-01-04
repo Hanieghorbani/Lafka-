@@ -53,11 +53,6 @@ export default function Sidebar() {
               دوره های خریداری شده
             </Link>
           </li>
-          <li className="sidebar__item">
-            <Link className="font-bold" to={"tickets"}>
-              تیکت های پشتیبانی
-            </Link>
-          </li>
           <li className="sidebar__item" style={{ cursor: "pointer" }}>
             <a className="font-bold" onClick={logoutHandler}>
               خروج از سیستم

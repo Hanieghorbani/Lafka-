@@ -7,7 +7,6 @@ import { CiSquarePlus, CiSquareMinus } from "react-icons/ci"
 import Counter from "../Counter/Counter"
 import ContextData from "../../../ContextData/ContextData"
 export default function ProductCartBoxInPage(prodInfos) {
-  console.log(prodInfos)
   const { cover, name, price, count } = prodInfos
   const [mainCount, setMainCount] = useState(count)
   const contextDatas = useContext(ContextData)

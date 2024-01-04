@@ -5,8 +5,8 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import swal from "sweetalert"
 import { Formik, Form, Field, ErrorMessage } from "formik"
-import Pagination from "../../../components/Pagination/Pagination"
 import * as Yup from "yup"
+import Pagination from "../../../components/Pagination/Pagination"
 export default function Users() {
   const [users, setUsers] = useState([])
   const [shownItems,setShownItems] = useState([])
@@ -270,14 +270,6 @@ export default function Users() {
       getAllUsers()
      })
     }).catch(err=>console.log(err))
-    // swal({
-    //   text: "برای این قسمت هنوز api نوشته نشده.فقط کاربر میتواند از طریق پنل کاربری اقدام به به روزرسانی اطلاعات خود کند",
-    //   icon: "success",
-    //   dangerMode: false,
-    //   buttons: "تایید",
-    // }).then(() => {
-    //   getAllUsers()
-    // })
   }
   return (
     <div>
