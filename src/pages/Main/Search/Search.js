@@ -1,44 +1,47 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
+import axios from "axios"
+import { useParams } from "react-router-dom"
 export default function Search() {
+  const { searchValue } = useParams()
+  const [allResultArticles, setAllResultArticles] = useState([])
+  const [allResultProducts, setAllResultProducts] = useState([])
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/v1/search/${searchValue}`)
+      .then((res) => {
+        setAllResultArticles(res.data.allResultArticles)
+        setAllResultProducts(res.data.allResultCourses)
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [searchValue])
   return (
     <div>
       <TopSection
-        subTitle={"نتیجه جستجو “برگر”"}
+        subTitle={`نتیجه جستجو ''${searchValue}''`}
         bg={"bg-img-search"}
         desc={
           "خدمت با عشق از ابتدا پیتزا ، پاستا ، ساندویچ ، سالاد و خیلی چیزهای دیگر ، ساخته شده برای سفارش و تحویل سریع به همسایگان طرف شمال ما برای ناهار ، شام و اواخر شب."
         }
       />
 
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-20 gap-10 container-primary">
-        <BurgerBox
-          price="320000"
-          img="burger18-300x300 (1).jpg"
-          name="برگر گوشت رویال"
-        />
-        <BurgerBox
-          price="180000"
-          img="burger20-300x300.jpg"
-          name="برگر ساده رویال"
-        />
-        <BurgerBox
-          price="99000"
-          img="shake5-300x300.jpg"
-          name="برگر ساده رویال"
-        />
-        <BurgerBox
-          price="99000"
-          img="shake6-300x300.jpg"
-          name="برگر ساده رویال"
-        />
-        <BurgerBox
-          price="120000"
-          img="shake2-300x300.jpg"
-          name="برگر ساده رویال"
-        />
+      <div className="my-20">
+        {allResultProducts.length ? (
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 container-primary">
+            {allResultProducts.map((prod) => (
+              <BurgerBox key={prod._id} {...prod} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-xl p-3 rounded-lg text-center mx-auto">
+            هیچ نتیجه ای برای ''{searchValue}'' یافت نشد!
+          </p>
+        )}
       </div>
       <Footer />
     </div>

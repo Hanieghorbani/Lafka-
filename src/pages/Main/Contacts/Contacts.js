@@ -3,15 +3,18 @@ import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
+import axios from "axios"
+import swal from "sweetalert"
+import { useNavigate } from "react-router-dom"
 export default function Contacts() {
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")
+  const navigate = useNavigate()
   const initialValues = {
     name: "",
     email: "",
     phone: "",
-    title: "",
-    contentText: "",
+    body: "",
   }
 
   const validationSchema = Yup.object().shape({
@@ -22,10 +25,10 @@ export default function Contacts() {
       .email("فرمت ایمیل وارد شده نا معتبراست")
       .required("ایمیل الزامی است"),
     phone: Yup.string().required("تلفن الزامی است"),
-    contentText: Yup.string()
+    body: Yup.string()
       .required("متن پیام الزامی است")
       .min(20, "پیام وارد شده نمی تواند کمتر از 20 حرف باشد"),
-    captcha: Yup.number('نتیجه را به عدد وارد کنید')
+    captcha: Yup.number("نتیجه را به عدد وارد کنید")
       .required("نتیجه محاسبه الزامی است")
       .test("captcha", "نتیجه محاسبه صحیح نیست", (value) => {
         return value && value == answer
@@ -51,6 +54,29 @@ export default function Contacts() {
     setCaptcha(`${num1} ${operator} ${num2}`)
     setAnswer(getResult(num1, operator, num2))
   }, [])
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+
+  function sendMsgHandler(values) {
+    delete values.captcha
+    console.log(values)
+    axios
+      .post("http://localhost:8000/v1/contact", values, config)
+      .then((res) => {
+        swal({
+          title: "پیام شده ارسال شد",
+          icon: "success",
+          dangerMode: false,
+          buttons: "تایید",
+        }).then(() => {
+          navigate("/")
+        })
+      })
+  }
   return (
     <div>
       <TopSection subTitle={"تماس با ما"} bg={"bg-img-contact"} />
@@ -67,13 +93,14 @@ export default function Contacts() {
         </div>
         <div className="md:col-span-2">
           <h1 className="sm:text-lg md:text-2xl mb-5">
-            چیزی در ذهن شماست؟ ما از بازخورد شما قدردانی می کنیم
-            فرم زیر را پر کنید و به زودی به شما جواب خواهیم داد.
+            چیزی در ذهن شماست؟ ما از بازخورد شما قدردانی می کنیم فرم زیر را پر
+            کنید و به زودی به شما جواب خواهیم داد.
           </h1>
           <div className="border rounded-2xl p-4">
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
+              onSubmit={sendMsgHandler}
             >
               <Form className="space-y-10">
                 <div className="relative">
@@ -128,22 +155,19 @@ export default function Contacts() {
                   />
                 </div>
                 <div className=" md:col-span-3 relative">
-                  <label
-                    htmlFor="contentText"
-                    className="text-sm text-zinc-500"
-                  >
+                  <label htmlFor="body" className="text-sm text-zinc-500">
                     متن پیام:
                   </label>
                   <Field
                     as="textarea"
                     type="text"
-                    id="contentText"
-                    name="contentText"
+                    id="body"
+                    name="body"
                     className="form-contact h-40"
                     style={{ boxShadow: "none" }}
                   />
                   <ErrorMessage
-                    name="contentText"
+                    name="body"
                     component="div"
                     className="error form-error  md:w-1/2"
                   />

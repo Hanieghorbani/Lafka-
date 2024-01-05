@@ -48,7 +48,7 @@ const routes = [
   { path: "/productCategory/:shortName", element: <ProductCategory /> },
   { path: "/productInfo/:shortName", element: <ProductInfo /> },
   { path: "/register", element: <Register /> },
-  { path: "/search", element: <Search /> },
+  { path: "/search/:searchValue", element: <Search /> },
   { path: "/checkout", element: <Checkout /> },
 
   //admin panel
@@ -60,7 +60,7 @@ const routes = [
       { path: "users/:page", element: <Users /> },
       { path: "products/:page", element: <AdminProducts /> },
       { path: "articles", element: <AdminArticles /> },
-      { path: "contacts", element: <AdminContacts /> },
+      { path: "messages", element: <AdminContacts /> },
       { path: "comments/:page", element: <Comments /> },
       { path: "offers", element: <Offers /> },
       { path: "discount", element: <DiscountG /> },

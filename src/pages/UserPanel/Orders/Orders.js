@@ -36,7 +36,7 @@ export default function Orders() {
             </thead>
             <tbody className="">
               {orders.map((order, index) => (
-                <tr key={order._id} className="border-b-2 text-xs">
+                <tr key={order._id} className="border-b-2 sm:text-xs md:text-base">
                   <td className="text-center py-5">
                     <a href="#" className="">
                       {index + 1}

@@ -17,6 +17,7 @@ import useScroll from "../../../hooks/useScroll"
 export default function Header() {
   const [isFixed] = useScroll(67)
   const contextDatas = useContext(ContextData)
+  const [searchValue, setSearchValue] = useState("")
   return (
     <div
       className={`w-full  z-50 text-white container-primary transition-all duration-500 py-5 fixed top-0 ${
@@ -278,9 +279,7 @@ export default function Header() {
                             className="li-sidebar"
                             onClick={() => {
                               contextDatas.setIsOpenSidebarMenu(false)
-                              contextDatas.setUserPanelSubMenu(
-                                "پیشخوان"
-                              )
+                              contextDatas.setUserPanelSubMenu("پیشخوان")
                             }}
                           >
                             {contextDatas.isLoggedIn
@@ -429,16 +428,16 @@ export default function Header() {
                           <CiShoppingCart className="text-xl font-bold" />
                           مشاهده سبد خرید{" "}
                         </Link>
-                        <button
+                        <Link
+                        to={'/checkout'}
                           className="bg-zinc-300  shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
                           onClick={() =>
                             contextDatas.setIsOpenSidebarCart(false)
                           }
-                          disabled={!contextDatas.cart.length}
                         >
                           <FaCreditCard />
                           تصویه حساب
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </Dialog.Panel>
@@ -529,8 +528,15 @@ export default function Header() {
                             type="text"
                             className="form-contact"
                             placeholder="جستجوی محصولات"
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
                           />
-                          <Link to={"/search"}>
+                          <Link
+                            to={`/search/${searchValue}`}
+                            onClick={() =>
+                              contextDatas.setIsOpenSideSearch(false)
+                            }
+                          >
                             <AiOutlineSearch className=" absolute top-1 left-2 text-dark cursor-pointer text-3xl" />
                           </Link>
                         </div>
