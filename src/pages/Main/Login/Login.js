@@ -9,15 +9,16 @@ import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
-export default function Login() {
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
 
+export default function Login() {
   const contextData = useContext(ContextData)
+  const [isVisiblePass, setIsVisiblePass] = useState(false)
   const navigate = useNavigate()
   const initialValues = {
     identifier: "",
     password: "",
   }
-
 
   function userLogin(values, { resetForm }) {
     console.log(values)
@@ -62,7 +63,9 @@ export default function Login() {
     identifier: Yup.string()
       .required("نام کاربری یا آدرس ایمیل الزامی است")
       .min(3, "نام باید حداقل ۳ حرف داشته باشد"),
-    password: Yup.string().required("رمز عبور الزامی است").min(8,'رمز عبور باید حداقل 8 کاراکتر باشد'),
+    password: Yup.string()
+      .required("رمز عبور الزامی است")
+      .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد"),
   })
 
   return (
@@ -97,7 +100,6 @@ export default function Login() {
                 type="text"
                 id="identifier"
                 name="identifier"
-                style={{ boxShadow: "none" }}
               />
               <ErrorMessage
                 name="identifier"
@@ -111,16 +113,28 @@ export default function Login() {
               </label>
               <Field
                 className="form-contact"
-                type="password"
+                type={isVisiblePass ? 'text' : 'password'}
                 id="password"
                 name="password"
-                style={{ boxShadow: "none" }}
               />
               <ErrorMessage
                 name="password"
                 component="div"
                 className="error form-error  md:w-1/2"
               />
+              <div>
+                {isVisiblePass ? (
+                  <MdOutlineVisibility
+                    onClick={() => setIsVisiblePass(false)}
+                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
+                  />
+                ) : (
+                  <MdOutlineVisibilityOff
+                    onClick={() => setIsVisiblePass(true)}
+                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
+                  />
+                )}
+              </div>
             </div>
 
             <div className="flex sm:flex-col lg:flex-row lg:items-center justify-between gap-2">
@@ -132,7 +146,6 @@ export default function Login() {
                 گذرواژه خود را فراموش کرده اید؟
               </p>
             </div>
-      
 
             {/* login btn  */}
             <div className="flex items-center justify-center">

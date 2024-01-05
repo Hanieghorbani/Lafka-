@@ -4,12 +4,17 @@ import Footer from "../../../components/Main/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import axios from "axios"
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
+
 import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 export default function Register() {
   const contextData = useContext(ContextData)
+  const [isVisiblePass, setIsVisiblePass] = useState(false)
+  const [isVisiblePassConfirm, setIsVisiblePassConfirm] = useState(false)
+
   const navigate = useNavigate()
   const initialValues = {
     name: "",
@@ -201,6 +206,19 @@ export default function Register() {
                 component="div"
                 className="error form-error  md:w-1/2"
               />
+              <div>
+                {isVisiblePass ? (
+                  <MdOutlineVisibility
+                    onClick={() => setIsVisiblePass(false)}
+                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
+                  />
+                ) : (
+                  <MdOutlineVisibilityOff
+                    onClick={() => setIsVisiblePass(true)}
+                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
+                  />
+                )}
+              </div>
             </div>
             <div className="relative">
               <label
@@ -220,6 +238,19 @@ export default function Register() {
                 component="div"
                 className="error form-error  md:w-1/2"
               />
+              <div>
+                {isVisiblePassConfirm ? (
+                  <MdOutlineVisibility
+                    onClick={() => setIsVisiblePassConfirm(false)}
+                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
+                  />
+                ) : (
+                  <MdOutlineVisibilityOff
+                    onClick={() => setIsVisiblePassConfirm(true)}
+                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
+                  />
+                )}
+              </div>
             </div>
 
             {/* login btn  */}
