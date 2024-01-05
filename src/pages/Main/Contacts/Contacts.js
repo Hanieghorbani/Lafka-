@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
@@ -6,10 +6,12 @@ import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
+import ContextData from "../../../ContextData/ContextData"
 export default function Contacts() {
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")
   const navigate = useNavigate()
+  const {config} = useContext(ContextData)
   const initialValues = {
     name: "",
     email: "",
@@ -55,15 +57,9 @@ export default function Contacts() {
     setAnswer(getResult(num1, operator, num2))
   }, [])
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }
 
   function sendMsgHandler(values) {
     delete values.captcha
-    console.log(values)
     axios
       .post("http://localhost:8000/v1/contact", values, config)
       .then((res) => {

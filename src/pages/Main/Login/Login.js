@@ -3,7 +3,6 @@ import Header from "../../../components/Main/Header/Header"
 import Footer from "../../../components/Main/Footer/Footer"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import useFetch from "../../../hooks/useFetch"
 import axios from "axios"
 import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
@@ -12,7 +11,7 @@ import { Link } from "react-router-dom"
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
 
 export default function Login() {
-  const contextData = useContext(ContextData)
+  const {config,login} = useContext(ContextData)
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   const navigate = useNavigate()
   const initialValues = {
@@ -20,27 +19,18 @@ export default function Login() {
     password: "",
   }
 
-  function userLogin(values, { resetForm }) {
-    console.log(values)
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-
-    //  resetForm()
+  function userLogin(values) {
     axios
       .post("http://localhost:8000/v1/auth/login", values, config)
       .then((res) => {
-        console.log(res.data)
-        contextData.login([], res.data.accessToken)
+        login([], res.data.accessToken)
 
         swal({
           text: " شما با موفقیت وارد حساب کاربری خود شدید",
           icon: "success",
           dangerMode: false,
           buttons: "ورود به پنل",
-        }).then((value) => {
+        }).then(() => {
           navigate("/")
         })
       })

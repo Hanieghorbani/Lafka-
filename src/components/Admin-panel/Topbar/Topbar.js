@@ -4,19 +4,14 @@ import { IoMoonSharp, IoHomeSharp } from "react-icons/io5"
 import ContextData from "../../../ContextData/ContextData.js"
 import { IoMdArrowDropup } from "react-icons/io"
 import { FaBars } from "react-icons/fa6"
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose } from "react-icons/io"
 
 import axios from "axios"
-export default function Topbar({isShowNotifs,setIsShowNotifs}) {
-  const contextDatas = useContext(ContextData)
-  // const [isShowNotifs, setIsShowNotifs] = useState(false)
+export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
   const [notifs, setNotifs] = useState([])
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-    },
-  }
+  const { config, setIsOpenSidebarMenuPAdmin, userInfos } =
+    useContext(ContextData)
+
   useEffect(() => {
     getAllNotifs()
   }, [])
@@ -39,7 +34,10 @@ export default function Topbar({isShowNotifs,setIsShowNotifs}) {
   return (
     <div className="rounded-3xl py-3 bg-zinc-100 flex justify-between items-center w-full sm:container-primary md:px-7">
       <div className="flex gap-8 relative">
-        <FaBars className="sm:block lg:hidden border-2 rounded-full p-3 w-12 h-12 cursor-pointer" onClick={()=>contextDatas.setIsOpenSidebarMenuPAdmin(true)}/>
+        <FaBars
+          className="sm:block lg:hidden border-2 rounded-full p-3 w-12 h-12 cursor-pointer"
+          onClick={() => setIsOpenSidebarMenuPAdmin(true)}
+        />
         <IoHomeSharp className="sm:hidden lg:block border-2 rounded-full p-3 w-12 h-12 cursor-pointer" />
 
         <IoMdNotifications
@@ -54,7 +52,7 @@ export default function Topbar({isShowNotifs,setIsShowNotifs}) {
             onMouseLeave={() => setIsShowNotifs(false)}
           >
             <IoMdArrowDropup className="text-green-400 text-4xl -mt-9 sm:hidden lg:block" />
-            <IoMdClose onClick={()=>setIsShowNotifs(false)}/>
+            <IoMdClose onClick={() => setIsShowNotifs(false)} />
             {notifs.length > 0 ? (
               <div className="space-y-3">
                 {notifs.map((notif) => (
@@ -82,7 +80,7 @@ export default function Topbar({isShowNotifs,setIsShowNotifs}) {
         <div>
           <img src="" alt="" />
           <div className="text-center">
-            <p className="font-bold"> {contextDatas.userInfos.name}</p>
+            <p className="font-bold"> {userInfos.name}</p>
             <p className="text-sm">ادمین</p>
           </div>
         </div>

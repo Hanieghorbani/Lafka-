@@ -9,17 +9,9 @@ import { Link } from "react-router-dom"
 import swal from "sweetalert"
 import axios from "axios"
 export default function Checkout() {
-  const contextDatas = useContext(ContextData)
   const [paymentMethod, setPaymentMethod] = useState("credit")
   const [readPolicy, setReadPolicy] = useState(false)
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
+  const { config, cart, setCart } = useContext(ContextData)
   const initialValues = {
     state: "",
     city: "",
@@ -51,9 +43,7 @@ export default function Checkout() {
             dangerMode: false,
             buttons: "تایید",
           }).then(() => {
-            console.log(contextDatas.cart)
-            contextDatas.cart.forEach((product) => {
-              console.log()
+            cart.forEach((product) => {
               const data = { price: product.price }
               axios
                 .post(
@@ -62,8 +52,7 @@ export default function Checkout() {
                   config
                 )
                 .then((res) => {
-                  console.log(res)
-                  contextDatas.setCart([])
+                  setCart([])
                   localStorage.setItem("cart", JSON.stringify([]))
                 })
                 .catch((err) => console.log(err))
@@ -86,7 +75,6 @@ export default function Checkout() {
         <div className="col-span-2">
           <Formik
             initialValues={initialValues}
-            // onSubmit={paymentHandler}
             validationSchema={validationSchema}
           >
             <Form
@@ -95,7 +83,7 @@ export default function Checkout() {
             >
               <h1 className="text-3xl">جزئیات صورتحساب</h1>
 
-              {/* name  */}
+              {/* state  */}
               <div className="relative">
                 <label htmlFor="state" className="text-sm text-zinc-700">
                   استان
@@ -113,7 +101,7 @@ export default function Checkout() {
                 />
               </div>
 
-              {/* user name  */}
+              {/* city */}
               <div className="relative">
                 <label htmlFor="city" className="text-sm text-zinc-700">
                   شهر
@@ -194,7 +182,7 @@ export default function Checkout() {
               </tr>
             </thead>
             <tbody>
-              {contextDatas.cart.map((item) => (
+              {cart.map((item) => (
                 <tr className="text-sm border-b">
                   <td className="flex items-center text-start p-5 text-zinc-600">
                     {item.name} <IoCloseOutline className="text-zinc-800" />{" "}
@@ -214,7 +202,7 @@ export default function Checkout() {
             <p className=" text-xl text-black">
               <span className="font-[faNum]">
                 {new Intl.NumberFormat().format(
-                  contextDatas.cart.reduce(
+                  cart.reduce(
                     (total, product) => total + product.price * product.count,
                     0
                   )

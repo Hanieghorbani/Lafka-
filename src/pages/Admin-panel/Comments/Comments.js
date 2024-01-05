@@ -1,18 +1,13 @@
+import React, { useContext, useEffect, useState } from "react"
 import axios from "axios"
-import React, { useEffect, useState } from "react"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import swal from "sweetalert"
 import Pagination from "../../../components/Pagination/Pagination"
+import ContextData from "../../../ContextData/ContextData"
 export default function Comments() {
   const [comments, setComments] = useState([])
   const [shownItems, setShownItems] = useState([])
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
+  const { config } = useContext(ContextData)
   useEffect(() => {
     getAllComments()
   }, [])
@@ -85,7 +80,7 @@ export default function Comments() {
     swal({
       text: "متن پاسخ را وارد کنید:",
       content: "input",
-      buttons: ['لغو','ارسال'],
+      buttons: ["لغو", "ارسال"],
     }).then((value) => {
       if (value && value.trim()) {
         const body = {

@@ -10,21 +10,14 @@ import ContextData from "../../../ContextData/ContextData"
 
 export default function EditAccount() {
   const navigate = useNavigate()
-  const contextDatas = useContext(ContextData)
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
-
+  const { config, userInfos,setReLoading } = useContext(ContextData)
+  const { name, username, email, phone } = userInfos
   const initialValues = {
-    name: contextDatas.userInfos.name,
-    username: contextDatas.userInfos.username,
-    email: contextDatas.userInfos.email,
+    name,
+    username,
+    email,
     password: "",
-    phone: contextDatas.userInfos.phone,
+    phone,
   }
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("نام و نام خانوادگی الزامی است"),
@@ -62,7 +55,7 @@ export default function EditAccount() {
           buttons: "تایید",
         }).then(() => {
           navigate("/my-account")
-          contextDatas.setReLoading((prev) => !prev)
+          setReLoading((prev) => !prev)
         })
       })
       .catch((err) => {

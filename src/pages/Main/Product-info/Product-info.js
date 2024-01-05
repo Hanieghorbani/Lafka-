@@ -2,37 +2,35 @@ import React, { useState, useRef, useEffect, useContext } from "react"
 import Header from "../../../components/Main/Header/Header"
 import Footer from "../../../components/Main/Footer/Footer"
 import EnergyBox from "../../../components/Main/EnergyBox/EnergyBox"
-import Counter from "../../../components/Main/Counter/Counter"
+import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
+import ContextData from "../../../ContextData/ContextData"
 // icons
-import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
+import { CiHeart} from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
 import { FaHeartbeat, FaRegUserCircle, FaStar, FaRegStar } from "react-icons/fa"
 // end of icons
 import { Link, useParams } from "react-router-dom"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import StarRatings from "react-star-ratings"
-import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 import axios from "axios"
-import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
 import jalaliMoment from "jalali-moment"
 export default function ProductInfo() {
   const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
-  const [rating, setRating] = useState(0)
   const [productInfo, setProductInfo] = useState([])
   const [related, setRelated] = useState([])
   const { shortName } = useParams()
   const stars = [false, false, false, false, false]
   const [mainStar, setMainStar] = useState(stars)
   const [isClickStar, setIsClickStar] = useState(false)
-  const contextDatas = useContext(ContextData)
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
+
   const [score, setScore] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [codeOff, setCodeOff] = useState("")
   const [newPrice, setNewPrice] = useState("")
   const [haveOff, setHaveOff] = useState(false)
+  const { config, cart, categorys, setIsOpenSidebarCart, addToCart } =
+    useContext(ContextData)
   function setOffHandler() {
     console.log(codeOff)
     const data = { course: productInfo._id }
@@ -72,19 +70,11 @@ export default function ProductInfo() {
         }
       })
   }
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
   useEffect(() => {
     axios
       .get(`http://localhost:8000/v1/courses/${shortName}`, config)
       .then((res) => {
-        const isProdInCart = contextDatas.cart.find(
-          (prod) => prod._id === res.data._id
-        )
+        const isProdInCart = cart.find((prod) => prod._id === res.data._id)
         if (isProdInCart) {
           console.log("is exist")
           setProductInfo(isProdInCart)
@@ -164,7 +154,6 @@ export default function ProductInfo() {
       .catch((err) => console.log(err))
   }
 
-
   return (
     <div>
       <div className="bg-primary">
@@ -172,7 +161,7 @@ export default function ProductInfo() {
       </div>
       <div className="w-3/4 bg-primary mt-[11.5rem] container-primary p-3 rounded-b-3xl">
         <div className="w-1/2 text-white flex items-center justify-between mx-auto">
-          {contextDatas.categorys.map((category) => (
+          {categorys.map((category) => (
             <Link
               to={`/productCategory/${category.name}`}
               key={category._id}
@@ -272,8 +261,8 @@ export default function ProductInfo() {
                     <button
                       className="btn-yearStorySelect text-sm w-1/3"
                       onClick={() => {
-                        contextDatas.setIsOpenSidebarCart(true)
-                        contextDatas.addToCart(productInfo, newPrice)
+                        setIsOpenSidebarCart(true)
+                        addToCart(productInfo, newPrice)
                       }}
                     >
                       سفارش

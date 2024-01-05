@@ -13,15 +13,7 @@ export default function Offers() {
   const [products, setProducts] = useState([])
   const [offCodes, setOfCodes] = useState([])
   const [productName, setProductName] = useState({})
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
-
+  const { config } = useContext(ContextData)
   const initialValues = {
     code: "",
     percent: "",

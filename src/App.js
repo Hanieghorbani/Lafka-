@@ -14,7 +14,6 @@ function App() {
   }, [])
   const navigate = useNavigate()
   const router = useRoutes(routes)
-  const [isScrollBtnVisible] = useScroll(400)
   const [token, setToken] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userInfos, setUserInfos] = useState([])
@@ -23,6 +22,7 @@ function App() {
   const [infos, setInfos] = useState([])
   const [cart, setCart] = useState([])
   const [countProduct, setCountProduct] = useState(1)
+  const [isScrollBtnVisible] = useScroll(400)
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarMenuPAdmin, setIsOpenSidebarMenuPAdmin] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
@@ -35,6 +35,13 @@ function App() {
     setUserInfos(userInfos)
     localStorage.setItem("user", JSON.stringify({ token }))
   }, [])
+  const localStorageToken = JSON.parse(localStorage.getItem("user"))
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorageToken.token}`,
+      "Content-Type": "application/json",
+    },
+  }
 
   const logout = useCallback(() => {
     setToken(null)
@@ -74,6 +81,7 @@ function App() {
           logout()
           navigate("/")
         })
+      
       }
     })
   }
@@ -143,11 +151,6 @@ function App() {
   useEffect(() => {
     const localStorageToken = JSON.parse(localStorage.getItem("user"))
     if (localStorageToken) {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${localStorageToken.token}`,
-        },
-      }
       axios
         .get("http://localhost:8000/v1/auth/me", config)
         .then((userDatas) => {
@@ -201,7 +204,8 @@ function App() {
           userPanelSubMenu,
           setUserPanelSubMenu,
           isOpenSidebarMenuPAdmin,
-          setIsOpenSidebarMenuPAdmin
+          setIsOpenSidebarMenuPAdmin,
+          config
         }}
       >
         {router}

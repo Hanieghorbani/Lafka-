@@ -1,24 +1,18 @@
-import React from "react"
+import React, { useContext } from "react"
 import axios from "axios"
 import swal from "sweetalert"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
+import ContextData from "../../../ContextData/ContextData"
 
 export default function DiscountG() {
+  const {config} = useContext(ContextData)
   const validationSchema = Yup.object().shape({
     percent: Yup.string().required("درصد تخفیف همگانی الزامی است"),
   })
   const initialValues = {
     percent: "",
   }
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
-
   function addDiscount(value, { resetForm }) {
     const data = { discount: value.percent }
     axios.post("http://localhost:8000/v1/offs/all", data, config).then(() => {

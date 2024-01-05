@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import jalaliMoment from "jalali-moment"
 import axios from "axios"
+import ContextData from "../../../ContextData/ContextData"
 
 export default function Orders() {
   const [orders, setOrders] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
+  const {config} = useContext(ContextData)
   useEffect(() => {
     axios.get(`http://localhost:8000/v1/orders`, config).then((res) => {
       setOrders(res.data)

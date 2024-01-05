@@ -4,7 +4,7 @@ import axios from "axios"
 import swal from "sweetalert"
 import Swal from "sweetalert2"
 import ReactDOM from "react-dom"
-
+import Input from "../../../components/Input/Input"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import Pagination from "../../../components/Pagination/Pagination"
@@ -14,17 +14,12 @@ export default function Products() {
   const [shownItems, setShownItems] = useState([])
   const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
-  const contextDatas = useContext(ContextData)
+  const { config, getAllCategorys, getAllProducts, categorys, products } =
+    useContext(ContextData)
   const [selectProduct, setSelectProduct] = useState([])
   const { page } = useParams()
-  const [coverUpdate,setCoverUpdate] = useState([])
+  const [coverUpdate, setCoverUpdate] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config1 = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
   const config2 = {
     headers: {
       Authorization: `Bearer ${localStorageToken.token}`,
@@ -50,8 +45,8 @@ export default function Products() {
     stock: Yup.string().required("موجودی محصول الزامی است"),
   })
   useEffect(() => {
-    contextDatas.getAllProducts()
-    contextDatas.getAllCategorys()
+    getAllProducts()
+    getAllCategorys()
   }, [])
   function removeProductHandler(id) {
     swal({
@@ -61,7 +56,7 @@ export default function Products() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/courses/${id}`, config1)
+          .delete(`http://localhost:8000/v1/courses/${id}`, config)
           .then(() => {
             swal({
               text: "محصول با موفقیت حذف شد",
@@ -69,7 +64,7 @@ export default function Products() {
               dangerMode: false,
               buttons: "تایید",
             }).then(() => {
-              contextDatas.getAllProducts()
+              getAllProducts()
             })
           })
           .catch((err) => {
@@ -86,18 +81,17 @@ export default function Products() {
   }
 
   function addNewProductHandler(values, { resetForm }) {
-    console.log(values, coverFile)
     const formData = new FormData()
-    formData.append("name", values.name)
-    formData.append("description", values.description)
-    formData.append("shortName", values.url)
-    formData.append("categoryID", values.category)
-    formData.append("price", values.price)
-    formData.append("scale", values.scale)
-    formData.append("stock", values.stock)
+    const { name, description, url, category, price, scale, stock } = values
+    formData.append("name", name)
+    formData.append("description", description)
+    formData.append("shortName", url)
+    formData.append("categoryID", category)
+    formData.append("price", price)
+    formData.append("scale", scale)
+    formData.append("stock", stock)
     formData.append("cover", coverFile)
 
-    console.log(formData)
     axios
       .post("http://localhost:8000/v1/courses/", formData, config2)
       .then((res) => {
@@ -106,7 +100,7 @@ export default function Products() {
           icon: "success",
           buttons: "تایید",
         }).then(() => {
-          contextDatas.getAllProducts()
+          getAllProducts()
           resetForm()
         })
       })
@@ -117,14 +111,15 @@ export default function Products() {
     setSelectProduct(prodInfos)
     const seetAlertContainer = document.createElement("div")
     document.body.appendChild(seetAlertContainer)
+    const { name, price, description, shortName, scale, stock } = prodInfos
     const initialValues = {
-      name: prodInfos.name,
-      price: prodInfos.price,
-      description: prodInfos.description,
-      url: prodInfos.shortName,
-      category:'',
-      scale: prodInfos.scale,
-      stock: prodInfos.stock,
+      name,
+      price,
+      description,
+      url:shortName,
+      category: "",
+      scale,
+      stock,
     }
     Swal.fire({
       title: "اطلاعات جدید را وارد کنید",
@@ -141,59 +136,11 @@ export default function Products() {
         onSubmit={changeProductInfos}
       >
         <Form className="bg-zinc-100 grid sm:grid-cols-1 gap-8 sm:p-4 md:p-10 rounded-2xl ">
-          {/* name  */}
-          <div className="">
-            <label htmlFor="name" className="text-sm text-zinc-700">
-              نام محصول
-            </label>
-            <Field
-              className="form-create-product"
-              type="text"
-              id="name"
-              name="name"
-            />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input label={"نام محصول*"} id={"name"} />
 
-          {/* descs*/}
-          <div className="">
-            <label htmlFor="description" className="text-sm text-zinc-700">
-              توضیحات محصول
-            </label>
-            <Field
-              className="form-create-product"
-              type="text"
-              id="description"
-              name="description"
-            />
-            <ErrorMessage
-              name="description"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input id={"description"} label={"توضیحات محصول"} />
 
-          {/* url  */}
-          <div className="">
-            <label htmlFor="url" className="text-sm text-zinc-700">
-              لینک محصول
-            </label>
-            <Field
-              className="form-create-product"
-              type="text"
-              id="url"
-              name="url"
-            />
-            <ErrorMessage
-              name="url"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input id={"url"} label={"لینک محصول"} />
 
           {/* category  */}
           <div className="">
@@ -208,7 +155,7 @@ export default function Products() {
               name="category"
             >
               <option value="">انتخاب کنید</option>
-              {contextDatas.categorys.map((category) => (
+              {categorys.map((category) => (
                 <option
                   key={category._id}
                   value={category._id}
@@ -223,59 +170,11 @@ export default function Products() {
             />
           </div>
 
-          {/* price  */}
-          <div className="">
-            <label htmlFor="price" className="text-sm text-zinc-700">
-              قیمت محصول
-            </label>
-            <Field
-              className="form-create-product"
-              type="number"
-              id="price"
-              name="price"
-            />
-            <ErrorMessage
-              name="price"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input id={"price"} label={"قیمت محصول"} />
 
-          {/* scale  */}
-          <div className="">
-            <label htmlFor="scale" className="text-sm text-zinc-700">
-              وزن محصول
-            </label>
-            <Field
-              className="form-create-product"
-              type="number"
-              id="scale"
-              name="scale"
-            />
-            <ErrorMessage
-              name="scale"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input id={"scale"} label={"وزن محصول"} />
 
-          {/* stock  */}
-          <div className="">
-            <label htmlFor="stock" className="text-sm text-zinc-700">
-              موجودی محصول
-            </label>
-            <Field
-              className="form-create-product"
-              type="number"
-              id="stock"
-              name="stock"
-            />
-            <ErrorMessage
-              name="stock"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input id={"stock"} label={"موجودی محصول"} />
 
           {/* cover  */}
           <div className="">
@@ -309,8 +208,8 @@ export default function Products() {
     )
   }
 
-  function changeProductInfos(values,{resetForm}) {
-    console.log(coverUpdate,values)
+  function changeProductInfos(values, { resetForm }) {
+    console.log(coverUpdate, values)
     const formData = new FormData()
     formData.append("name", values.name)
     formData.append("description", values.description)
@@ -334,7 +233,7 @@ export default function Products() {
           icon: "success",
           buttons: "تایید",
         }).then(() => {
-          contextDatas.getAllProducts()
+          getAllProducts()
           resetForm()
         })
       })
@@ -420,7 +319,7 @@ export default function Products() {
                 name="category"
               >
                 <option value="">انتخاب کنید</option>
-                {contextDatas.categorys.map((category) => (
+                {categorys.map((category) => (
                   <option
                     key={category._id}
                     value={category._id}
@@ -569,7 +468,7 @@ export default function Products() {
         </table>
 
         <Pagination
-          items={contextDatas.products}
+          items={products}
           itemsCount={5}
           pathname="/p-admin/products"
           setShownItems={setShownItems}

@@ -10,12 +10,7 @@ import ContextData from "../../../ContextData/ContextData"
 export default function Category() {
   const contextDatas = useContext(ContextData)
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
+  const {config,getAllCategorys,categorys,} = useContext(ContextData)
   const initialValues = {
     title: "",
     name: "",
@@ -25,7 +20,7 @@ export default function Category() {
     title: Yup.string().required("عنوان دسته بندی الزامی است"),
   })
   useEffect(() => {
-    contextDatas.getAllCategorys()
+    getAllCategorys()
   }, [])
   function removeCategoryHandler(id) {
     swal({
@@ -43,7 +38,7 @@ export default function Category() {
               dangerMode: false,
               buttons: "تایید",
             }).then(() => {
-              contextDatas.getAllCategorys()
+              getAllCategorys()
             })
           })
           .catch((err) => console.log(err))
@@ -74,7 +69,7 @@ export default function Category() {
               config
             )
             .then(() => {
-              contextDatas.getAllCategorys()
+              getAllCategorys()
             })
         }
       }
@@ -167,7 +162,7 @@ export default function Category() {
             </tr>
           </thead>
           <tbody>
-            {contextDatas.categorys.map((category, index) => (
+            {categorys.map((category, index) => (
               <tr key={category._id}>
                 <td>{index + 1}</td>
                 <td>{category.title}</td>

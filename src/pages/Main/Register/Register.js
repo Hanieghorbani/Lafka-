@@ -11,10 +11,9 @@ import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 export default function Register() {
-  const contextData = useContext(ContextData)
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   const [isVisiblePassConfirm, setIsVisiblePassConfirm] = useState(false)
-
+  const { config, login } = useContext(ContextData)
   const navigate = useNavigate()
   const initialValues = {
     name: "",
@@ -49,25 +48,18 @@ export default function Register() {
       .required("تکرار رمز عبور الزامی است")
       .oneOf([Yup.ref("password"), null], "تکرار رمز عبور مطابقت ندارد"),
   })
-  function userLogin(values, { resetForm }) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-   
+  function userLogin(values) {
     axios
       .post("http://localhost:8000/v1/auth/register", values, config)
       .then((res) => {
-        console.log(res.data)
-        contextData.login([], res.data.accessToken)
+        login([], res.data.accessToken)
 
         swal({
           text: " شما با موفقیت وارد حساب کاربری خود شدید",
           icon: "success",
           dangerMode: false,
           buttons: "ورود به پنل",
-        }).then((value) => {
+        }).then(() => {
           navigate("/my-account")
         })
       })
@@ -197,7 +189,7 @@ export default function Register() {
               </label>
               <Field
                 className="form-contact"
-                type={isVisiblePass ? 'text' : 'password'}
+                type={isVisiblePass ? "text" : "password"}
                 id="password"
                 name="password"
               />
@@ -229,7 +221,7 @@ export default function Register() {
               </label>
               <Field
                 className="form-contact"
-                type={isVisiblePassConfirm ? 'text' : 'password'}
+                type={isVisiblePassConfirm ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
               />

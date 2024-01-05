@@ -11,7 +11,6 @@ import AdminContacts from "./pages/Admin-panel/Messages/Messages"
 import Comments from "./pages/Admin-panel/Comments/Comments"
 import Offers from "./pages/Admin-panel/Offers/Offers"
 import DiscountG from "./pages/Admin-panel/DiscountG/DiscountG"
-import AdminTickets from "./pages/Admin-panel/Tickets/Tickets"
 
 //main pages
 import Index from "./pages/Main/Index/Index"
@@ -64,7 +63,6 @@ const routes = [
       { path: "comments/:page", element: <Comments /> },
       { path: "offers", element: <Offers /> },
       { path: "discount", element: <DiscountG /> },
-      { path: "tickets", element: <AdminTickets /> },
       { path: "category", element: <AdminCategory /> },
     ],
   },

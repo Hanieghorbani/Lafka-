@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import axios from "axios"
 import swal from "sweetalert"
+import ContextData from "../../../ContextData/ContextData"
 
 export default function Messages() {
   const [contacts, setContacts] = useState([])
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
+  const {config} = useContext(ContextData)
 
   useEffect(() => {
     getAllContacts()
@@ -20,7 +15,6 @@ export default function Messages() {
   function getAllContacts() {
     axios.get(`http://localhost:8000/v1/contact`).then((res) => {
       setContacts(res.data)
-      console.log(res.data);
     })
   }
   function showContactBody(name, body) {

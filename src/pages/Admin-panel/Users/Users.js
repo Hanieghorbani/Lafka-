@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import axios from "axios"
@@ -7,17 +7,13 @@ import swal from "sweetalert"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import Pagination from "../../../components/Pagination/Pagination"
+import ContextData from "../../../ContextData/ContextData"
+import Input from "../../../components/Input/Input"
 export default function Users() {
   const [users, setUsers] = useState([])
-  const [shownItems,setShownItems] = useState([])
+  const [shownItems, setShownItems] = useState([])
   const [selectUser, setSelectUser] = useState([])
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
+  const { config } = useContext(ContextData)
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("نام و نام خانوادگی الزامی است"),
@@ -106,10 +102,10 @@ export default function Users() {
     swal({
       text: "نقش کاربر را وارد کنید: (ADMIN or USER)",
       content: "input",
-      buttons: ['لغو','ارسال'],
+      buttons: ["لغو", "ارسال"],
     }).then((role) => {
-      console.log(role);
-      if (role!=null && role.trim()) {
+      console.log(role)
+      if (role != null && role.trim()) {
         axios
           .put("http://localhost:8000/v1/users/role", { role, id }, config)
           .then(() => {
@@ -164,88 +160,15 @@ export default function Users() {
           id="formik-yup"
           className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 bg-white p-10 rounded-2xl"
         >
-          {/* name  */}
-          <div className="text-start">
-            <label htmlFor="name" className="text-sm text-zinc-700">
-              نام و نام خانوادگی*
-            </label>
-            <Field className="form-contact" type="text" id="name" name="name" />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input label={"نام و نام خانوادگی*"} id={"name"} />
 
-          {/* user name  */}
-          <div className="text-start">
-            <label htmlFor="username" className="text-sm text-zinc-700">
-              نام کاربری*
-            </label>
-            <Field
-              className="form-contact"
-              type="text"
-              id="username"
-              name="username"
-            />
-            <ErrorMessage
-              name="username"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input label={"نام کاربری*"} id={"username"} />
 
-          {/* phone  */}
-          <div className="text-start">
-            <label htmlFor="phone" className="text-sm text-zinc-700">
-              شماره موبایل*
-            </label>
-            <Field
-              className="form-contact"
-              type="text"
-              id="phone"
-              name="phone"
-            />
-            <ErrorMessage
-              name="phone"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input id={"phone"} label={"شماره موبایل*"} />
 
-          {/* password  */}
-          <div className="text-start">
-            <label htmlFor="password" className="text-sm text-zinc-700">
-              رمزعبور*
-            </label>
-            <Field
-              className="form-contact"
-              type="password"
-              id="password"
-              name="password"
-            />
-            <ErrorMessage
-              name="password"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
-          {/* email  */}
-          <div className=" lg:col-span-2 text-start">
-            <label htmlFor="email" className="text-sm text-zinc-700">
-              آدرس ایمیل*
-            </label>
-            <Field
-              className="form-contact"
-              type="email"
-              id="email"
-              name="email"
-            />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
+          <Input id="password" label={"رمزعبور*"} />
+          <div className="lg:col-span-2">
+            <Input label={"آدرس ایمیل*"} id={"email"} />
           </div>
 
           {/* change btn  */}
@@ -261,19 +184,22 @@ export default function Users() {
   }
 
   function changeUserHandler(values) {
-    axios.put(`http://localhost:8000/v1/users/${selectUser._id}`,values,config).then(res=>{
-      console.log(res);
-     swal({
-      text:'ویرایش کاربر با موفقیت انجام شد',
-      icon:'success',
-      buttons:'تایید'
-     }).then(()=>{
-      getAllUsers()
-     })
-    }).catch(err=>console.log(err))
+    axios
+      .put(`http://localhost:8000/v1/users/${selectUser._id}`, values, config)
+      .then((res) => {
+        console.log(res)
+        swal({
+          text: "ویرایش کاربر با موفقیت انجام شد",
+          icon: "success",
+          buttons: "تایید",
+        }).then(() => {
+          getAllUsers()
+        })
+      })
+      .catch((err) => console.log(err))
   }
   return (
-    <div className="container-primary">
+    <div className="mx-auto sm:px-10">
       <DataTable title={"لیست کاربران"}>
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>
@@ -309,7 +235,6 @@ export default function Users() {
                   <button
                     className="btn bg-green-400"
                     onClick={() => {
-                      // setSelectUser(user)
                       updateUser(user)
                     }}
                   >
