@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from "react"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import axios from "axios"
 import swal from "sweetalert"
+import Swal from "sweetalert2"
+import ReactDOM from "react-dom"
+
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import Pagination from "../../../components/Pagination/Pagination"
@@ -12,7 +15,9 @@ export default function Products() {
   const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
   const contextDatas = useContext(ContextData)
+  const [selectProduct, setSelectProduct] = useState([])
   const { page } = useParams()
+  const [coverUpdate,setCoverUpdate] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config1 = {
     headers: {
@@ -98,6 +103,234 @@ export default function Products() {
       .then((res) => {
         swal({
           title: "محصول جدید با موفقیت اضافه شد",
+          icon: "success",
+          buttons: "تایید",
+        }).then(() => {
+          contextDatas.getAllProducts()
+          resetForm()
+        })
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function updateProduct(prodInfos) {
+    setSelectProduct(prodInfos)
+    const seetAlertContainer = document.createElement("div")
+    document.body.appendChild(seetAlertContainer)
+    const initialValues = {
+      name: prodInfos.name,
+      price: prodInfos.price,
+      description: prodInfos.description,
+      url: prodInfos.shortName,
+      category:'',
+      scale: prodInfos.scale,
+      stock: prodInfos.stock,
+    }
+    Swal.fire({
+      title: "اطلاعات جدید را وارد کنید",
+      html: '<div id="formik-yup"></div>',
+      showCloseButton: true,
+      showConfirmButton: false,
+      showCancelButton: false,
+    })
+
+    ReactDOM.render(
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={changeProductInfos}
+      >
+        <Form className="bg-zinc-100 grid sm:grid-cols-1 gap-8 sm:p-4 md:p-10 rounded-2xl ">
+          {/* name  */}
+          <div className="">
+            <label htmlFor="name" className="text-sm text-zinc-700">
+              نام محصول
+            </label>
+            <Field
+              className="form-create-product"
+              type="text"
+              id="name"
+              name="name"
+            />
+            <ErrorMessage
+              name="name"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* descs*/}
+          <div className="">
+            <label htmlFor="description" className="text-sm text-zinc-700">
+              توضیحات محصول
+            </label>
+            <Field
+              className="form-create-product"
+              type="text"
+              id="description"
+              name="description"
+            />
+            <ErrorMessage
+              name="description"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* url  */}
+          <div className="">
+            <label htmlFor="url" className="text-sm text-zinc-700">
+              لینک محصول
+            </label>
+            <Field
+              className="form-create-product"
+              type="text"
+              id="url"
+              name="url"
+            />
+            <ErrorMessage
+              name="url"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* category  */}
+          <div className="">
+            <label htmlFor="category" className="text-sm text-zinc-700">
+              دسته بندی محصول
+            </label>
+
+            <Field
+              className="form-create-product"
+              as="select"
+              id="category"
+              name="category"
+            >
+              <option value="">انتخاب کنید</option>
+              {contextDatas.categorys.map((category) => (
+                <option
+                  key={category._id}
+                  value={category._id}
+                  label={category.title}
+                />
+              ))}
+            </Field>
+            <ErrorMessage
+              name="category"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* price  */}
+          <div className="">
+            <label htmlFor="price" className="text-sm text-zinc-700">
+              قیمت محصول
+            </label>
+            <Field
+              className="form-create-product"
+              type="number"
+              id="price"
+              name="price"
+            />
+            <ErrorMessage
+              name="price"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* scale  */}
+          <div className="">
+            <label htmlFor="scale" className="text-sm text-zinc-700">
+              وزن محصول
+            </label>
+            <Field
+              className="form-create-product"
+              type="number"
+              id="scale"
+              name="scale"
+            />
+            <ErrorMessage
+              name="scale"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* stock  */}
+          <div className="">
+            <label htmlFor="stock" className="text-sm text-zinc-700">
+              موجودی محصول
+            </label>
+            <Field
+              className="form-create-product"
+              type="number"
+              id="stock"
+              name="stock"
+            />
+            <ErrorMessage
+              name="stock"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* cover  */}
+          <div className="">
+            <label htmlFor="file" className="text-sm text-zinc-700">
+              تصویر محصول
+            </label>
+            <input
+              type="file"
+              id="file"
+              className="form-create-product"
+              onChange={(e) => {
+                setCoverUpdate(e.target.files[0])
+              }}
+            />
+            <ErrorMessage
+              name="file"
+              component="div"
+              className="error form-error  md:w-1/2"
+            />
+          </div>
+
+          {/* login btn  */}
+          <div className="flex items-center justify-center ">
+            <button type="submit" className="btn bg-green-400 text-sm w-1/2">
+              ویرایش
+            </button>
+          </div>
+        </Form>
+      </Formik>,
+      document.getElementById("formik-yup")
+    )
+  }
+
+  function changeProductInfos(values,{resetForm}) {
+    console.log(coverUpdate,values)
+    const formData = new FormData()
+    formData.append("name", values.name)
+    formData.append("description", values.description)
+    formData.append("shortName", values.url)
+    formData.append("categoryID", values.category)
+    formData.append("price", values.price)
+    formData.append("scale", values.scale)
+    formData.append("stock", values.stock)
+    formData.append("cover", coverUpdate)
+
+    console.log(formData)
+    axios
+      .put(
+        `http://localhost:8000/v1/courses/${selectProduct._id}`,
+        formData,
+        config2
+      )
+      .then((res) => {
+        swal({
+          title: "محصول با موفقیت بروز رسانی شد",
           icon: "success",
           buttons: "تایید",
         }).then(() => {
@@ -313,7 +546,11 @@ export default function Products() {
                 <td>{product.shortName}</td>
                 <td>{product.categoryID.title}</td>
                 <td>
-                  <button type="button" className="btn bg-green-400">
+                  <button
+                    type="button"
+                    className="btn bg-green-400"
+                    onClick={() => updateProduct(product)}
+                  >
                     ویرایش
                   </button>
                 </td>

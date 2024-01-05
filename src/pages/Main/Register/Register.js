@@ -197,7 +197,7 @@ export default function Register() {
               </label>
               <Field
                 className="form-contact"
-                type="password"
+                type={isVisiblePass ? 'text' : 'password'}
                 id="password"
                 name="password"
               />
@@ -229,7 +229,7 @@ export default function Register() {
               </label>
               <Field
                 className="form-contact"
-                type="password"
+                type={isVisiblePassConfirm ? 'text' : 'password'}
                 id="confirmPassword"
                 name="confirmPassword"
               />
