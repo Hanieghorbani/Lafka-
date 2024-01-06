@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import ContextData from "../../../ContextData/ContextData"
 import jalaliMoment from "jalali-moment"
-
+import Input from "../../../components/Input/Input"
 export default function Offers() {
   const contextDatas = useContext(ContextData)
   const [products, setProducts] = useState([])
@@ -48,27 +48,33 @@ export default function Offers() {
   }
 
   function removeOff(id) {
-    console.log(id)
-    axios
-      .delete(`http://localhost:8000/v1/offs/${id}`, config)
-      .then((res) => {
-        swal({
-          text: "کد تخفیف حذف شد",
-          icon: "success",
-          dangerMode: false,
-          buttons: "تایید",
-        }).then(() => {
-          getAllOffs()
-        })
-      })
-      .catch((err) => console.log(err))
+    swal({
+      text: "آیا از حذف این کد تخفیف اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "حذف"],
+    }).then((res) => {
+      if (res) {
+        axios
+          .delete(`http://localhost:8000/v1/offs/${id}`, config)
+          .then((res) => {
+            swal({
+              text: "کد تخفیف حذف شد",
+              icon: "success",
+              dangerMode: false,
+              buttons: "تایید",
+            }).then(() => {
+              getAllOffs()
+            })
+          })
+          .catch((err) => console.log(err))
+      }
+    })
   }
 
   function addNewOffCode(values, { resetForm }) {
     axios
       .post("http://localhost:8000/v1/offs/", values, config)
       .then((res) => {
-        console.log(res)
         swal({
           text: "کد تخفیف اضافه شد",
           icon: "success",
@@ -94,58 +100,23 @@ export default function Offers() {
           onSubmit={addNewOffCode}
         >
           <Form className="bg-zinc-100  grid lg:grid-cols-2 gap-8 p-10 rounded-2xl">
-            {/* code  */}
-            <div className="">
-              <label htmlFor="code" className="text-sm text-zinc-700">
-                کد تخفیف
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="code"
-                name="code"
-              />
-              <ErrorMessage
-                name="code"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* percent*/}
-            <div className="">
-              <label htmlFor="percent" className="text-sm text-zinc-700">
-                درصد تخفیف
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="percent"
-                name="percent"
-              />
-              <ErrorMessage
-                name="percent"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-            {/* max*/}
-            <div className="">
-              <label htmlFor="max" className="text-sm text-zinc-700">
-                حداکثر استفاده
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="max"
-                name="max"
-              />
-              <ErrorMessage
-                name="max"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
+            <Input
+              label={"کد تخفیف"}
+              id={"code"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"درصد تخفیف"}
+              id={"percent"}
+              type={"number"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"حداکثر استفاده"}
+              id={"max"}
+              type={"number"}
+              style={"form-create-product"}
+            />
 
             {/* product  */}
             <div className="">

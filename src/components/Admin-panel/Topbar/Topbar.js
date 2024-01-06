@@ -51,8 +51,8 @@ export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
             className="absolute sm:top-[0] lg:top-[3.7rem] rounded-xl sm:-left-[14rem] lg:-left-56 text-white  bg-green-400 px-4 py-2 lg:w-[23rem] space-y-3 z-[1000]"
             onMouseLeave={() => setIsShowNotifs(false)}
           >
-            <IoMdArrowDropup className="text-green-400 text-4xl -mt-9 sm:hidden lg:block" />
-            <IoMdClose onClick={() => setIsShowNotifs(false)} />
+            <IoMdArrowDropup className="text-green-400 text-4xl -mt-7 sm:hidden lg:block" />
+            <IoMdClose onClick={() => setIsShowNotifs(false)} className=" cursor-pointer"/>
             {notifs.length > 0 ? (
               <div className="space-y-3">
                 {notifs.map((notif) => (

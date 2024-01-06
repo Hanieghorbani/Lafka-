@@ -7,11 +7,13 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
-
+import Input from "../../../components/Input/Input"
 export default function EditAccount() {
   const navigate = useNavigate()
-  const { config, userInfos,setReLoading } = useContext(ContextData)
+  const { config, userInfos, setReLoading } = useContext(ContextData)
   const { name, username, email, phone } = userInfos
+  const [isVisiblePass, setIsVisiblePass] = useState(false)
+
   const initialValues = {
     name,
     username,
@@ -43,11 +45,9 @@ export default function EditAccount() {
   })
 
   function userEditInfos(values) {
-    console.log(values)
     axios
       .put(`http://localhost:8000/v1/users`, values, config)
       .then((res) => {
-        console.log(res)
         swal({
           text: "اطلاعات شما بروزرسانی شد",
           icon: "success",
@@ -77,95 +77,18 @@ export default function EditAccount() {
             validationSchema={validationSchema}
           >
             <Form className="bg-white grid sm:grid-cols-1 md:grid-cols-2 gap-10 md:p-10 rounded-2xl">
-              {/* name  */}
-              <div className="relative">
-                <label htmlFor="name" className="text-sm text-zinc-700">
-                  نام و نام خانوادگی*
-                </label>
-                <Field
-                  className="form-contact"
-                  type="text"
-                  id="name"
-                  name="name"
-                />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* user name  */}
-              <div className="relative">
-                <label htmlFor="username" className="text-sm text-zinc-700">
-                  نام کاربری (نمایشی)*
-                </label>
-                <Field
-                  className="form-contact"
-                  type="text"
-                  id="username"
-                  name="username"
-                />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* phone  */}
-              <div className="relative">
-                <label htmlFor="phone" className="text-sm text-zinc-700">
-                  شماره موبایل*
-                </label>
-                <Field
-                  className="form-contact"
-                  type="text"
-                  id="phone"
-                  name="phone"
-                />
-                <ErrorMessage
-                  name="phone"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* email  */}
-              <div className="relative">
-                <label htmlFor="email" className="text-sm text-zinc-700">
-                  آدرس ایمیل*
-                </label>
-                <Field
-                  className="form-contact"
-                  type="email"
-                  id="email"
-                  name="email"
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* password  */}
-              <div className="relative">
-                <label htmlFor="password" className="text-sm text-zinc-700">
-                  رمزعبور*
-                </label>
-                <Field
-                  className="form-contact"
-                  type="password"
-                  id="password"
-                  name="password"
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
+              <Input label={"نام و نام خانوادگی*"} id={"name"} />
+              <Input label={"نام کاربری (نمایشی)*"} id={"username"} />
+              <Input label={"شماره موبایل*"} id={"phone"} />
+              <Input label={"آدرس ایمیل*"} id={"email"} />
+              <Input
+                label={"رمزعبور*"}
+                id={"password"}
+                type={isVisiblePass ? "text" : "password"}
+                isVisible={isVisiblePass}
+                setIsVisible={setIsVisiblePass}
+                pass={true}
+              />
 
               {/* login btn  */}
               <div className="flex items-center justify-center md:col-span-2">

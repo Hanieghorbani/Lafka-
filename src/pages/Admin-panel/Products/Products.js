@@ -116,7 +116,7 @@ export default function Products() {
       name,
       price,
       description,
-      url:shortName,
+      url: shortName,
       category: "",
       scale,
       stock,
@@ -170,11 +170,11 @@ export default function Products() {
             />
           </div>
 
-          <Input id={"price"} label={"قیمت محصول"} />
+          <Input id={"price"} label={"قیمت محصول"} type={"number"} />
 
-          <Input id={"scale"} label={"وزن محصول"} />
+          <Input id={"scale"} label={"وزن محصول"} type={"number"} />
 
-          <Input id={"stock"} label={"موجودی محصول"} />
+          <Input id={"stock"} label={"موجودی محصول"} type={"number"} />
 
           {/* cover  */}
           <div className="">
@@ -209,7 +209,6 @@ export default function Products() {
   }
 
   function changeProductInfos(values, { resetForm }) {
-    console.log(coverUpdate, values)
     const formData = new FormData()
     formData.append("name", values.name)
     formData.append("description", values.description)
@@ -219,8 +218,6 @@ export default function Products() {
     formData.append("scale", values.scale)
     formData.append("stock", values.stock)
     formData.append("cover", coverUpdate)
-
-    console.log(formData)
     axios
       .put(
         `http://localhost:8000/v1/courses/${selectProduct._id}`,
@@ -252,60 +249,39 @@ export default function Products() {
           onSubmit={addNewProductHandler}
         >
           <Form className="bg-zinc-100 grid sm:grid-cols-1 md:grid-cols-2 gap-8 sm:p-4 md:p-10 rounded-2xl ">
-            {/* name  */}
-            <div className="">
-              <label htmlFor="name" className="text-sm text-zinc-700">
-                نام محصول
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="name"
-                name="name"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* descs*/}
-            <div className="">
-              <label htmlFor="description" className="text-sm text-zinc-700">
-                توضیحات محصول
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="description"
-                name="description"
-              />
-              <ErrorMessage
-                name="description"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* phone  */}
-            <div className="">
-              <label htmlFor="url" className="text-sm text-zinc-700">
-                لینک محصول
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="url"
-                name="url"
-              />
-              <ErrorMessage
-                name="url"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
+            <Input
+              label={"نام محصول"}
+              id={"name"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"توضیحات محصول"}
+              id={"description"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"لینک محصول"}
+              id={"url"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"قیمت محصول"}
+              id={"price"}
+              type={"number"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"وزن محصول"}
+              id={"scale"}
+              type={"number"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"موجودی محصول"}
+              id={"stock"}
+              type={"number"}
+              style={"form-create-product"}
+            />
             {/* category  */}
             <div className="">
               <label htmlFor="category" className="text-sm text-zinc-700">
@@ -329,60 +305,6 @@ export default function Products() {
               </Field>
               <ErrorMessage
                 name="category"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* price  */}
-            <div className="">
-              <label htmlFor="price" className="text-sm text-zinc-700">
-                قیمت محصول
-              </label>
-              <Field
-                className="form-create-product"
-                type="number"
-                id="price"
-                name="price"
-              />
-              <ErrorMessage
-                name="price"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* scale  */}
-            <div className="">
-              <label htmlFor="scale" className="text-sm text-zinc-700">
-                وزن محصول
-              </label>
-              <Field
-                className="form-create-product"
-                type="number"
-                id="scale"
-                name="scale"
-              />
-              <ErrorMessage
-                name="scale"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* stock  */}
-            <div className="">
-              <label htmlFor="stock" className="text-sm text-zinc-700">
-                موجودی محصول
-              </label>
-              <Field
-                className="form-create-product"
-                type="number"
-                id="stock"
-                name="stock"
-              />
-              <ErrorMessage
-                name="stock"
                 component="div"
                 className="error form-error  md:w-1/2"
               />

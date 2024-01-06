@@ -16,17 +16,18 @@ import Sidebar from "../../Sidebar/Sidebar"
 export default function Header() {
   const [isFixed] = useScroll(67)
   const {
-    isOpenSidebarMenu,
-    setIsOpenSidebarMenu,
-    isOpenSideSearch,
-    setIsOpenSideSearch,
-    isOpenSidebarCart,
-    setIsOpenSidebarCart,
-    userInfos,
-    cart,
-    infos,
-    isLoggedIn,
     setUserPanelSubMenu,
+    setIsOpenSidebarMenu,
+    setIsOpenSideSearch,
+    setIsOpenSidebarCart,
+    isOpenSidebarMenu,
+    isOpenSideSearch,
+    isOpenSidebarCart,
+    isLoggedIn,
+    cart,
+    favorites,
+    userInfos,
+    infos,
   } = useContext(ContextData)
   const [searchValue, setSearchValue] = useState("")
   return (
@@ -115,7 +116,7 @@ export default function Header() {
           )}
 
           <Link to={"/favorites"} className="relative">
-            <span className="badge-header text-white">0</span>
+            <span className="badge-header text-white">{favorites.length}</span>
             <CiHeart className="li-header" />
           </Link>
           <div className="relative" onClick={() => setIsOpenSidebarCart(true)}>
@@ -245,12 +246,12 @@ export default function Header() {
             <Dialog.Title className="text-lg flex justify-between items-center">
               سبد خرید
               <div className="flex text-2xl gap-3">
-                <Link to={"/login"}>
+                <Link to={"/my-account"}  onClick={()=>setIsOpenSidebarCart(false)}>
                   <CiUser className="li-header" />
                 </Link>
 
-                <Link to={"/favorites"} className="relative">
-                  <span className="badge-header text-white">0</span>
+                <Link to={"/favorites"} className="relative" onClick={()=>setIsOpenSidebarCart(false)}>
+                  <span className="badge-header text-white">{favorites.length}</span>
                   <CiHeart className="li-header" />
                 </Link>
               </div>

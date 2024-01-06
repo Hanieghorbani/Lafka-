@@ -5,7 +5,7 @@ import EnergyBox from "../../../components/Main/EnergyBox/EnergyBox"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 import ContextData from "../../../ContextData/ContextData"
 // icons
-import { CiHeart} from "react-icons/ci"
+import { CiHeart } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
 import { FaHeartbeat, FaRegUserCircle, FaStar, FaRegStar } from "react-icons/fa"
 // end of icons
@@ -27,48 +27,61 @@ export default function ProductInfo() {
   const [score, setScore] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [codeOff, setCodeOff] = useState("")
-  const [newPrice, setNewPrice] = useState("")
+  const [newPrice, setNewPrice] = useState(0)
   const [haveOff, setHaveOff] = useState(false)
   const { config, cart, categorys, setIsOpenSidebarCart, addToCart } =
     useContext(ContextData)
   function setOffHandler() {
-    console.log(codeOff)
-    const data = { course: productInfo._id }
-    axios
-      .post(`http://localhost:8000/v1/offs/${codeOff}`, data, config)
-      .then((res) => {
-        setHaveOff(true)
-        setNewPrice(
-          productInfo.price - (productInfo.price * res.data.percent) / 100
-        )
-        console.log(
-          productInfo.price - (productInfo.price * res.data.percent) / 100
-        )
-        swal({
-          text: "کد تخفیف بر روی این محصول  با هر تعدادی،اعمال شد",
-          icon: "success",
-          dangerMode: false,
-          buttons: "تایید",
+    if (haveOff) {
+      swal({
+        title: "شما قبلا کد تخفیف خود را اعمال کرده اید",
+        icon: "error",
+        dangerMode: true,
+        buttons: "تایید",
+      })
+    } else if (productInfo.discount != 0) {
+      swal({
+        title:
+          "در زمان تخفیفات همگانی شما نمی توانید از کد تخفیف جدایی استفاده کنید.",
+        icon: "error",
+        dangerMode: true,
+        buttons: "تایید",
+      })
+    } else {
+      const data = { course: productInfo._id }
+      axios
+        .post(`http://localhost:8000/v1/offs/${codeOff}`, data, config)
+        .then((res) => {
+          setHaveOff(true)
+          setNewPrice(
+            productInfo.price - (productInfo.price * res.data.percent) / 100
+          )
+          swal({
+            text: "کد تخفیف بر روی این محصول  با هر تعدادی،اعمال شد",
+            icon: "success",
+            dangerMode: false,
+            buttons: "تایید",
+          })
         })
-      })
-      .catch((err) => {
-        console.log(err)
-        if (err.status === 404) {
-          swal({
-            title: "کد تخفیف نامعتبر است!",
-            icon: "error",
-            dangerMode: true,
-            buttons: "تایید",
-          })
-        } else if (err.status == 409) {
-          swal({
-            title: "این کد تخفیف قبلا استفاده شده",
-            icon: "error",
-            dangerMode: true,
-            buttons: "تایید",
-          })
-        }
-      })
+        .catch((err) => {
+          console.log(err)
+          if (err.status === 404) {
+            swal({
+              title: "کد تخفیف نامعتبر است!",
+              icon: "error",
+              dangerMode: true,
+              buttons: "تایید",
+            })
+          } else if (err.status == 409) {
+            swal({
+              title: "این کد تخفیف قبلا استفاده شده",
+              icon: "error",
+              dangerMode: true,
+              buttons: "تایید",
+            })
+          }
+        })
+    }
   }
   useEffect(() => {
     axios
@@ -76,15 +89,11 @@ export default function ProductInfo() {
       .then((res) => {
         const isProdInCart = cart.find((prod) => prod._id === res.data._id)
         if (isProdInCart) {
-          console.log("is exist")
           setProductInfo(isProdInCart)
         } else {
-          console.log("no exist")
           setProductInfo(res.data)
         }
         setIsLoading(true)
-
-        console.log(res.data)
       })
       .catch((err) => console.log(err))
 
@@ -92,7 +101,6 @@ export default function ProductInfo() {
       .get(`http://localhost:8000/v1/courses/related/${shortName}`)
       .then((res) => {
         setRelated(res.data)
-        console.log(res.data)
       })
   }, [shortName])
   const initialValues = {
@@ -226,33 +234,39 @@ export default function ProductInfo() {
                         value={codeOff}
                         onChange={(e) => setCodeOff(e.target.value)}
                       />
-                      <button
-                        className="btn bg-info"
-                        onClick={setOffHandler}
-                        disabled={haveOff}
-                      >
+                      <button className="btn bg-info" onClick={setOffHandler}>
                         اعمال کد
                       </button>
                     </div>
                     <div>
                       <h3
                         className={`text-2xl ${
-                          haveOff && "line-through text-zinc-400"
+                          haveOff ||
+                          (productInfo.discount != 0 &&
+                            "line-through text-zinc-400 text-base")
                         }`}
                       >
                         <span className="font-[faNum]">
                           {new Intl.NumberFormat().format(productInfo.price)}
-                        </span>
+                        </span>{" "}
                         تومان
                       </h3>
-                      {haveOff && (
-                        <h3 className="text-2xl">
-                          <span className="font-[faNum]">
-                            {new Intl.NumberFormat().format(newPrice)}
-                          </span>
-                          تومان
-                        </h3>
-                      )}
+                      {haveOff ||
+                        (productInfo.discount != 0 && (
+                          <h3 className="text-2xl">
+                            <span className="font-[faNum]">
+                              {newPrice != 0 &&
+                                new Intl.NumberFormat().format(newPrice)}
+                              {productInfo.discount != 0 &&
+                                new Intl.NumberFormat().format(
+                                  productInfo.price -
+                                    (productInfo.price * productInfo.discount) /
+                                      100
+                                )}
+                            </span>{" "}
+                            تومان
+                          </h3>
+                        ))}
                     </div>
                   </div>
 
@@ -262,7 +276,13 @@ export default function ProductInfo() {
                       className="btn-yearStorySelect text-sm w-1/3"
                       onClick={() => {
                         setIsOpenSidebarCart(true)
-                        addToCart(productInfo, newPrice)
+
+                        addToCart(
+                          productInfo,
+                          newPrice ||
+                            productInfo.price -
+                              (productInfo.price * productInfo.discount) / 100
+                        )
                       }}
                     >
                       سفارش

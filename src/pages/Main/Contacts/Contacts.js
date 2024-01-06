@@ -7,11 +7,12 @@ import axios from "axios"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
+import Input from "../../../components/Input/Input"
 export default function Contacts() {
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")
   const navigate = useNavigate()
-  const {config} = useContext(ContextData)
+  const { config } = useContext(ContextData)
   const initialValues = {
     name: "",
     email: "",
@@ -57,7 +58,6 @@ export default function Contacts() {
     setAnswer(getResult(num1, operator, num2))
   }, [])
 
-
   function sendMsgHandler(values) {
     delete values.captcha
     axios
@@ -99,75 +99,10 @@ export default function Contacts() {
               onSubmit={sendMsgHandler}
             >
               <Form className="space-y-10">
-                <div className="relative">
-                  <label htmlFor="name" className="text-sm text-zinc-500">
-                    نام شما:
-                  </label>
-                  <Field
-                    className="form-contact"
-                    type="text"
-                    id="name"
-                    name="name"
-                    style={{ boxShadow: "none" }}
-                  />
-                  <ErrorMessage
-                    name="name"
-                    component="div"
-                    className="error form-error  md:w-1/2"
-                  />
-                </div>
-                <div className="relative">
-                  <label htmlFor="email" className="text-sm text-zinc-500">
-                    آدرس ایمیل:
-                  </label>
-                  <Field
-                    className="form-contact"
-                    type="text"
-                    id="email"
-                    name="email"
-                    style={{ boxShadow: "none" }}
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="error form-error  md:w-1/2"
-                  />
-                </div>
-                <div className="relative">
-                  <label htmlFor="phone" className="text-sm text-zinc-500">
-                    تلفن:
-                  </label>
-                  <Field
-                    className="form-contact"
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    style={{ boxShadow: "none" }}
-                  />
-                  <ErrorMessage
-                    name="phone"
-                    component="div"
-                    className="error form-error  md:w-1/2"
-                  />
-                </div>
-                <div className=" md:col-span-3 relative">
-                  <label htmlFor="body" className="text-sm text-zinc-500">
-                    متن پیام:
-                  </label>
-                  <Field
-                    as="textarea"
-                    type="text"
-                    id="body"
-                    name="body"
-                    className="form-contact h-40"
-                    style={{ boxShadow: "none" }}
-                  />
-                  <ErrorMessage
-                    name="body"
-                    component="div"
-                    className="error form-error  md:w-1/2"
-                  />
-                </div>
+                <Input label={"نام شما:"} id={"name"} />
+                <Input label={"آدرس ایمیل:"} id={"email"} />
+                <Input label={"تلفن:"} id={"phone"} />
+                <Input label={"متن پیام:"} id={"body"} />
 
                 <div className="grid sm:grid-cols-1 md:grid-cols-3">
                   <p className="w-full text-zinc-400 md:col-span-2">
@@ -181,7 +116,6 @@ export default function Contacts() {
                       id="captcha"
                       name="captcha"
                       className="border-0 bg-zinc-100  focus:bg-zinc-200 rounded-xl w-1/4"
-                      style={{ boxShadow: "none" }}
                     />
                     <span className="flex font-[faNum]" dir="ltr">
                       {captcha} =

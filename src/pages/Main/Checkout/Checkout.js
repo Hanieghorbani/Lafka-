@@ -8,6 +8,7 @@ import * as Yup from "yup"
 import { Link } from "react-router-dom"
 import swal from "sweetalert"
 import axios from "axios"
+import Input from "../../../components/Input/Input"
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("credit")
   const [readPolicy, setReadPolicy] = useState(false)
@@ -83,77 +84,10 @@ export default function Checkout() {
             >
               <h1 className="text-3xl">جزئیات صورتحساب</h1>
 
-              {/* state  */}
-              <div className="relative">
-                <label htmlFor="state" className="text-sm text-zinc-700">
-                  استان
-                </label>
-                <Field
-                  className="form-contact"
-                  type="text"
-                  id="state"
-                  name="state"
-                />
-                <ErrorMessage
-                  name="state"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* city */}
-              <div className="relative">
-                <label htmlFor="city" className="text-sm text-zinc-700">
-                  شهر
-                </label>
-                <Field
-                  className="form-contact"
-                  type="text"
-                  id="city"
-                  name="city"
-                />
-                <ErrorMessage
-                  name="city"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* postalCode  */}
-              <div className="relative">
-                <label htmlFor="postalCode" className="text-sm text-zinc-700">
-                  کد پستی
-                </label>
-                <Field
-                  className="form-contact"
-                  type="number"
-                  id="postalCode"
-                  name="postalCode"
-                />
-                <ErrorMessage
-                  name="postalCode"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
-
-              {/* address  */}
-              <div className="relative">
-                <label htmlFor="address" className="text-sm text-zinc-700">
-                  آدرس کامل
-                </label>
-                <Field
-                  className="form-contact"
-                  type="text"
-                  id="address"
-                  name="address"
-                />
-                <ErrorMessage
-                  name="address"
-                  component="div"
-                  className="error form-error  md:w-1/2"
-                />
-              </div>
+              <Input label={"استان"} id={"state"} />
+              <Input label={"شهر"} id={"city"} />
+              <Input label={"کد پستی"} id={"postalCode"} />
+              <Input label={"آدرس کامل"} id={"address"} />
 
               {/* order description  */}
               <div className="">

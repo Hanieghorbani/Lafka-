@@ -10,6 +10,7 @@ import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import Input from "../../../components/Input/Input"
 export default function Register() {
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   const [isVisiblePassConfirm, setIsVisiblePassConfirm] = useState(false)
@@ -110,140 +111,30 @@ export default function Register() {
               </p>
             </div>
 
-            {/* name  */}
-            <div className="relative">
-              <label htmlFor="name" className="text-sm text-zinc-700">
-                نام و نام خانوادگی*
-              </label>
-              <Field
-                className="form-contact"
-                type="text"
-                id="name"
-                name="name"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* user name  */}
-            <div className="relative">
-              <label htmlFor="username" className="text-sm text-zinc-700">
-                نام کاربری*
-              </label>
-              <Field
-                className="form-contact"
-                type="text"
-                id="username"
-                name="username"
-              />
-              <ErrorMessage
-                name="username"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* phone  */}
-            <div className="relative">
-              <label htmlFor="phone" className="text-sm text-zinc-700">
-                شماره موبایل*
-              </label>
-              <Field
-                className="form-contact"
-                type="text"
-                id="phone"
-                name="phone"
-              />
-              <ErrorMessage
-                name="phone"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* email  */}
-            <div className="relative">
-              <label htmlFor="email" className="text-sm text-zinc-700">
-                آدرس ایمیل*
-              </label>
-              <Field
-                className="form-contact"
-                type="email"
-                id="email"
-                name="email"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
+            <Input label={"نام و نام خانوادگی*"} id={"name"} />
+            <Input label={"نام کاربری*"} id={"username"} />
+            <Input label={"شماره موبایل*"} id={"phone"} />
+            <Input label={"آدرس ایمیل*"} id={"email"} type={"email"} />
+           
 
             {/* password  */}
-            <div className="relative">
-              <label htmlFor="password" className="text-sm text-zinc-700">
-                رمزعبور*
-              </label>
-              <Field
-                className="form-contact"
-                type={isVisiblePass ? "text" : "password"}
-                id="password"
-                name="password"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-              <div>
-                {isVisiblePass ? (
-                  <MdOutlineVisibility
-                    onClick={() => setIsVisiblePass(false)}
-                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
-                  />
-                ) : (
-                  <MdOutlineVisibilityOff
-                    onClick={() => setIsVisiblePass(true)}
-                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
-                  />
-                )}
-              </div>
-            </div>
-            <div className="relative">
-              <label
-                htmlFor="confirmPassword"
-                className="text-sm text-zinc-700"
-              >
-                تکرار رمز عبور*
-              </label>
-              <Field
-                className="form-contact"
-                type={isVisiblePassConfirm ? "text" : "password"}
-                id="confirmPassword"
-                name="confirmPassword"
-              />
-              <ErrorMessage
-                name="confirmPassword"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-              <div>
-                {isVisiblePassConfirm ? (
-                  <MdOutlineVisibility
-                    onClick={() => setIsVisiblePassConfirm(false)}
-                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
-                  />
-                ) : (
-                  <MdOutlineVisibilityOff
-                    onClick={() => setIsVisiblePassConfirm(true)}
-                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
-                  />
-                )}
-              </div>
-            </div>
+
+            <Input
+              label={"رمزعبور*"}
+              id={"password"}
+              type={isVisiblePass ? "text" : "password"}
+              isVisible={isVisiblePass}
+              setIsVisible={setIsVisiblePass}
+              pass={true}
+            />
+            <Input
+              label={"تکرار رمز عبور*"}
+              id={"confirmPassword"}
+              type={isVisiblePassConfirm ? "text" : "password"}
+              isVisible={isVisiblePassConfirm}
+              setIsVisible={setIsVisiblePassConfirm}
+              pass={true}
+            />
 
             {/* login btn  */}
             <div className="flex items-center justify-center">

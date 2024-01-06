@@ -1,5 +1,5 @@
 // panel admin pages
-// import PAdminPrivate from "./components/Privates/PAdminPrivate"
+import PAdminPrivate from "./components/Privates/PAdminPrivate"
 import AdminPanel from "./pages/Admin-panel/Index"
 import MainAdminPanel from "./pages/Admin-panel/Main/Main"
 import Users from "./pages/Admin-panel/Users/Users"
@@ -29,6 +29,7 @@ import Search from "./pages/Main/Search/Search"
 import Checkout from "./pages/Main/Checkout/Checkout"
 
 // user panel
+import PUserPrivate from "./components/Privates/PUserPrivate"
 import UserPanel from "./pages/UserPanel/Index"
 import MainUserPanel from "./pages/UserPanel/Main/Main"
 import Orders from "./pages/UserPanel/Orders/Orders"
@@ -53,7 +54,11 @@ const routes = [
   //admin panel
   {
     path: "/p-admin/*",
-    element: <AdminPanel />,
+    element: (
+      <PAdminPrivate>
+        <AdminPanel />
+      </PAdminPrivate>
+    ),
     children: [
       { path: "", element: <MainAdminPanel /> },
       { path: "users/:page", element: <Users /> },
@@ -69,7 +74,11 @@ const routes = [
   // user panel
   {
     path: "/my-account/*",
-    element: <UserPanel />,
+    element: (
+      <PUserPrivate>
+        <UserPanel />
+      </PUserPrivate>
+    ),
     children: [
       { path: "", element: <MainUserPanel /> },
       { path: "orders", element: <Orders /> },

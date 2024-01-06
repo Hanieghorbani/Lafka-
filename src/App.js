@@ -1,47 +1,52 @@
 import { useEffect, useState, useCallback } from "react"
-import routes from "./Routes"
-import ScrollToTop from "./components/Main/ScrollToTop/ScrollToTop"
-import AOS from "aos"
 import { useNavigate, useRoutes } from "react-router-dom"
-import useScroll from "./hooks/useScroll"
-import ContextData from "./ContextData/ContextData"
 import { toast, ToastContainer } from "react-toastify"
+import ScrollToTop from "./components/Main/ScrollToTop/ScrollToTop"
+import ContextData from "./ContextData/ContextData"
+import useScroll from "./hooks/useScroll"
+import routes from "./Routes"
+import AOS from "aos"
 import swal from "sweetalert"
 import axios from "axios"
+
 function App() {
-  useEffect(() => {
-    AOS.init({})
-  }, [])
   const navigate = useNavigate()
   const router = useRoutes(routes)
-  const [token, setToken] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userInfos, setUserInfos] = useState([])
-  const [categorys, setCategorys] = useState([])
-  const [products, setProducts] = useState([])
-  const [infos, setInfos] = useState([])
-  const [cart, setCart] = useState([])
-  const [countProduct, setCountProduct] = useState(1)
-  const [isScrollBtnVisible] = useScroll(400)
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
   const [isOpenSidebarMenuPAdmin, setIsOpenSidebarMenuPAdmin] = useState(false)
   const [isOpenSidebarCart, setIsOpenSidebarCart] = useState(false)
   const [isOpenSideSearch, setIsOpenSideSearch] = useState(false)
   const [reLoading, setReLoading] = useState(false)
-  const [userPanelSubMenu,setUserPanelSubMenu] = useState("پیشخوان")
+
+  const [userInfos, setUserInfos] = useState([])
+  const [categorys, setCategorys] = useState([])
+  const [products, setProducts] = useState([])
+  const [infos, setInfos] = useState([])
+  const [cart, setCart] = useState([])
+  const [favorites, setFavorites] = useState([])
+
+  const [token, setToken] = useState("")
+  const [userPanelSubMenu, setUserPanelSubMenu] = useState("پیشخوان")
+  const [countProduct, setCountProduct] = useState(1)
+  const [isScrollBtnVisible] = useScroll(400)
+
+  const localStorageToken = JSON.parse(localStorage.getItem("user"))
+  const config = {
+    headers: {
+      Authorization: `Bearer ${
+        !localStorageToken ? "null" : localStorageToken.token
+      }`,
+      "Content-Type": "application/json",
+    },
+  }
+
   const login = useCallback((userInfos, token) => {
     setToken(token)
     setIsLoggedIn(true)
     setUserInfos(userInfos)
     localStorage.setItem("user", JSON.stringify({ token }))
   }, [])
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/json",
-    },
-  }
 
   const logout = useCallback(() => {
     setToken(null)
@@ -49,21 +54,6 @@ function App() {
     setIsLoggedIn(false)
     localStorage.removeItem("user")
   })
-
-  function getAllCategorys() {
-    axios
-      .get("http://localhost:8000/v1/category")
-      .then((res) => {
-        setCategorys(res.data)
-      })
-      .catch((err) => console.log(err))
-  }
-
-  function getAllProducts() {
-    axios.get("http://localhost:8000/v1/courses").then((res) => {
-      setProducts(res.data)
-    })
-  }
 
   function logoutHandler() {
     swal({
@@ -81,8 +71,22 @@ function App() {
           logout()
           navigate("/")
         })
-      
       }
+    })
+  }
+
+  function getAllCategorys() {
+    axios
+      .get("http://localhost:8000/v1/category")
+      .then((res) => {
+        setCategorys(res.data)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function getAllProducts() {
+    axios.get("http://localhost:8000/v1/courses").then((res) => {
+      setProducts(res.data)
     })
   }
 
@@ -122,7 +126,6 @@ function App() {
   }
 
   function minesCart(prodInfos, removeAll) {
-    console.log(removeAll)
     if (prodInfos.count > 1 && !removeAll) {
       const minesCountProd = cart.map((prod) => {
         return prod._id == prodInfos._id
@@ -147,9 +150,35 @@ function App() {
     })
   }
 
+  function addFavoriteHandler(prodInfos) {
+    const existingItem = favorites.find((prod) => prod._id === prodInfos._id)
+    if (existingItem) {
+      toast.error("این محصول در سبد خرید شما وجود دارد", {
+        position: toast.POSITION.TOP_LEFT,
+      })
+    } else {
+      setFavorites((prev) => [...prev, prodInfos])
+      localStorage.setItem(
+        "favorites",
+        JSON.stringify([...favorites, prodInfos])
+      )
+      toast.success("محصول به لیست علاقه مندی ها اضافه شد", {
+        position: toast.POSITION.TOP_LEFT,
+      })
+    }
+  }
+
+  function removeFavorite(prodInfos) {
+    const filterdItems = favorites.filter((prod) => prod._id !== prodInfos._id)
+    setFavorites(filterdItems)
+    localStorage.setItem("favorites", JSON.stringify(filterdItems))
+    toast.success("محصول با موفقیت از لیست علاقه مندی ها خارج شد", {
+      position: toast.POSITION.TOP_LEFT,
+    })
+  }
+
   //for get user data
   useEffect(() => {
-    const localStorageToken = JSON.parse(localStorage.getItem("user"))
     if (localStorageToken) {
       axios
         .get("http://localhost:8000/v1/auth/me", config)
@@ -163,49 +192,63 @@ function App() {
 
   useEffect(() => {
     const cartInLoacalStorage = JSON.parse(localStorage.getItem("cart"))
+    const favoritesInLoacalStorage = JSON.parse(
+      localStorage.getItem("favorites")
+    )
     if (cartInLoacalStorage) {
       setCart(cartInLoacalStorage)
     } else {
       setCart([])
     }
+    if (favoritesInLoacalStorage) {
+      setFavorites(favoritesInLoacalStorage)
+    } else {
+      setFavorites([])
+    }
     getAllCategorys()
     getAllProducts()
     getInfos()
+
+    AOS.init({})
   }, [])
 
   return (
     <div className="overflow-x-hidden">
       <ContextData.Provider
         value={{
+          getAllCategorys,
+          getAllProducts,
           login,
           logout,
-          isLoggedIn,
-          userInfos,
-          getAllCategorys,
-          categorys,
-          getAllProducts,
-          products,
-          infos,
-          cart,
-          setCart,
           addToCart,
-          countProduct,
-          setCountProduct,
-          isOpenSidebarMenu,
-          setIsOpenSidebarMenu,
-          isOpenSidebarCart,
-          setIsOpenSidebarCart,
-          isOpenSideSearch,
-          setIsOpenSideSearch,
           minesCart,
-          reLoading,
-          setReLoading,
           logoutHandler,
-          userPanelSubMenu,
+          setIsOpenSidebarMenu,
+          setIsOpenSidebarCart,
+          setIsOpenSideSearch,
+          setCountProduct,
+          setCart,
+          setReLoading,
           setUserPanelSubMenu,
-          isOpenSidebarMenuPAdmin,
           setIsOpenSidebarMenuPAdmin,
-          config
+          setFavorites,
+          addFavoriteHandler,
+          removeFavorite,
+          userInfos,
+          categorys,
+          products,
+          countProduct,
+          cart,
+          infos,
+          isLoggedIn,
+          isOpenSidebarMenu,
+          isOpenSidebarCart,
+          isOpenSideSearch,
+          isOpenSidebarMenuPAdmin,
+          reLoading,
+          userPanelSubMenu,
+          config,
+          favorites,
         }}
       >
         {router}

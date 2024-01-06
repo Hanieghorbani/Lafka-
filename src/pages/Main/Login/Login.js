@@ -9,7 +9,7 @@ import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
-
+import Input from "../../../components/Input/Input"
 export default function Login() {
   const {config,login} = useContext(ContextData)
   const [isVisiblePass, setIsVisiblePass] = useState(false)
@@ -81,51 +81,9 @@ export default function Login() {
                 </Link>
               </p>
             </div>
-            <div className="relative">
-              <label htmlFor="identifier" className="text-sm text-zinc-700">
-                نام کاربر یا آدرس ایمیل*
-              </label>
-              <Field
-                className="form-contact"
-                type="text"
-                id="identifier"
-                name="identifier"
-              />
-              <ErrorMessage
-                name="identifier"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-            <div className="relative">
-              <label htmlFor="password" className="text-sm text-zinc-700">
-                گذرواژه*
-              </label>
-              <Field
-                className="form-contact"
-                type={isVisiblePass ? 'text' : 'password'}
-                id="password"
-                name="password"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-              <div>
-                {isVisiblePass ? (
-                  <MdOutlineVisibility
-                    onClick={() => setIsVisiblePass(false)}
-                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
-                  />
-                ) : (
-                  <MdOutlineVisibilityOff
-                    onClick={() => setIsVisiblePass(true)}
-                    className=" cursor-pointer absolute top-9 left-4 text-zinc-600"
-                  />
-                )}
-              </div>
-            </div>
+          
+            <Input label={'نام کاربر یا آدرس ایمیل*'} id={"identifier"} />
+            <Input label={'گذرواژه*'} id={"password"} type={isVisiblePass ? 'text' : 'password'} isVisible={isVisiblePass} setIsVisible={setIsVisiblePass} pass={true}/>
 
             <div className="flex sm:flex-col lg:flex-row lg:items-center justify-between gap-2">
               <div className="flex items-center gap-1">

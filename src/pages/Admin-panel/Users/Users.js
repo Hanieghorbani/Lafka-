@@ -104,7 +104,6 @@ export default function Users() {
       content: "input",
       buttons: ["لغو", "ارسال"],
     }).then((role) => {
-      console.log(role)
       if (role != null && role.trim()) {
         axios
           .put("http://localhost:8000/v1/users/role", { role, id }, config)
@@ -187,7 +186,6 @@ export default function Users() {
     axios
       .put(`http://localhost:8000/v1/users/${selectUser._id}`, values, config)
       .then((res) => {
-        console.log(res)
         swal({
           text: "ویرایش کاربر با موفقیت انجام شد",
           icon: "success",

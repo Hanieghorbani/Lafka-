@@ -1,24 +1,16 @@
-// import React, { useContext, useEffect } from "react"
-// import AuthContext from "../../userContext/authContext"
-// import { useNavigate } from "react-router-dom"
+import React, { useContext, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import ContextData from "../../ContextData/ContextData"
+export default function PAdminPrivate({ children }) {
+  const { userInfos,isLoggedIn } = useContext(ContextData)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (isLoggedIn && userInfos.role == "USER") {
+      navigate("/login")
+    } else if (!isLoggedIn && !userInfos) {
+      navigate("/login")
+    }
+  }, [userInfos])
 
-// export default function PAdminPrivate({ children }) {
-//   const contextData = useContext(AuthContext)
-//   const navigate = useNavigate()
-//   useEffect(() => {
-//     if (
-//     (contextData.userInfos && contextData.userInfos.role == "USER")
-//     ) {
-//       navigate("/login")
-//     }
-    
-//   }, [contextData.userInfos])
-
-//   return (
-//     <>
-//       {contextData.userInfos && (
-//         <>{contextData.userInfos.role == "ADMIN" && <>{children}</>}</>
-//       )}
-//     </>
-//   )
-// }
+  return <>{userInfos && <>{userInfos.role == "ADMIN" && <>{children}</>}</>}</>
+}

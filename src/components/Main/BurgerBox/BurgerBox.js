@@ -1,41 +1,58 @@
-import React, { useState, useEffect, Fragment, useContext } from "react"
-import { FaRegHeart } from "react-icons/fa"
-import { Dialog, Transition } from "@headlessui/react"
-import { XMarkIcon } from "@heroicons/react/24/outline"
+import React, { useState, useContext } from "react"
+import { Dialog } from "@headlessui/react"
 import { Link } from "react-router-dom"
 import EnergyBox from "../EnergyBox/EnergyBox"
-import Counter from "../Counter/Counter"
+import ContextData from "../../../ContextData/ContextData"
+import Sidebar from "../../Sidebar/Sidebar"
+import HeartBtn from "../HeartBtn/HeartBtn"
 // icons
-import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
+import { CiHeart } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
-import { FaHeartbeat } from "react-icons/fa"
-import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6"
+import { FaHeartbeat, FaRegHeart } from "react-icons/fa"
 
 // end of icons
-import "./BurgerBox.css"
-import ContextData from "../../../ContextData/ContextData"
 
-import Sidebar from "../../Sidebar/Sidebar"
 export default function BurgerBox(prodInfos) {
   const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
   const contextDatas = useContext(ContextData)
-  const { price, cover, name, shortName, description, scale } = prodInfos
+  const { price, cover, name, shortName, description, scale, discount } =
+    prodInfos
+
   return (
     <div className="burgerBox">
       <div className="relative border p-3 rounded-2xl">
-        <p className="bg-price text-secondary rounded-xl p-2 inline text-xs absolute top-5 right-5">
-          <span className="font-[faNum]">
-            {new Intl.NumberFormat().format(price)}
-          </span>{" "}
-          تومان
-        </p>
+        <div className="bg-price text-secondary rounded-xl p-2 inline text-xs absolute top-5 right-5">
+          <p
+            className={`${
+              discount && "line-through text-yellow-100 text-[9px]"
+            } `}
+          >
+            <span className="font-[faNum]">
+              {new Intl.NumberFormat().format(price)}
+            </span>{" "}
+            تومان
+          </p>
+          {discount != 0 && (
+            <p className="">
+              <span className="font-[faNum]">
+                {new Intl.NumberFormat().format(
+                  price - (price * discount) / 100
+                )}
+              </span>{" "}
+              تومان
+            </p>
+          )}
+        </div>
         <Link to={`/productInfo/${shortName}`}>
           <img
             src={`http://localhost:8000/courses/covers/${cover}`}
             className=" cursor-pointer w-full"
           />
-          <FaRegHeart className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary" />
         </Link>
+        <FaRegHeart
+          className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary"
+          onClick={() => contextDatas.addFavoriteHandler(prodInfos)}
+        />
       </div>
 
       <div className="flex flex-col items-center gap-3 mt-1 p-5">
@@ -106,7 +123,10 @@ export default function BurgerBox(prodInfos) {
                 >
                   سفارش
                 </button>
-                <CiHeart className="text-5xl cursor-pointer hover:text-info" />
+                <CiHeart
+                  className="text-5xl cursor-pointer hover:text-info"
+                  onClick={() => contextDatas.addFavoriteHandler(prodInfos)}
+                />
               </div>
             </div>
           </div>

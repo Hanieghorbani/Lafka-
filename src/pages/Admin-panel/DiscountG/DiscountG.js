@@ -4,9 +4,9 @@ import swal from "sweetalert"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import ContextData from "../../../ContextData/ContextData"
-
+import Input from "../../../components/Input/Input"
 export default function DiscountG() {
-  const {config} = useContext(ContextData)
+  const { config } = useContext(ContextData)
   const validationSchema = Yup.object().shape({
     percent: Yup.string().required("درصد تخفیف همگانی الزامی است"),
   })
@@ -36,23 +36,7 @@ export default function DiscountG() {
           onSubmit={addDiscount}
         >
           <Form className="bg-zinc-100 grid sm:grid-cols-1 md:grid-cols-2 gap-8 sm:p-4 md:p-10 rounded-2xl ">
-            {/* percent  */}
-            <div className="">
-              <label htmlFor="percent" className="text-sm text-zinc-700">
-                درصد کمپین
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="percent"
-                name="percent"
-              />
-              <ErrorMessage
-                name="percent"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
+            <Input label={"درصد کمپین"} id={"percent"} type={'number'}/>
 
             {/* login btn  */}
             <div className="flex items-center justify-center md:col-span-2">

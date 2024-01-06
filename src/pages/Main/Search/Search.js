@@ -14,7 +14,6 @@ export default function Search() {
       .then((res) => {
         setAllResultArticles(res.data.allResultArticles)
         setAllResultProducts(res.data.allResultCourses)
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)

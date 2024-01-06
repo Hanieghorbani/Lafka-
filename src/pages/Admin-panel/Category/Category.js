@@ -7,10 +7,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { Link } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
+import Input from "../../../components/Input/Input"
 export default function Category() {
-  const contextDatas = useContext(ContextData)
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const {config,getAllCategorys,categorys,} = useContext(ContextData)
+  const { config, getAllCategorys, categorys } = useContext(ContextData)
+  useEffect(() => {
+    getAllCategorys()
+  }, [])
   const initialValues = {
     title: "",
     name: "",
@@ -19,9 +21,6 @@ export default function Category() {
     name: Yup.string().required("نام دسته بندی الزامی است"),
     title: Yup.string().required("عنوان دسته بندی الزامی است"),
   })
-  useEffect(() => {
-    getAllCategorys()
-  }, [])
   function removeCategoryHandler(id) {
     swal({
       text: "آیا از حذف این دسته بندی اطمینان دارید؟",
@@ -80,13 +79,12 @@ export default function Category() {
     axios
       .post("http://localhost:8000/v1/category", values, config)
       .then((res) => {
-        console.log(res)
         swal({
           title: "دسته بندی مورد نظر با موفقیت اضافه شد",
           icon: "success",
           buttons: "تایید",
         }).then(() => {
-          contextDatas.getAllCategorys()
+          getAllCategorys()
           resetForm()
         })
       })
@@ -106,41 +104,16 @@ export default function Category() {
           onSubmit={addNewCategoryHandler}
         >
           <Form className="bg-zinc-100 grid lg:grid-cols-2 gap-8 p-10 rounded-2xl">
-            {/* title*/}
-            <div className="">
-              <label htmlFor="title" className="text-sm text-zinc-700">
-                عنوان دسته بندی
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="title"
-                name="title"
-              />
-              <ErrorMessage
-                name="title"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
-            {/* shortname  */}
-            <div className="">
-              <label htmlFor="name" className="text-sm text-zinc-700">
-                نام کوتاه دسته بندی
-              </label>
-              <Field
-                className="form-create-product"
-                type="text"
-                id="name"
-                name="name"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
+            <Input
+              label={"عنوان دسته بندی"}
+              id={"title"}
+              style={"form-create-product"}
+            />
+            <Input
+              label={"نام کوتاه دسته بندی"}
+              id={"name"}
+              style={"form-create-product"}
+            />
 
             {/* login btn  */}
             <div className="flex items-center justify-center lg:col-span-2">
