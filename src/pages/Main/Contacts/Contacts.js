@@ -7,7 +7,7 @@ import axios from "axios"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
 export default function Contacts() {
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")

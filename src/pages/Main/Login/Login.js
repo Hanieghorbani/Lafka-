@@ -9,7 +9,7 @@ import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
 export default function Login() {
   const {config,login} = useContext(ContextData)
   const [isVisiblePass, setIsVisiblePass] = useState(false)

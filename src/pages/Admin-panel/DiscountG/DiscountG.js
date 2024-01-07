@@ -4,7 +4,7 @@ import swal from "sweetalert"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
 export default function DiscountG() {
   const { config } = useContext(ContextData)
   const validationSchema = Yup.object().shape({

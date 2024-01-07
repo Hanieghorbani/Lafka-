@@ -4,21 +4,23 @@ import axios from "axios"
 import swal from "sweetalert"
 import Swal from "sweetalert2"
 import ReactDOM from "react-dom"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
+import Select from "../../../components/Fields/Select/Select"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import Pagination from "../../../components/Pagination/Pagination"
 import ContextData from "../../../ContextData/ContextData"
 import { useParams } from "react-router-dom"
+
 export default function Products() {
   const [shownItems, setShownItems] = useState([])
   const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
+  const [coverUpdate, setCoverUpdate] = useState([])
   const { config, getAllCategorys, getAllProducts, categorys, products } =
     useContext(ContextData)
   const [selectProduct, setSelectProduct] = useState([])
   const { page } = useParams()
-  const [coverUpdate, setCoverUpdate] = useState([])
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config2 = {
     headers: {
@@ -136,45 +138,47 @@ export default function Products() {
         onSubmit={changeProductInfos}
       >
         <Form className="bg-zinc-100 grid sm:grid-cols-1 gap-8 sm:p-4 md:p-10 rounded-2xl ">
-          <Input label={"نام محصول*"} id={"name"} />
+          <Input
+            label={"نام محصول*"}
+            id={"name"}
+            style={"form-create-product"}
+          />
 
-          <Input id={"description"} label={"توضیحات محصول"} />
+          <Input
+            id={"description"}
+            label={"توضیحات محصول"}
+            style={"form-create-product"}
+          />
 
-          <Input id={"url"} label={"لینک محصول"} />
+          <Input
+            id={"url"}
+            label={"لینک محصول"}
+            style={"form-create-product"}
+          />
 
           {/* category  */}
-          <div className="">
-            <label htmlFor="category" className="text-sm text-zinc-700">
-              دسته بندی محصول
-            </label>
+          <Select label={"دسته بندی محصول"} id={"category"} items={categorys} />
 
-            <Field
-              className="form-create-product"
-              as="select"
-              id="category"
-              name="category"
-            >
-              <option value="">انتخاب کنید</option>
-              {categorys.map((category) => (
-                <option
-                  key={category._id}
-                  value={category._id}
-                  label={category.title}
-                />
-              ))}
-            </Field>
-            <ErrorMessage
-              name="category"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+          <Input
+            id={"price"}
+            label={"قیمت محصول"}
+            type={"number"}
+            style={"form-create-product"}
+          />
 
-          <Input id={"price"} label={"قیمت محصول"} type={"number"} />
+          <Input
+            id={"scale"}
+            label={"وزن محصول"}
+            type={"number"}
+            style={"form-create-product"}
+          />
 
-          <Input id={"scale"} label={"وزن محصول"} type={"number"} />
-
-          <Input id={"stock"} label={"موجودی محصول"} type={"number"} />
+          <Input
+            id={"stock"}
+            label={"موجودی محصول"}
+            type={"number"}
+            style={"form-create-product"}
+          />
 
           {/* cover  */}
           <div className="">
@@ -282,33 +286,11 @@ export default function Products() {
               type={"number"}
               style={"form-create-product"}
             />
-            {/* category  */}
-            <div className="">
-              <label htmlFor="category" className="text-sm text-zinc-700">
-                دسته بندی محصول
-              </label>
-
-              <Field
-                className="form-create-product"
-                as="select"
-                id="category"
-                name="category"
-              >
-                <option value="">انتخاب کنید</option>
-                {categorys.map((category) => (
-                  <option
-                    key={category._id}
-                    value={category._id}
-                    label={category.title}
-                  />
-                ))}
-              </Field>
-              <ErrorMessage
-                name="category"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
+            <Select
+              label={"دسته بندی محصول"}
+              id={"category"}
+              items={categorys}
+            />
 
             {/* cover  */}
             <div className="">

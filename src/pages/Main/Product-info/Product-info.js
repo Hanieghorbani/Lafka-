@@ -15,6 +15,8 @@ import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
 import jalaliMoment from "jalali-moment"
+
+import TextArea from "../../../components/Fields/TextArea/TextArea"
 export default function ProductInfo() {
   const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
   const [productInfo, setProductInfo] = useState([])
@@ -464,24 +466,9 @@ export default function ProductInfo() {
                         >
                           <Form className="space-y-10">
                             <div className=" md:col-span-3 relative">
-                              <label
-                                htmlFor="contentText"
-                                className="text-sm text-zinc-500"
-                              >
-                                دیدگاه شما:
-                              </label>
-                              <Field
-                                as="textarea"
-                                type="text"
-                                id="contentText"
-                                name="contentText"
-                                className="form-comment h-40"
-                                style={{ boxShadow: "none" }}
-                              />
-                              <ErrorMessage
-                                name="contentText"
-                                component="div"
-                                className="error form-error  md:w-1/2"
+                              <TextArea
+                                label={"دیدگاه شما:"}
+                                id={"contentText"}
                               />
                             </div>
 

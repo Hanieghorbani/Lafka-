@@ -10,7 +10,7 @@ import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
 export default function Register() {
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   const [isVisiblePassConfirm, setIsVisiblePassConfirm] = useState(false)

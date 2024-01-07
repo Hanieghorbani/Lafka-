@@ -8,7 +8,8 @@ import * as Yup from "yup"
 import { Link } from "react-router-dom"
 import swal from "sweetalert"
 import axios from "axios"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
+import TextArea from "../../../components/Fields/TextArea/TextArea"
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("credit")
   const [readPolicy, setReadPolicy] = useState(false)
@@ -31,6 +32,7 @@ export default function Checkout() {
 
   function paymentHandler() {
     if (paymentMethod == "credit") {
+      purchaseProduct()
     } else {
       swal({
         text: "متاسفیم!در استان شما امکان پرداخت درب منزل وجود ندارد،لطفا از طریق بانک پرداخت کنید..",
@@ -38,30 +40,34 @@ export default function Checkout() {
         buttons: ["لغو", "پرداخت"],
       }).then((res) => {
         if (res) {
-          swal({
-            text: "منتقل شدن به درگاه پرداخت و پرداخت موفق",
-            icon: "success",
-            dangerMode: false,
-            buttons: "تایید",
-          }).then(() => {
-            cart.forEach((product) => {
-              const data = { price: product.price }
-              axios
-                .post(
-                  `http://localhost:8000/v1/courses/${product._id}/register`,
-                  data,
-                  config
-                )
-                .then((res) => {
-                  setCart([])
-                  localStorage.setItem("cart", JSON.stringify([]))
-                })
-                .catch((err) => console.log(err))
-            })
-          })
+          purchaseProduct()
         }
       })
     }
+  }
+
+  function purchaseProduct() {
+    swal({
+      text: "منتقل شدن به درگاه پرداخت و پرداخت موفق",
+      icon: "success",
+      dangerMode: false,
+      buttons: "تایید",
+    }).then(() => {
+      cart.forEach((product) => {
+        const data = { price: product.price }
+        axios
+          .post(
+            `http://localhost:8000/v1/courses/${product._id}/register`,
+            data,
+            config
+          )
+          .then((res) => {
+            setCart([])
+            localStorage.setItem("cart", JSON.stringify([]))
+          })
+          .catch((err) => console.log(err))
+      })
+    })
   }
   return (
     <div>
@@ -92,15 +98,10 @@ export default function Checkout() {
               {/* order description  */}
               <div className="">
                 <h4 className="text-xl mb-3">اطلاعات بیشتر</h4>
-                <label htmlFor="orderDesc" className="text-sm text-zinc-700">
-                  توضیحات سفارش (اختیاری)
-                </label>
-                <Field
-                  placeholder="یادداشت‌ها درباره سفارش شما، برای مثال نکات مهم درباره نحوه تحویل سفارش"
-                  className="form-contact placeholder:text-sm h-44"
-                  as="textarea"
-                  id="orderDesc"
-                  name="orderDesc"
+                <TextArea
+                  label={"توضیحات سفارش (اختیاری)"}
+                  id={"orderDesc"}
+                  style={"form-contact placeholder:text-sm h-44"}
                 />
               </div>
             </Form>
@@ -212,7 +213,7 @@ export default function Checkout() {
               className="btn bg-info mt-5"
               disabled={!readPolicy}
               //   type="submit"
-              //   form="formCheckout"
+              form="formCheckout"
               onClick={paymentHandler}
             >
               ثبت سفارش

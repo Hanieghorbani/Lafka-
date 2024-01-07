@@ -8,7 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import Pagination from "../../../components/Pagination/Pagination"
 import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
 export default function Users() {
   const [users, setUsers] = useState([])
   const [shownItems, setShownItems] = useState([])

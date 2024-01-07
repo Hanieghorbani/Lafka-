@@ -40,6 +40,12 @@ function App() {
       "Content-Type": "application/json",
     },
   }
+  const formDataConfig = {
+    headers: {
+      Authorization: `Bearer ${localStorageToken.token}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  }
 
   const login = useCallback((userInfos, token) => {
     setToken(token)
@@ -249,6 +255,7 @@ function App() {
           userPanelSubMenu,
           config,
           favorites,
+          formDataConfig
         }}
       >
         {router}

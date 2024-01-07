@@ -7,7 +7,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import ContextData from "../../../ContextData/ContextData"
 import jalaliMoment from "jalali-moment"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
+import Select from "../../../components/Fields/Select/Select"
 export default function Offers() {
   const contextDatas = useContext(ContextData)
   const [products, setProducts] = useState([])
@@ -119,33 +120,8 @@ export default function Offers() {
             />
 
             {/* product  */}
-            <div className="">
-              <label htmlFor="course" className="text-sm text-zinc-700">
-                محصول مورد نظر
-              </label>
-
-              <Field
-                className="form-create-product"
-                as="select"
-                id="course"
-                name="course"
-              >
-                <option value="">انتخاب کنید</option>
-                {contextDatas.products.map((product) => (
-                  <option
-                    key={product._id}
-                    value={product._id}
-                    label={product.name}
-                  />
-                ))}
-              </Field>
-              <ErrorMessage
-                name="category"
-                component="div"
-                className="error form-error  md:w-1/2"
-              />
-            </div>
-
+            <Select label={"محصول مورد نظر"} id={'course'} items={contextDatas.products}/>
+           
             {/* login btn  */}
             <div className="flex items-center justify-center lg:col-span-2">
               <button type="submit" className="btn bg-green-400 text-sm w-1/2">

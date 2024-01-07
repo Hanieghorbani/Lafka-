@@ -26,7 +26,9 @@
         overflow-x: hidden;
     }
 
-    input {
+    input,
+    textArea,
+    select {
         box-shadow: none !important;
     }
 
@@ -122,5 +124,4 @@
         @apply relative before:content-[""] before:absolute before:top-8 before:right-20 before:w-4 before:h-4 before:rounded-full;
     }
     /*end of user panel  */
-    
 }

@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { Link } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Input/Input"
+import Input from "../../../components/Fields/Input/Input"
 export default function Category() {
   const { config, getAllCategorys, categorys } = useContext(ContextData)
   useEffect(() => {
