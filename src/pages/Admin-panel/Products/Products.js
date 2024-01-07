@@ -17,17 +17,12 @@ export default function Products() {
   const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
   const [coverUpdate, setCoverUpdate] = useState([])
-  const { config, getAllCategorys, getAllProducts, categorys, products } =
+  const { config, getAllCategorys, getAllProducts, categorys, products ,formDataConfig} =
     useContext(ContextData)
   const [selectProduct, setSelectProduct] = useState([])
   const { page } = useParams()
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
-  const config2 = {
-    headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  }
+ 
   const initialValues = {
     name: "",
     price: "",
@@ -95,7 +90,7 @@ export default function Products() {
     formData.append("cover", coverFile)
 
     axios
-      .post("http://localhost:8000/v1/courses/", formData, config2)
+      .post("http://localhost:8000/v1/courses/", formData, formDataConfig)
       .then((res) => {
         swal({
           title: "محصول جدید با موفقیت اضافه شد",
@@ -226,7 +221,7 @@ export default function Products() {
       .put(
         `http://localhost:8000/v1/courses/${selectProduct._id}`,
         formData,
-        config2
+        formDataConfig
       )
       .then((res) => {
         swal({

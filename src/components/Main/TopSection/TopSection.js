@@ -19,13 +19,13 @@ export default function TopSection({
         <Header />
       </div>
       {showCategory && (
-        <div className="w-3/4 bg-primary mt-[11.5rem] container-primary p-3 rounded-b-3xl mt-60">
-          <div className="w-1/2 text-white flex items-center justify-between mx-auto">
+        <div className="lg:w-3/4 bg-primary sm:mt-40 lg:mt-[11.5rem] container-primary p-3 rounded-b-3xl mt-60">
+          <div className="lg:w-1/2 text-white flex items-center justify-between mx-auto">
             {contextDatas.categorys.map((category) => (
               <Link
                 to={`/productCategory/${category.name}`}
                 key={category._id}
-                className="li-header"
+                className="li-header text-sm"
               >
                 {category.title}
               </Link>

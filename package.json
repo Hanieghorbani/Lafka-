@@ -16,6 +16,7 @@
     "aos": "^2.3.4",
     "axios": "^1.6.3",
     "date-fns": "^3.0.6",
+    "dompurify": "^3.0.8",
     "flowbite": "^2.2.0",
     "flowbite-react": "^0.7.0",
     "formik": "^2.4.5",

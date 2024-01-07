@@ -1,18 +1,35 @@
-import React from "react"
+import React, {  } from "react"
 import { FaRegCircleUser } from "react-icons/fa6"
-import { MdAccessTime } from "react-icons/md";
-export default function BlogBox({ title, img }) {
+import { MdAccessTime } from "react-icons/md"
+import jalaliMoment from "jalali-moment"
+import { Link } from "react-router-dom"
+export default function BlogBox({
+  title,
+  cover,
+  creator,
+  createdAt,
+  shortName,
+}) {
   return (
-    <div className="space-y-2 cursor-pointer">
-      <img src={`/imgs/blogs/${img}`} alt="" className="rounded-3xl" />
-      <h1 className="font-[faNum] text-zinc-500 text-xl">{title}</h1>
+    <div className="space-y-4">
+      <Link to={`/blogInfo/${shortName}`} >
+        <img
+          src={`http://localhost:8000/courses/covers/${cover}`}
+          alt=""
+          className="rounded-3xl"
+        />
+      </Link>
+      <Link to={`/blogInfo/${shortName}`} >
+        <h1 className="font-[faNum] text-zinc-500">{title}</h1>
+      </Link>
       <div className="flex gap-5">
-        <p className="flex items-center text-zinc-400">
-          <FaRegCircleUser className="text-xl ml-1"/>
-          حانیه قربانی
+        <p className="flex text-sm items-center text-zinc-400">
+          <FaRegCircleUser className="text-xl ml-1" />
+          {creator.name}
         </p>
-        <p className="font-[faNum] flex items-center text-zinc-400">
-          <MdAccessTime className="text-xl ml-1"/>3 خرداد 1402
+        <p className="text-sm font-[faNum] flex items-center text-zinc-400">
+          <MdAccessTime className="text-xl ml-1" />{" "}
+          {jalaliMoment(createdAt).format("jYYYY/jM/jD")}
         </p>
       </div>
     </div>

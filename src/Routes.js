@@ -16,6 +16,7 @@ import DiscountG from "./pages/Admin-panel/DiscountG/DiscountG"
 import Index from "./pages/Main/Index/Index"
 import About from "./pages/Main/About/About"
 import Blogs from "./pages/Main/Blogs/Blogs"
+import BlogInfo from "./pages/Main/BlogInfo/BlogInfo"
 import Branches from "./pages/Main/Branches/Branches"
 import Cart from "./pages/Main/Cart/Cart"
 import Contact from "./pages/Main/Contacts/Contacts"
@@ -39,6 +40,7 @@ const routes = [
   { path: "/", element: <Index /> },
   { path: "/about", element: <About /> },
   { path: "/blogs", element: <Blogs /> },
+  { path: "/blogInfo/:shortName", element: <BlogInfo /> },
   { path: "/locations", element: <Branches /> },
   { path: "/cart", element: <Cart /> },
   { path: "/contact", element: <Contact /> },

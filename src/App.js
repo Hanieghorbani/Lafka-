@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useContext } from "react"
 import { useNavigate, useRoutes } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import ScrollToTop from "./components/Main/ScrollToTop/ScrollToTop"
@@ -25,6 +25,7 @@ function App() {
   const [infos, setInfos] = useState([])
   const [cart, setCart] = useState([])
   const [favorites, setFavorites] = useState([])
+  const [articles, setArticles] = useState([])
 
   const [token, setToken] = useState("")
   const [userPanelSubMenu, setUserPanelSubMenu] = useState("پیشخوان")
@@ -42,7 +43,9 @@ function App() {
   }
   const formDataConfig = {
     headers: {
-      Authorization: `Bearer ${localStorageToken.token}`,
+      Authorization: `Bearer ${
+        !localStorageToken ? "null" : localStorageToken.token
+      }`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
   }
@@ -94,6 +97,12 @@ function App() {
     axios.get("http://localhost:8000/v1/courses").then((res) => {
       setProducts(res.data)
     })
+  }
+
+  function getAllArticles() {
+    axios
+      .get("http://localhost:8000/v1/articles")
+      .then((res) => setArticles(res.data))
   }
 
   function addToCart(prodInfos, newPrice) {
@@ -240,6 +249,7 @@ function App() {
           setFavorites,
           addFavoriteHandler,
           removeFavorite,
+          getAllArticles,
           userInfos,
           categorys,
           products,
@@ -255,7 +265,8 @@ function App() {
           userPanelSubMenu,
           config,
           favorites,
-          formDataConfig
+          formDataConfig,
+          articles,
         }}
       >
         {router}
