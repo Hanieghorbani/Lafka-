@@ -34,7 +34,7 @@ export default function BlogInfo() {
         <img
           src={`http://localhost:8000/courses/covers/${cover}`}
           alt={title}
-          className="w-1/2 mx-auto mb-10"
+          className="w-1/2 mx-auto mb-10 rounded-3xl"
         />
         <h1 className="text-center text-3xl font-bold mb-20">{title}</h1>
 

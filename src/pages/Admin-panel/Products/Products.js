@@ -14,15 +14,17 @@ import { useParams } from "react-router-dom"
 
 export default function Products() {
   const [shownItems, setShownItems] = useState([])
-  const [prodCategory, setProdCategory] = useState("")
   const [coverFile, setCoverFile] = useState([])
-  const [coverUpdate, setCoverUpdate] = useState([])
-  const { config, getAllCategorys, getAllProducts, categorys, products ,formDataConfig} =
-    useContext(ContextData)
-  const [selectProduct, setSelectProduct] = useState([])
+  const {
+    config,
+    getAllCategorys,
+    getAllProducts,
+    categorys,
+    products,
+    formDataConfig,
+  } = useContext(ContextData)
   const { page } = useParams()
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
- 
+
   const initialValues = {
     name: "",
     price: "",
@@ -105,7 +107,6 @@ export default function Products() {
   }
 
   function updateProduct(prodInfos) {
-    setSelectProduct(prodInfos)
     const seetAlertContainer = document.createElement("div")
     document.body.appendChild(seetAlertContainer)
     const { name, price, description, shortName, scale, stock } = prodInfos
@@ -117,6 +118,7 @@ export default function Products() {
       category: "",
       scale,
       stock,
+      file: null,
     }
     Swal.fire({
       title: "اطلاعات جدید را وارد کنید",
@@ -130,110 +132,130 @@ export default function Products() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={changeProductInfos}
+        onSubmit={(values) => {
+          console.log(values)
+          const formData = new FormData()
+          formData.append("name", values.name)
+          formData.append("description", values.description)
+          formData.append("shortName", values.url)
+          formData.append("categoryID", values.category)
+          formData.append("price", values.price)
+          formData.append("scale", values.scale)
+          formData.append("stock", values.stock)
+          formData.append("cover", values.file)
+          axios
+            .put(
+              `http://localhost:8000/v1/courses/${prodInfos._id}`,
+              formData,
+              formDataConfig
+            )
+            .then((res) => {
+              swal({
+                title: "محصول با موفقیت بروز رسانی شد",
+                icon: "success",
+                buttons: "تایید",
+              }).then(() => {
+                getAllProducts()
+              })
+            })
+            .catch((err) => {
+              console.log(err)
+              swal({
+                text: "آپدیت محصول با مشکل مواجه شد!",
+                icon: "error",
+                dangerMode: true,
+                buttons: "تایید",
+              })
+            })
+        }}
       >
-        <Form className="bg-zinc-100 grid sm:grid-cols-1 gap-8 sm:p-4 md:p-10 rounded-2xl ">
-          <Input
-            label={"نام محصول*"}
-            id={"name"}
-            style={"form-create-product"}
-          />
+        {(formik) => {
+          return (
+            <>
+              <Form className="bg-zinc-100 grid sm:grid-cols-1 gap-8 sm:p-4 md:p-10 rounded-2xl ">
+                <Input
+                  label={"نام محصول*"}
+                  id={"name"}
+                  style={"form-create-product"}
+                />
 
-          <Input
-            id={"description"}
-            label={"توضیحات محصول"}
-            style={"form-create-product"}
-          />
+                <Input
+                  id={"description"}
+                  label={"توضیحات محصول"}
+                  style={"form-create-product"}
+                />
 
-          <Input
-            id={"url"}
-            label={"لینک محصول"}
-            style={"form-create-product"}
-          />
+                <Input
+                  id={"url"}
+                  label={"لینک محصول"}
+                  style={"form-create-product"}
+                />
 
-          {/* category  */}
-          <Select label={"دسته بندی محصول"} id={"category"} items={categorys} />
+                {/* category  */}
+                <Select
+                  label={"دسته بندی محصول"}
+                  id={"category"}
+                  items={categorys}
+                />
 
-          <Input
-            id={"price"}
-            label={"قیمت محصول"}
-            type={"number"}
-            style={"form-create-product"}
-          />
+                <Input
+                  id={"price"}
+                  label={"قیمت محصول"}
+                  type={"number"}
+                  style={"form-create-product"}
+                />
 
-          <Input
-            id={"scale"}
-            label={"وزن محصول"}
-            type={"number"}
-            style={"form-create-product"}
-          />
+                <Input
+                  id={"scale"}
+                  label={"وزن محصول"}
+                  type={"number"}
+                  style={"form-create-product"}
+                />
 
-          <Input
-            id={"stock"}
-            label={"موجودی محصول"}
-            type={"number"}
-            style={"form-create-product"}
-          />
+                <Input
+                  id={"stock"}
+                  label={"موجودی محصول"}
+                  type={"number"}
+                  style={"form-create-product"}
+                />
 
-          {/* cover  */}
-          <div className="">
-            <label htmlFor="file" className="text-sm text-zinc-700">
-              تصویر محصول
-            </label>
-            <input
-              type="file"
-              id="file"
-              className="form-create-product"
-              onChange={(e) => {
-                setCoverUpdate(e.target.files[0])
-              }}
-            />
-            <ErrorMessage
-              name="file"
-              component="div"
-              className="error form-error  md:w-1/2"
-            />
-          </div>
+                {/* cover  */}
+                <div className="">
+                  <label htmlFor="file" className="text-sm text-zinc-700">
+                    تصویر محصول
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    className="form-create-product"
+                    onChange={(e) => {
+                      formik.setFieldValue("file", e.target.files[0])
+                    }}
+                  />
+                  <ErrorMessage
+                    name="file"
+                    component="div"
+                    className="error form-error  md:w-1/2"
+                  />
+                </div>
 
-          {/* login btn  */}
-          <div className="flex items-center justify-center ">
-            <button type="submit" className="btn bg-green-400 text-sm w-1/2">
-              ویرایش
-            </button>
-          </div>
-        </Form>
+                {/* login btn  */}
+                <div className="flex items-center justify-center ">
+                  <button
+                    type="submit"
+                    className="btn bg-green-400 text-sm w-1/2"
+                  >
+                    ویرایش
+                  </button>
+                </div>
+              </Form>
+            </>
+          )
+        }}
       </Formik>,
       document.getElementById("formik-yup")
     )
-  }
-
-  function changeProductInfos(values, { resetForm }) {
-    const formData = new FormData()
-    formData.append("name", values.name)
-    formData.append("description", values.description)
-    formData.append("shortName", values.url)
-    formData.append("categoryID", values.category)
-    formData.append("price", values.price)
-    formData.append("scale", values.scale)
-    formData.append("stock", values.stock)
-    formData.append("cover", coverUpdate)
-    axios
-      .put(
-        `http://localhost:8000/v1/courses/${selectProduct._id}`,
-        formData,
-        formDataConfig
-      )
-      .then((res) => {
-        swal({
-          title: "محصول با موفقیت بروز رسانی شد",
-          icon: "success",
-          buttons: "تایید",
-        }).then(() => {
-          getAllProducts()
-          resetForm()
-        })
-      })
-      .catch((err) => console.log(err))
   }
   return (
     <div className="container-primary">

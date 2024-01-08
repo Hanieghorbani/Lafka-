@@ -11,7 +11,20 @@ import { Autoplay, Pagination } from "swiper/modules"
 import CommentBox from "../../../components/Main/CommentBox/CommentBox"
 import Footer from "../../../components/Main/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
+import axios from "axios"
 export default function About() {
+  const [year, setYear] = useState(1388)
+  const [comments, setComments] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/v1/comments")
+      .then((res) => {
+        setComments(res.data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+
   return (
     <div className="">
       <TopSection subTitle={"درباره ما"} bg={"bg-img-about"} />
@@ -43,10 +56,38 @@ export default function About() {
         <h2 className="mb-10 font-[delbar] text-4xl">داستان ما</h2>
         <div className="flex relative md:w-full justify-between">
           <span className="border-t-4 border-dashed center-position w-full -z-10"></span>
-          <button className="btn-yearStory">1378</button>
-          <button className="btn-yearStory">1382</button>
-          <button className="btn-yearStorySelect">1388</button>
-          <button className="btn-yearStory">1399</button>
+          <button
+            className={`${
+              year === 1378 ? "btn-yearStorySelect" : "btn-yearStory"
+            }`}
+            onClick={() => setYear(1378)}
+          >
+            1378
+          </button>
+          <button
+            className={`${
+              year === 1382 ? "btn-yearStorySelect" : "btn-yearStory"
+            }`}
+            onClick={() => setYear(1382)}
+          >
+            1382
+          </button>
+          <button
+            className={`${
+              year === 1388 ? "btn-yearStorySelect" : "btn-yearStory"
+            }`}
+            onClick={() => setYear(1388)}
+          >
+            1388
+          </button>
+          <button
+            className={`${
+              year === 1399 ? "btn-yearStorySelect" : "btn-yearStory"
+            }`}
+            onClick={() => setYear(1399)}
+          >
+            1399
+          </button>
         </div>
       </div>
       <p className="text-gray-400 text-center mt-10 md:w-3/4 container-primary leading-8">
@@ -119,41 +160,15 @@ export default function About() {
             data-aos-duration="2000"
             data-aos-delay="100"
           >
-            <SwiperSlide>
+          {comments.map(comment=>(
+             <SwiperSlide>
               <CommentBox
-                content="به شدت غذاهای خوش مزه و عالی.مشتری ثابتتون شدم.ممنون ازتون."
-                name="امیر صادقی"
-                score={5}
+                content={comment.body}
+                name={comment.creator.name}
+                score={comment.score}
               />
             </SwiperSlide>
-            <SwiperSlide>
-              <CommentBox
-                content="بسته بندی غذا خوب بود ولی غذاها یکم سرد به دستمون رسیدن"
-                name="فرزانه عباسی"
-                score={3}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CommentBox
-                content="حجم غذا نسبت به قیمت عالی بود با تشکر"
-                name="محمد امینی"
-                score={5}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CommentBox
-                content="خیلی لذت بردیم از غذاهاتون مخصوصا از رویال برگر ویژه.عالی بود"
-                name="سارا خدایی"
-                score={4}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CommentBox
-                content=" هم حجم غذا هم کیفیت هم قیمت ،همه چی خیلی خوب بود بازم سفارش میدم ازتون خیلی راضی بودم (:"
-                name="حانیه قربانی"
-                score={5}
-              />
-            </SwiperSlide>
+          ))}
           </Swiper>
         </div>
       </div>

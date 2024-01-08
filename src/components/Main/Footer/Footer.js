@@ -24,7 +24,7 @@ export default function Footer() {
 
         <div className="text-white text-center text-xs">
           <p>توسعه داده شده توسط حانیه قربانی | </p>
-          <p>طراحی قالب از تیم تفرش تم</p>
+          <a href="https://tafresh-theme.com/">ui از تیم تفرش تم</a>
         </div>
       </div>
     </div>
