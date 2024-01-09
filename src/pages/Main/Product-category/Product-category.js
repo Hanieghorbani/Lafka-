@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
 import Footer from "../../../components/Main/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
+import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
+
 import { useParams } from "react-router-dom"
 import axios from "axios"
-import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 export default function Categorya() {
   const { shortName } = useParams()
   const [products, setProducts] = useState([])

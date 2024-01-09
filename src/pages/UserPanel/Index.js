@@ -1,14 +1,15 @@
-import React, { useContext, Fragment, useState } from "react"
-import { Outlet } from "react-router-dom"
+import React, { useContext, useState } from "react"
 import Sidebar from "../../components/UserPanel/Sidebar/Sidebar"
 import Header from "../../components/Main/Header/Header"
 import Footer from "../../components/Main/Footer/Footer"
-import ContextData from "../../ContextData/ContextData"
-import { FaBars } from "react-icons/fa6"
-import { Dialog, Transition } from "@headlessui/react"
-import { XMarkIcon } from "@heroicons/react/24/outline"
-import { Link } from "react-router-dom"
 import SidebarMain from "../../components/Sidebar/Sidebar"
+import ContextData from "../../ContextData/ContextData"
+
+import { FaBars } from "react-icons/fa6"
+
+import { Dialog } from "@headlessui/react"
+import { Link,Outlet } from "react-router-dom"
+
 export default function Index() {
   const contextDatas = useContext(ContextData)
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)

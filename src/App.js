@@ -1,13 +1,14 @@
-import { useEffect, useState, useCallback, useContext } from "react"
-import { useNavigate, useRoutes } from "react-router-dom"
-import { toast, ToastContainer } from "react-toastify"
+import { useEffect, useState, useCallback } from "react"
 import ScrollToTop from "./components/Main/ScrollToTop/ScrollToTop"
 import ContextData from "./ContextData/ContextData"
 import useScroll from "./hooks/useScroll"
 import routes from "./Routes"
-import AOS from "aos"
+
+import { useNavigate, useRoutes } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
 import swal from "sweetalert"
 import axios from "axios"
+import AOS from "aos"
 
 function App() {
   const navigate = useNavigate()

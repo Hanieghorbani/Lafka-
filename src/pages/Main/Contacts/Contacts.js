@@ -1,19 +1,23 @@
 import React, { useEffect, useState, useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
+import Input from "../../../components/Fields/Input/Input"
+import TextArea from "../../../components/Fields/TextArea/TextArea"
+
+
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
-import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Fields/Input/Input"
-import TextArea from "../../../components/Fields/TextArea/TextArea"
+
+
 export default function Contacts() {
-  const [captcha, setCaptcha] = useState("")
-  const [answer, setAnswer] = useState("")
   const navigate = useNavigate()
   const { config } = useContext(ContextData)
+  const [captcha, setCaptcha] = useState("")
+  const [answer, setAnswer] = useState("")
   const initialValues = {
     name: "",
     email: "",

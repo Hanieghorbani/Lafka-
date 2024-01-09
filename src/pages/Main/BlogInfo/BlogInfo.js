@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from "react"
-import TopSection from "../../../components/Main/TopSection/TopSection"
-import { useParams } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
-import axios from "axios"
+import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
+
 import DOMPurify from "dompurify"
+import { useParams } from "react-router-dom"
+import axios from "axios"
+import jalaliMoment from "jalali-moment"
+
 import { FaRegCircleUser } from "react-icons/fa6"
 import { MdAccessTime } from "react-icons/md"
-import jalaliMoment from "jalali-moment"
+
 export default function BlogInfo() {
-  const [article, setArticle] = useState({})
   const { shortName } = useParams()
   const { config } = useContext(ContextData)
+  const [article, setArticle] = useState({})
   useEffect(() => {
     axios
       .get(`http://localhost:8000/v1/articles/${shortName}`, config)

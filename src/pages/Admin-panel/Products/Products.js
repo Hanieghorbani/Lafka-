@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
+import Pagination from "../../../components/Pagination/Pagination"
+import Input from "../../../components/Fields/Input/Input"
+import Select from "../../../components/Fields/Select/Select"
+
+import ReactDOM from "react-dom"
 import axios from "axios"
 import swal from "sweetalert"
 import Swal from "sweetalert2"
-import ReactDOM from "react-dom"
-import Input from "../../../components/Fields/Input/Input"
-import Select from "../../../components/Fields/Select/Select"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Formik, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import Pagination from "../../../components/Pagination/Pagination"
-import ContextData from "../../../ContextData/ContextData"
 import { useParams } from "react-router-dom"
 
 export default function Products() {

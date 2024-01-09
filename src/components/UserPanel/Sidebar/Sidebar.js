@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import { Link, useNavigate } from "react-router-dom"
 import swal from "sweetalert"
-import ContextData from "../../../ContextData/ContextData"
 
 export default function Sidebar() {
   const contextDatas = useContext(ContextData)

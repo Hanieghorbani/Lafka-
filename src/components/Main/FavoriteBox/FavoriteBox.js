@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import { BsFillTrashFill } from "react-icons/bs"
 import { IoCloseOutline } from "react-icons/io5"
-import ContextData from "../../../ContextData/ContextData"
 
 export default function FavoriteBox(prodInfos) {
   const { addToCart, removeFavorite } = useContext(ContextData)

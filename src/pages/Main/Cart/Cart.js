@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useContext } from "react"
-import Header from "../../../components/Main/Header/Header"
+import React, { useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import TopSection from "../../../components/Main/TopSection/TopSection"
-import ProductCartBoxInPage from "../../../components/Main/ProductCartBox/ProductCartBoxInPage"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 import Footer from "../../../components/Main/Footer/Footer"
-import ContextData from "../../../ContextData/ContextData"
-import axios from "axios"
+import ProductCartBoxInPage from "../../../components/Main/ProductCartBox/ProductCartBoxInPage"
+
 import { Link } from "react-router-dom"
 export default function Cart() {
   const contextDatas = useContext(ContextData)
-  const [codeOff, setCodeOff] = useState("")
   
   return (
     <div>
@@ -37,7 +35,6 @@ export default function Cart() {
             )}
           </div>
           <div className="mt-7">
-            {/* <h4 className="border-b-2 pb-3"></h4> */}
             <div className="grid grid-cols-3 items-center gap-2 my-10 px-3 border-y-2 py-5">
               <div className="space-y-5 col-span-1 text-sm">
                 <h5 className="">جمع کل سبد خرید:</h5>

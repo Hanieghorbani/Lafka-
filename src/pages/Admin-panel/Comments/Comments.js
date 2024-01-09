@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react"
-import axios from "axios"
-import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
-import swal from "sweetalert"
-import Pagination from "../../../components/Pagination/Pagination"
 import ContextData from "../../../ContextData/ContextData"
+import Pagination from "../../../components/Pagination/Pagination"
+import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
+
+import axios from "axios"
+import swal from "sweetalert"
+
 export default function Comments() {
   const [comments, setComments] = useState([])
   const [shownItems, setShownItems] = useState([])

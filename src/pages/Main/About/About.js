@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react"
-import Header from "../../../components/Main/Header/Header"
+import CommentBox from "../../../components/Main/CommentBox/CommentBox"
+import TopSection from "../../../components/Main/TopSection/TopSection"
+import Footer from "../../../components/Main/Footer/Footer"
 
+// Import Swiper 
 import { Swiper, SwiperSlide } from "swiper/react"
-// Import Swiper styles
+import { Autoplay, Pagination } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/pagination"
 import "./About.css"
-// import required modules
-import { Autoplay, Pagination } from "swiper/modules"
-import CommentBox from "../../../components/Main/CommentBox/CommentBox"
-import Footer from "../../../components/Main/Footer/Footer"
-import TopSection from "../../../components/Main/TopSection/TopSection"
+
+
 import axios from "axios"
 export default function About() {
   const [year, setYear] = useState(1388)

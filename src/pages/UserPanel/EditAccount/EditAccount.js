@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
+import ContextData from "../../../ContextData/ContextData"
+import Input from "../../../components/Fields/Input/Input"
 
 import swal from "sweetalert"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
-import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Fields/Input/Input"
+
 export default function EditAccount() {
   const navigate = useNavigate()
   const { config, userInfos, setReLoading } = useContext(ContextData)

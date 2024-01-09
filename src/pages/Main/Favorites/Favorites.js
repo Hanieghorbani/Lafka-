@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import FavoriteBox from "../../../components/Main/FavoriteBox/FavoriteBox"
-import Footer from "../../../components/Main/Footer/Footer"
 import TopSection from "../../../components/Main/TopSection/TopSection"
+import Footer from "../../../components/Main/Footer/Footer"
 import ContextData from "../../../ContextData/ContextData"
 export default function Favorites() {
   const { favorites } = useContext(ContextData)

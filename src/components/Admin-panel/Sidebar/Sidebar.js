@@ -1,8 +1,12 @@
-import React, { Fragment, useContext, useState } from "react"
+import React, { useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
+import SidebarMain from "../../Sidebar/Sidebar"
 
 import { Link } from "react-router-dom"
+import { Dialog } from "@headlessui/react"
+
 // icons
-import { IoHomeOutline } from "react-icons/io5"
+import { IoHomeOutline, IoMoonSharp } from "react-icons/io5"
 import {
   MdOutlineProductionQuantityLimits,
   MdLibraryBooks,
@@ -16,16 +20,13 @@ import { FaEnvelopeOpenText } from "react-icons/fa6"
 import { BsTicketDetailed } from "react-icons/bs"
 import { RiLogoutBoxRLine } from "react-icons/ri"
 import { IoMdNotifications } from "react-icons/io"
-import { IoMdClose } from "react-icons/io"
-import { IoMoonSharp, IoHomeSharp } from "react-icons/io5"
 //end of icons
-import { Dialog, Transition } from "@headlessui/react"
-import { XMarkIcon } from "@heroicons/react/24/outline"
-import ContextData from "../../../ContextData/ContextData"
-import SidebarMain from "../../Sidebar/Sidebar"
-export default function Sidebar({ isShowNotifs, setIsShowNotifs }) {
+
+
+export default function Sidebar({ setIsShowNotifs }) {
   const contextDatas = useContext(ContextData)
   const { isOpenSidebarMenuPAdmin, setIsOpenSidebarMenuPAdmin } = contextDatas
+
   return (
     <>
       <div className="bg-zinc-100 w-[20%] fixed top-0 right-0 sm:hidden lg:block">

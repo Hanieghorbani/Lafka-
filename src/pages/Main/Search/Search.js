@@ -6,13 +6,11 @@ import axios from "axios"
 import { useParams } from "react-router-dom"
 export default function Search() {
   const { searchValue } = useParams()
-  const [allResultArticles, setAllResultArticles] = useState([])
   const [allResultProducts, setAllResultProducts] = useState([])
   useEffect(() => {
     axios
       .get(`http://localhost:8000/v1/search/${searchValue}`)
       .then((res) => {
-        setAllResultArticles(res.data.allResultArticles)
         setAllResultProducts(res.data.allResultCourses)
       })
       .catch((err) => {

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
 import Footer from "../../../components/Main/Footer/Footer"
-import axios from "axios"
 import Pagination from "../../../components/Pagination/Pagination"
+
+import axios from "axios"
+
 export default function Orders() {
   const [products, setProducts] = useState([])
   const [shownItems,setShownItems] = useState([])

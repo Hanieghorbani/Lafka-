@@ -1,5 +1,6 @@
 import React from "react"
 import { FaMoneyBill } from "react-icons/fa"
+
 export default function MainInfoBox({ count, title }) {
   return (
     <div className="bg-zinc-100 rounded-2xl text-center">

@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react"
+import axios from "axios"
+import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import ContextData from "../../../ContextData/ContextData"
 export default function ViewOrder() {
   const { orderID } = useParams()
-  const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const [isLoading, setIsLoading] = useState(false)
-
+  const { config } = useContext(ContextData)
   const [orderInfos, setOrderInfos] = useState([])
   useEffect(() => {
-    fetch(`http://localhost:8000/v1/orders/${orderID}`, {
-      headers: {
-        Authorization: `Bearer ${localStorageToken.token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((datas) => {
-        setOrderInfos(datas[0])
+    axios
+      .get(`http://localhost:8000/v1/orders/${orderID}`, config)
+      .then((res) => {
+        setOrderInfos(res.data[0])
         setIsLoading(true)
       })
   }, [orderID])

@@ -1,8 +1,8 @@
 import React from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
-import { FaLocationDot } from "react-icons/fa6"
 import LocationBox from "../../../components/Main/LocationBox/LocationBox"
 import Footer from '../../../components/Main/Footer/Footer'
+import { FaLocationDot } from "react-icons/fa6"
 export default function Branches() {
   return (
     <div className="">

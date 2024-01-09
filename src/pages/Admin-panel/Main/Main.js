@@ -1,12 +1,13 @@
-import axios from "axios"
 import React, { useContext, useEffect, useState } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import MainInfoBox from "../../../components/UserPanel/MainInfoBox/MainInfoBox"
+import axios from "axios"
+
 export default function Main() {
   const { config } = useContext(ContextData)
-  const [infos, setInfos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [infos, setInfos] = useState([])
   useEffect(() => {
     axios.get("http://localhost:8000/v1/infos/p-admin", config).then((res) => {
       setInfos(res.data)

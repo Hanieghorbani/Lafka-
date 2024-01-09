@@ -1,15 +1,19 @@
 import React, { useContext, useState } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
-import ContextData from "../../../ContextData/ContextData"
-import { IoCloseOutline } from "react-icons/io5"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
-import { Link, useNavigate } from "react-router-dom"
-import swal from "sweetalert"
-import axios from "axios"
 import Input from "../../../components/Fields/Input/Input"
 import TextArea from "../../../components/Fields/TextArea/TextArea"
+
+
+import { IoCloseOutline } from "react-icons/io5"
+
+import { Formik, Form} from "formik"
+import * as Yup from "yup"
+import { useNavigate } from "react-router-dom"
+import swal from "sweetalert"
+import axios from "axios"
+
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("credit")
   const [readPolicy, setReadPolicy] = useState(false)

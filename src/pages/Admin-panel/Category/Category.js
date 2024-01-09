@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect} from "react"
+import ContextData from "../../../ContextData/ContextData"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
+import Input from "../../../components/Fields/Input/Input"
+
 import axios from "axios"
 import swal from "sweetalert"
 import Swal from "sweetalert2"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
-import { Link } from "react-router-dom"
-import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Fields/Input/Input"
+
 export default function Category() {
   const { config, getAllCategorys, categorys } = useContext(ContextData)
+
   useEffect(() => {
     getAllCategorys()
   }, [])
+
   const initialValues = {
     title: "",
     name: "",

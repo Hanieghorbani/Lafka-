@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react"
+import ContextData from "../../../ContextData/ContextData"
+
 import { BsFillTrashFill } from "react-icons/bs"
 import { IoCloseOutline } from "react-icons/io5"
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6"
 
-import { CiSquarePlus, CiSquareMinus } from "react-icons/ci"
-import Counter from "../Counter/Counter"
-import ContextData from "../../../ContextData/ContextData"
 export default function ProductCartBoxInPage(prodInfos) {
   const { cover, name, price, count } = prodInfos
   const [mainCount, setMainCount] = useState(count)

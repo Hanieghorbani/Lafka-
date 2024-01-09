@@ -1,36 +1,41 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Header from "../../../components/Main/Header/Header"
 import Footer from "../../../components/Main/Footer/Footer"
 import EnergyBox from "../../../components/Main/EnergyBox/EnergyBox"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
+import Category from "../../../components/Main/Category/Category"
+import TextArea from "../../../components/Fields/TextArea/TextArea"
 import ContextData from "../../../ContextData/ContextData"
+
 // icons
 import { CiHeart } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
 import { FaHeartbeat, FaRegUserCircle, FaStar, FaRegStar } from "react-icons/fa"
 // end of icons
-import { Link, useParams } from "react-router-dom"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+
+import { useParams } from "react-router-dom"
+
+// packages 
+import { Formik, Form} from "formik"
 import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
 import jalaliMoment from "jalali-moment"
-import Category from "../../../components/Main/Category/Category"
-import TextArea from "../../../components/Fields/TextArea/TextArea"
+
 export default function ProductInfo() {
-  const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
+  const { shortName } = useParams()
   const [productInfo, setProductInfo] = useState([])
   const [related, setRelated] = useState([])
-  const { shortName } = useParams()
   const stars = [false, false, false, false, false]
   const [mainStar, setMainStar] = useState(stars)
   const [isClickStar, setIsClickStar] = useState(false)
-
-  const [score, setScore] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [codeOff, setCodeOff] = useState("")
-  const [newPrice, setNewPrice] = useState(0)
   const [haveOff, setHaveOff] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  
+  const [score, setScore] = useState(null)
+  const [codeOff, setCodeOff] = useState("")
+  const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
+  const [newPrice, setNewPrice] = useState(0)
   const {
     config,
     cart,
@@ -39,6 +44,7 @@ export default function ProductInfo() {
     addToCart,
     addFavoriteHandler,
   } = useContext(ContextData)
+
   function setOffHandler() {
     if (haveOff) {
       swal({
@@ -130,13 +136,11 @@ export default function ProductInfo() {
       setMainStar(stars)
     }
   }
-
   function leaveStar() {
     if (!isClickStar) {
       setMainStar([false, false, false, false, false])
     }
   }
-
   function clickStart(e, index, stars) {
     setScore(index + 1)
     for (let i = 0; i <= index; i++) {
@@ -145,7 +149,6 @@ export default function ProductInfo() {
     setMainStar(stars)
     setIsClickStar(true)
   }
-
   // end of score handler
 
   function createCommentHandler(values, { resetForm }) {

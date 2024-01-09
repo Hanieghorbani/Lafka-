@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
+
 export default function VisiblePass() {
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   return (

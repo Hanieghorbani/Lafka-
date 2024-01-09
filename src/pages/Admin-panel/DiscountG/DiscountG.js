@@ -1,10 +1,12 @@
 import React, { useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
+import Input from "../../../components/Fields/Input/Input"
+
 import axios from "axios"
 import swal from "sweetalert"
 import * as Yup from "yup"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Fields/Input/Input"
+import { Formik, Form} from "formik"
+
 export default function DiscountG() {
   const { config } = useContext(ContextData)
   const validationSchema = Yup.object().shape({

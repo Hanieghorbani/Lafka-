@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
-import Header from "../../../components/Main/Header/Header"
-import InfosBox from "../../../components/Main/InfoBoxInSec2/InfosBox"
-import Footer from "../../../components/Main/Footer/Footer"
-import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
-import { Link } from "react-router-dom"
-import ContextData from "../../../ContextData/ContextData"
 import HeaderSection from "../../../components/Main/HeaderSection/HeaderSection"
+import InfosBox from "../../../components/Main/InfoBoxInSec2/InfosBox"
+import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
+import Header from "../../../components/Main/Header/Header"
+import Footer from "../../../components/Main/Footer/Footer"
+import ContextData from "../../../ContextData/ContextData"
+import { Link } from "react-router-dom"
 export default function Index() {
   const contextDatas = useContext(ContextData)
   return (

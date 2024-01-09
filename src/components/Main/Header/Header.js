@@ -1,4 +1,8 @@
 import React, { useState, useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
+import useScroll from "../../../hooks/useScroll"
+import Sidebar from "../../Sidebar/Sidebar"
+import ProductCartBox from "../ProductCartBox/ProductCartBoxInSide"
 // icons
 import { FaPhoneAlt } from "react-icons/fa"
 import { FaBars, FaCreditCard, FaAngleDown } from "react-icons/fa6"
@@ -9,10 +13,7 @@ import { IoIosLogOut } from "react-icons/io"
 
 import { Dialog} from "@headlessui/react"
 import { Link } from "react-router-dom"
-import ProductCartBox from "../ProductCartBox/ProductCartBoxInSide"
-import ContextData from "../../../ContextData/ContextData"
-import useScroll from "../../../hooks/useScroll"
-import Sidebar from "../../Sidebar/Sidebar"
+
 export default function Header() {
   const [isFixed] = useScroll(67)
   const {

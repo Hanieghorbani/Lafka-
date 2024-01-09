@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react"
-import { IoMdNotifications } from "react-icons/io"
-import { IoMoonSharp, IoHomeSharp } from "react-icons/io5"
 import ContextData from "../../../ContextData/ContextData.js"
-import { IoMdArrowDropup } from "react-icons/io"
+
+import { IoMdNotifications, IoMdArrowDropup, IoMdClose } from "react-icons/io"
+import { IoMoonSharp, IoHomeSharp } from "react-icons/io5"
 import { FaBars } from "react-icons/fa6"
-import { IoMdClose } from "react-icons/io"
 
 import axios from "axios"
+
 export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
   const [notifs, setNotifs] = useState([])
   const { config, setIsOpenSidebarMenuPAdmin, userInfos } =
@@ -52,7 +52,10 @@ export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
             onMouseLeave={() => setIsShowNotifs(false)}
           >
             <IoMdArrowDropup className="text-green-400 text-4xl -mt-7 sm:hidden lg:block" />
-            <IoMdClose onClick={() => setIsShowNotifs(false)} className=" cursor-pointer"/>
+            <IoMdClose
+              onClick={() => setIsShowNotifs(false)}
+              className=" cursor-pointer"
+            />
             {notifs.length > 0 ? (
               <div className="space-y-3">
                 {notifs.map((notif) => (

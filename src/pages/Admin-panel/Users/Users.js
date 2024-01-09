@@ -1,19 +1,22 @@
 import React, { useContext, useEffect, useState } from "react"
-import ReactDOM from "react-dom"
+import ContextData from "../../../ContextData/ContextData"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
+import Pagination from "../../../components/Pagination/Pagination"
+import Input from "../../../components/Fields/Input/Input"
+
+import { Formik, Form} from "formik"
+import * as Yup from "yup"
+import ReactDOM from "react-dom"
 import axios from "axios"
 import Swal from "sweetalert2"
 import swal from "sweetalert"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
-import Pagination from "../../../components/Pagination/Pagination"
-import ContextData from "../../../ContextData/ContextData"
-import Input from "../../../components/Fields/Input/Input"
+
+
 export default function Users() {
+  const { config } = useContext(ContextData)
   const [users, setUsers] = useState([])
   const [shownItems, setShownItems] = useState([])
   const [selectUser, setSelectUser] = useState([])
-  const { config } = useContext(ContextData)
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("نام و نام خانوادگی الزامی است"),

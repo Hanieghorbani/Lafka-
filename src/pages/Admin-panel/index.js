@@ -1,7 +1,8 @@
-import React, { useState, Fragment } from "react"
+import React, { useState } from "react"
 import Sidebar from "../../components/Admin-panel/Sidebar/Sidebar"
-import { Outlet } from "react-router-dom"
 import Topbar from "../../components/Admin-panel/Topbar/Topbar"
+
+import { Outlet } from "react-router-dom"
 
 export default function Index() {
   const [isShowNotifs, setIsShowNotifs] = useState(false)

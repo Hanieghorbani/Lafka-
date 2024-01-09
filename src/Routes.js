@@ -5,7 +5,6 @@ import MainAdminPanel from "./pages/Admin-panel/Main/Main"
 import Users from "./pages/Admin-panel/Users/Users"
 import AdminProducts from "./pages/Admin-panel/Products/Products"
 import AdminArticles from "./pages/Admin-panel/Articles/Articles"
-// import Draft from "./pages/Admin-panel/Draft/Draft"
 import AdminCategory from "./pages/Admin-panel/Category/Category"
 import AdminContacts from "./pages/Admin-panel/Messages/Messages"
 import Comments from "./pages/Admin-panel/Comments/Comments"
@@ -36,6 +35,7 @@ import MainUserPanel from "./pages/UserPanel/Main/Main"
 import Orders from "./pages/UserPanel/Orders/Orders"
 import ViewOrder from "./pages/UserPanel/ViewOrder/ViewOrder"
 import EditAccount from "./pages/UserPanel/EditAccount/EditAccount"
+
 const routes = [
   { path: "/", element: <Index /> },
   { path: "/about", element: <About /> },

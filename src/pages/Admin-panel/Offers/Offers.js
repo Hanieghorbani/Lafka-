@@ -1,20 +1,19 @@
 import React, { useContext, useEffect, useState } from "react"
-import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
-import axios from "axios"
-import Swal from "sweetalert2"
-import swal from "sweetalert"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
 import ContextData from "../../../ContextData/ContextData"
-import jalaliMoment from "jalali-moment"
+import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import Input from "../../../components/Fields/Input/Input"
 import Select from "../../../components/Fields/Select/Select"
+
+import { Formik, Form} from "formik"
+import * as Yup from "yup"
+import axios from "axios"
+import swal from "sweetalert"
+import jalaliMoment from "jalali-moment"
+
 export default function Offers() {
-  const contextDatas = useContext(ContextData)
-  const [products, setProducts] = useState([])
+  const { config,products } = useContext(ContextData)
   const [offCodes, setOfCodes] = useState([])
   const [productName, setProductName] = useState({})
-  const { config } = useContext(ContextData)
   const initialValues = {
     code: "",
     percent: "",
@@ -31,7 +30,6 @@ export default function Offers() {
     getAllOffs()
     axios.get("http://localhost:8000/v1/courses").then((res) => {
       const objProducts = {}
-      setProducts(res.data)
       res.data.forEach((course) => {
         objProducts[course._id] = course.name
       })
@@ -120,7 +118,7 @@ export default function Offers() {
             />
 
             {/* product  */}
-            <Select label={"محصول مورد نظر"} id={'course'} items={contextDatas.products}/>
+            <Select label={"محصول مورد نظر"} id={'course'} items={products}/>
            
             {/* login btn  */}
             <div className="flex items-center justify-center lg:col-span-2">
@@ -158,7 +156,6 @@ export default function Offers() {
                 <td>{off.uses}</td>
 
                 <td>
-                  {/* {off.createdAt.slice(0, 10)}{" "} */}
                   {jalaliMoment(off.createdAt).format("jYYYY/jM/jD")}
                 </td>
                 <td>

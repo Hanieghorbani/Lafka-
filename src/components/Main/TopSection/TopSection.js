@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import ContextData from "../../../ContextData/ContextData"
-import Header from "../Header/Header"
-import { Link, useParams } from "react-router-dom"
 import Category from "../Category/Category"
+import Header from "../Header/Header"
+
+import { Link } from "react-router-dom"
+
 export default function TopSection({
   subTitle,
   bg,

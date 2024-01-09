@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useContext } from "react"
 import Header from "../../../components/Main/Header/Header"
 import Footer from "../../../components/Main/Footer/Footer"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
-import axios from "axios"
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
-
-import ContextData from "../../../ContextData/ContextData"
-import swal from "sweetalert"
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
 import Input from "../../../components/Fields/Input/Input"
+import ContextData from "../../../ContextData/ContextData"
+
+import { Formik, Form } from "formik"
+import * as Yup from "yup"
+import { useNavigate, Link } from "react-router-dom"
+import axios from "axios"
+import swal from "sweetalert"
+
 export default function Register() {
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   const [isVisiblePassConfirm, setIsVisiblePassConfirm] = useState(false)
@@ -115,7 +114,6 @@ export default function Register() {
             <Input label={"نام کاربری*"} id={"username"} />
             <Input label={"شماره موبایل*"} id={"phone"} />
             <Input label={"آدرس ایمیل*"} id={"email"} type={"email"} />
-           
 
             {/* password  */}
 

@@ -1,15 +1,14 @@
 import React, { useState, useContext } from "react"
-import { Dialog } from "@headlessui/react"
-import { Link } from "react-router-dom"
-import EnergyBox from "../EnergyBox/EnergyBox"
 import ContextData from "../../../ContextData/ContextData"
 import Sidebar from "../../Sidebar/Sidebar"
-import HeartBtn from "../HeartBtn/HeartBtn"
+import EnergyBox from "../EnergyBox/EnergyBox"
+
+import { Dialog } from "@headlessui/react"
+import { Link } from "react-router-dom"
 // icons
 import { CiHeart } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
 import { FaHeartbeat, FaRegHeart } from "react-icons/fa"
-
 // end of icons
 
 export default function BurgerBox(prodInfos) {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import ContextData from "../../ContextData/ContextData"
+import { useNavigate } from "react-router-dom"
 export default function PAdminPrivate({ children }) {
   const { userInfos,isLoggedIn } = useContext(ContextData)
   const navigate = useNavigate()

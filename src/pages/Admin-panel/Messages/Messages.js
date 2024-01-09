@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
+
 import axios from "axios"
 import swal from "sweetalert"
-import ContextData from "../../../ContextData/ContextData"
 
 export default function Messages() {
   const [contacts, setContacts] = useState([])
