@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useContext } from "react"
+import ContextData from "../../../ContextData/ContextData"
+import Input from "../../../components/Fields/Input/Input"
 import Header from "../../../components/Main/Header/Header"
 import Footer from "../../../components/Main/Footer/Footer"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+
+import { Formik, Form} from "formik"
 import * as Yup from "yup"
 import axios from "axios"
-import ContextData from "../../../ContextData/ContextData"
 import swal from "sweetalert"
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md"
-import Input from "../../../components/Fields/Input/Input"
+import { useNavigate,Link } from "react-router-dom"
+
 export default function Login() {
   const {config,login} = useContext(ContextData)
   const [isVisiblePass, setIsVisiblePass] = useState(false)
@@ -64,7 +64,7 @@ export default function Login() {
         <Header />
       </div>
       <div
-        className={`flex flex-col justify-center items-center container-primary py-20 pt-60 bg-zinc-100`}
+        className={`flex flex-col justify-center items-center container-primary py-20 pt-60 bg-zinc-200`}
       >
         <Formik
           initialValues={initialValues}

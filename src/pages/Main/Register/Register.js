@@ -92,7 +92,7 @@ export default function Register() {
         <Header />
       </div>
       <div
-        className={`flex flex-col justify-center items-center container-primary py-20 pt-60 bg-zinc-100`}
+        className={`flex flex-col justify-center items-center container-primary py-20 pt-60 bg-zinc-200`}
       >
         <Formik
           initialValues={initialValues}
