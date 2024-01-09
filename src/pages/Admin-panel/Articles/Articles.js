@@ -70,44 +70,6 @@ export default function Articles() {
     })
   }
 
-  // function createArticle(e) {
-  //   e.preventDefault()
-  // }
-  // function createArticleDraft(e) {
-  //   e.preventDefault()
-  //   let formData = new FormData()
-  //   formData.append("title", formState.inputs.title.value)
-  //   formData.append("description", formState.inputs.description.value)
-  //   formData.append("body", articleBody)
-  //   formData.append("shortName", formState.inputs.shortName.value)
-  //   formData.append("categoryID", articleCategory)
-  //   formData.append("cover", articleCover)
-
-  //   fetch("http://localhost:4000/v1/articles/draft", {
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `Bearer ${localStorageData.token}`,
-  //     },
-  //     body: formData,
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       swal({
-  //         title: "مقاله جدید با موفقیت پیش نویس شد",
-  //         icon: "success",
-  //         buttons: "تایید",
-  //       }).then(() => {
-  //         getAllArticles()
-  //       })
-  //     } else {
-  //       swal({
-  //         title: "مقاله جدید پیش نویس نشد!!",
-  //         icon: "error",
-  //         buttons: "تایید",
-  //       })
-  //     }
-  //   })
-  // }
-
   function addNewArticleHandler(values,{resetForm}) {
     console.log(values)
     if (articleCover) {
@@ -136,6 +98,13 @@ export default function Articles() {
         })
         .catch((err) => {
           console.log(err)
+          if(err.response.status == 401){
+            swal({
+              title: 'لینک مورد نظر قبلا استفاده شده',
+              icon: "error",
+              buttons: "تایید",
+            })
+          }
         })
     } else {
       swal({

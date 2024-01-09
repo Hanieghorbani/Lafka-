@@ -24,7 +24,7 @@ export default function Sidebar({ isOpen, setIsOpen,children }) {
 
           <div className="fixed inset-0 overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
-              <div className="pointer-events-none  fixed inset-y-0 right-0 flex  md:w-1/2 lg:1/3 pl-10">
+              <div className="pointer-events-none  fixed inset-y-0 right-0 flex sm:w-full md:w-1/2 lg:w-1/3 pl-10">
                 <Transition.Child
                   as={Fragment}
                   enter="transform transition ease-in-out duration-500 sm:duration-700"

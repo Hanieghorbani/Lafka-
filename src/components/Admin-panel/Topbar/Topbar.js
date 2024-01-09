@@ -32,7 +32,7 @@ export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
   }
 
   return (
-    <div className="rounded-3xl py-3 bg-zinc-100 flex justify-between items-center w-full sm:container-primary md:px-7">
+    <div className="md:rounded-3xl py-3 bg-zinc-100 flex justify-between items-center w-full sm:container-primary md:px-7">
       <div className="flex gap-8 relative">
         <FaBars
           className="sm:block lg:hidden border-2 rounded-full p-3 w-12 h-12 cursor-pointer"

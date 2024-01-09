@@ -15,7 +15,7 @@ import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
 import jalaliMoment from "jalali-moment"
-
+import Category from "../../../components/Main/Category/Category"
 import TextArea from "../../../components/Fields/TextArea/TextArea"
 export default function ProductInfo() {
   const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
@@ -31,8 +31,14 @@ export default function ProductInfo() {
   const [codeOff, setCodeOff] = useState("")
   const [newPrice, setNewPrice] = useState(0)
   const [haveOff, setHaveOff] = useState(false)
-  const { config, cart, categorys, setIsOpenSidebarCart, addToCart } =
-    useContext(ContextData)
+  const {
+    config,
+    cart,
+    categorys,
+    setIsOpenSidebarCart,
+    addToCart,
+    addFavoriteHandler,
+  } = useContext(ContextData)
   function setOffHandler() {
     if (haveOff) {
       swal({
@@ -169,19 +175,7 @@ export default function ProductInfo() {
       <div className="bg-primary">
         <Header />
       </div>
-      <div className="w-3/4 bg-primary mt-[11.5rem] container-primary p-3 rounded-b-3xl">
-        <div className="w-1/2 text-white flex items-center justify-between mx-auto">
-          {categorys.map((category) => (
-            <Link
-              to={`/productCategory/${category.name}`}
-              key={category._id}
-              className="li-header"
-            >
-              {category.title}
-            </Link>
-          ))}
-        </div>
-      </div>
+      <Category categorys={categorys} />
       {isLoading && (
         <>
           {" "}
@@ -192,7 +186,7 @@ export default function ProductInfo() {
                 src={`http://localhost:8000/courses/covers/${productInfo.cover}`}
                 className="w-full"
               />
-              <div className="relative space-y-8 sm:overflow-y-scroll lg:overflow-y-hidden overflow-x-hidden contentBurgerBox">
+              <div className="relative space-y-8 contentBurgerBox">
                 <h1 className="text-2xl">{productInfo.name}</h1>
                 <p className="text-sm text-zinc-600">
                   {productInfo.description}
@@ -222,24 +216,45 @@ export default function ProductInfo() {
                 </p>
                 {/*end of energy info  */}
 
-                <div className="flex gap-3 items-center text-sm">
-                  <FaHeartbeat className="text-info text-xl" />
-                  <p>آلرژی زا: شیر ، تخم مرغ ، سویا ، گلوتن</p>
-                </div>
                 <div className="flex flex-col sm:gap-5 mt-10">
-                  <div className="flex justify-between items-center">
-                    <div className="flex sm:flex-col md:flex-row items-center md:w-2/3 gap-2 sm:mb-5 md:mb-0">
+                  <div className="flex sm:flex-col md:flex-row justify-between items-center">
+                    <div className="flex items-center justify-between sm:gap-4 md:gap-2">
                       <input
                         type="text"
-                        className=" border-0 bg-zinc-200  focus:bg-zinc-300 rounded-xl"
+                        className="sm:w-2/3 md:w-auto border-0 bg-zinc-200  focus:bg-zinc-300 rounded-xl"
                         placeholder="کد تخفیف"
                         value={codeOff}
                         onChange={(e) => setCodeOff(e.target.value)}
                       />
-                      <button className="btn bg-info" onClick={setOffHandler}>
+                      <button className="btn bg-info text-sm" onClick={setOffHandler}>
                         اعمال کد
                       </button>
                     </div>
+                  </div>
+
+                  <div className="flex items-center sm:justify-between  gap-2">
+                    <div className="flex items-center gap-2">
+                      <button
+                        className="btn bg-info text-sm"
+                        onClick={() => {
+                          setIsOpenSidebarCart(true)
+
+                          addToCart(
+                            productInfo,
+                            newPrice ||
+                              productInfo.price -
+                                (productInfo.price * productInfo.discount) / 100
+                          )
+                        }}
+                      >
+                        سفارش
+                      </button>
+                      <CiHeart
+                        className="sm:text-2xl lg:text-5xl cursor-pointer hover:text-info"
+                        onClick={() => addFavoriteHandler(productInfo)}
+                      />
+                    </div>
+                    {/* price  */}
                     <div>
                       <h3
                         className={`text-2xl ${
@@ -255,7 +270,7 @@ export default function ProductInfo() {
                       </h3>
                       {haveOff ||
                         (productInfo.discount != 0 && (
-                          <h3 className="text-2xl">
+                          <h3 className="sm:text-lg md:text-2xl">
                             <span className="font-[faNum]">
                               {newPrice != 0 &&
                                 new Intl.NumberFormat().format(newPrice)}
@@ -270,26 +285,7 @@ export default function ProductInfo() {
                           </h3>
                         ))}
                     </div>
-                  </div>
-
-                  <div className="flex items-center sm:justify-between md:justify-start gap-2">
-                    {/* <Counter count={productInfo.count || 1} /> */}
-                    <button
-                      className="btn-yearStorySelect text-sm w-1/3"
-                      onClick={() => {
-                        setIsOpenSidebarCart(true)
-
-                        addToCart(
-                          productInfo,
-                          newPrice ||
-                            productInfo.price -
-                              (productInfo.price * productInfo.discount) / 100
-                        )
-                      }}
-                    >
-                      سفارش
-                    </button>
-                    <CiHeart className="text-5xl cursor-pointer hover:text-info" />
+                    {/* end of price  */}
                   </div>
                 </div>
               </div>
@@ -339,7 +335,9 @@ export default function ProductInfo() {
                     <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10 py-10">
                       {/* right section / */}
                       <div>
-                        <h1 className="text-2xl mb-10">نقد و بررسی‌ها</h1>
+                        <h1 className="sm:text-xl md:text-2xl mb-10">
+                          نقد و بررسی‌ها
+                        </h1>
                         {/* comments  */}
                         <div className="space-y-6">
                           {productInfo.comments.length ? (
@@ -348,7 +346,7 @@ export default function ProductInfo() {
                               {productInfo.comments.map((comment) => (
                                 <div className="bg-white rounded-2xl p-4">
                                   {/* name and score  */}
-                                  <div className="flex gap-10 text-xl mb-5">
+                                  <div className="flex justify-between items-center text-xl mb-5">
                                     <div className="flex  gap-1  text-zinc-500">
                                       <div>
                                         <FaRegUserCircle />
@@ -358,32 +356,23 @@ export default function ProductInfo() {
                                             : "کاربر"}
                                         </p>
                                       </div>
-                                      <p className="text-base">
+                                      <p className="sm:text-sm md:text-base">
                                         {comment.creator.name}
                                       </p>
                                     </div>
 
-                                    <div className="flex justify-between items-center w-3/4 mb-4">
-                                      <div className="flex text-secondary">
-                                        {Array(comment.score)
-                                          .fill(1)
-                                          .map((star) => (
-                                            <FaStar />
-                                          ))}
+                                    <div className="flex text-secondary sm:text-sm md:text-base">
+                                      {Array(comment.score)
+                                        .fill(1)
+                                        .map((star) => (
+                                          <FaStar />
+                                        ))}
 
-                                        {Array(5 - comment.score)
-                                          .fill(0)
-                                          .map((star) => (
-                                            <FaRegStar />
-                                          ))}
-                                      </div>
-
-                                      {/* use jalali-moment library for change date to Shamsi */}
-                                      <p className="text-zinc-500 text-xs">
-                                        {jalaliMoment(comment.createdAt).format(
-                                          "jYYYY/jM/jD"
-                                        )}
-                                      </p>
+                                      {Array(5 - comment.score)
+                                        .fill(0)
+                                        .map((star) => (
+                                          <FaRegStar />
+                                        ))}
                                     </div>
                                   </div>
                                   {/* body  */}
@@ -391,6 +380,14 @@ export default function ProductInfo() {
                                     <p className="text-zinc-700">
                                       {comment.body}
                                     </p>
+                                    <div>
+                                      {/* use jalali-moment library for change date to Shamsi */}
+                                      <p className="text-zinc-500 text-xs text-left">
+                                        {jalaliMoment(comment.createdAt).format(
+                                          "jYYYY/jM/jD"
+                                        )}
+                                      </p>
+                                    </div>
 
                                     {/* answer */}
                                     {comment.answerContent && (
@@ -435,7 +432,7 @@ export default function ProductInfo() {
                       {/* left section  */}
                       <div className="sm:border-t-2 md:border-t-0 md:border-r-2 border-zinc-500 sm:pt-10 md:pt-0 md:pr-10 space-y-5">
                         <h1 className="text-lg">دیدگاه خود را بنویسید</h1>
-                        <p>
+                        <p className="sm:text-sm md:text-base">
                           نشانی ایمیل شما منتشر نخواهد شد. بخش‌های موردنیاز
                           علامت‌گذاری شده‌اند *
                         </p>

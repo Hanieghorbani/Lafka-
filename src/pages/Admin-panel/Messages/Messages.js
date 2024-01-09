@@ -90,7 +90,7 @@ export default function Messages() {
     })
   }
   return (
-    <div>
+    <div className="mx-auto sm:px-10">
       <DataTable title={"پیغام کاربران"}>
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>

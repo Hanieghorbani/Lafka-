@@ -156,12 +156,12 @@ export default function Header() {
                     setIsOpenSidebarCart(true)
                   }}
                 >
-                  <span className="badge-header">0</span>
+                  <span className="badge-header">{cart.reduce((total, product) => total + product.count, 0)}</span>
                   <CiShoppingCart className="li-header" />
                 </div>
 
                 <div className="relative">
-                  <span className="badge-header">0</span>
+                  <span className="badge-header">{favorites.length}</span>
                   <CiHeart className="li-header" />
                 </div>
               </div>
@@ -193,7 +193,7 @@ export default function Header() {
                 شعبه ها
               </Link>
               <Link
-                to={"/shop"}
+                to={"/shop/1"}
                 className="li-sidebar"
                 onClick={() => setIsOpenSidebarMenu(false)}
               >

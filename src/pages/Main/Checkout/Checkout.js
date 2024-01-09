@@ -5,7 +5,7 @@ import ContextData from "../../../ContextData/ContextData"
 import { IoCloseOutline } from "react-icons/io5"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import swal from "sweetalert"
 import axios from "axios"
 import Input from "../../../components/Fields/Input/Input"
@@ -13,6 +13,7 @@ import TextArea from "../../../components/Fields/TextArea/TextArea"
 export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("credit")
   const [readPolicy, setReadPolicy] = useState(false)
+  const navigate = useNavigate()
   const { config, cart, setCart } = useContext(ContextData)
   const initialValues = {
     state: "",
@@ -31,17 +32,27 @@ export default function Checkout() {
   })
 
   function paymentHandler() {
-    if (paymentMethod == "credit") {
-      purchaseProduct()
-    } else {
+    if (cart.length) {
+      if (paymentMethod == "credit") {
+        purchaseProduct()
+      } else {
+        swal({
+          text: "متاسفیم!در استان شما امکان پرداخت درب منزل وجود ندارد،لطفا از طریق بانک پرداخت کنید..",
+          icon: "warning",
+          buttons: ["لغو", "پرداخت"],
+        }).then((res) => {
+          if (res) {
+            purchaseProduct()
+          }
+        })
+      }
+    }else{
       swal({
-        text: "متاسفیم!در استان شما امکان پرداخت درب منزل وجود ندارد،لطفا از طریق بانک پرداخت کنید..",
-        icon: "warning",
-        buttons: ["لغو", "پرداخت"],
-      }).then((res) => {
-        if (res) {
-          purchaseProduct()
-        }
+        text: "هنوز هیچ محصولی در سبد خرید شما وجود ندارد",
+        icon: "error",
+        buttons: 'خرید محصول',
+      }).then(()=>{
+         navigate('/shop/1')
       })
     }
   }
@@ -83,6 +94,7 @@ export default function Checkout() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
+            onSubmit={paymentHandler}
           >
             <Form
               id="formCheckout"
@@ -214,7 +226,7 @@ export default function Checkout() {
               disabled={!readPolicy}
               //   type="submit"
               form="formCheckout"
-              onClick={paymentHandler}
+              // onClick={paymentHandler}
             >
               ثبت سفارش
             </button>

@@ -24,7 +24,7 @@ export default function DiscountG() {
     })
   }
   return (
-    <div>
+    <div className="mx-auto sm:px-10">
       <div className=" mt-20">
         <h1 className="text-2xl font-bold col-span-2 mb-10">
           افزودن کمپین جدید
@@ -36,7 +36,7 @@ export default function DiscountG() {
           onSubmit={addDiscount}
         >
           <Form className="bg-zinc-100 grid sm:grid-cols-1 md:grid-cols-2 gap-8 sm:p-4 md:p-10 rounded-2xl ">
-            <Input label={"درصد کمپین"} id={"percent"} type={'number'}/>
+            <Input label={"درصد کمپین"} id={"percent"} type={'number'} style={"form-create-product"}/>
 
             {/* login btn  */}
             <div className="flex items-center justify-center md:col-span-2">

@@ -8,6 +8,7 @@ import swal from "sweetalert"
 import { useNavigate } from "react-router-dom"
 import ContextData from "../../../ContextData/ContextData"
 import Input from "../../../components/Fields/Input/Input"
+import TextArea from "../../../components/Fields/TextArea/TextArea"
 export default function Contacts() {
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")
@@ -102,7 +103,11 @@ export default function Contacts() {
                 <Input label={"نام شما:"} id={"name"} />
                 <Input label={"آدرس ایمیل:"} id={"email"} />
                 <Input label={"تلفن:"} id={"phone"} />
-                <Input label={"متن پیام:"} id={"body"} />
+                <TextArea
+                  label={"متن پیام:"}
+                  id={"body"}
+                  style={"form-contact h-40"}
+                />
 
                 <div className="grid sm:grid-cols-1 md:grid-cols-3">
                   <p className="w-full text-zinc-400 md:col-span-2">

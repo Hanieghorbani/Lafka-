@@ -106,8 +106,8 @@ export default function Sidebar({ isShowNotifs, setIsShowNotifs }) {
             </Dialog.Title>
           </div>
 
+          {/* content section  */}
           <div className="relative mt-6 flex-1 px-4 sm:px-6">
-            {/* content section  */}
             <div className="pAdmin-links-sidebar space-y-10 text-lg font-bold mt-10 overflow-y-auto h-[80vh] pb-10">
               <Link
                 to={"/p-admin"}
@@ -164,13 +164,6 @@ export default function Sidebar({ isShowNotifs, setIsShowNotifs }) {
               >
                 <BiSolidOffer />
                 <p>تخفیف همگانی</p>
-              </Link>
-              <Link
-                to={"tickets"}
-                onClick={() => setIsOpenSidebarMenuPAdmin(false)}
-              >
-                <BsTicketDetailed />
-                <p>تیکت ها</p>
               </Link>
               <Link
                 to={"category"}
