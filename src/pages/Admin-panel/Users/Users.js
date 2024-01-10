@@ -46,7 +46,7 @@ export default function Users() {
 
   function getAllUsers() {
     axios
-      .get("http://localhost:8000/v1/users", config)
+      .get("https://lafka-back.liara.run/v1/users", config)
       .then((res) => {
         setUsers(res.data)
       })
@@ -62,7 +62,7 @@ export default function Users() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/users/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/users/${id}`, config)
           .then(() => {
             swal({
               text: "کاربر با موفقیت حذف شد",
@@ -85,7 +85,7 @@ export default function Users() {
     }).then((res) => {
       if (res) {
         axios
-          .put(`http://localhost:8000/v1/users/ban/${id}`, {}, config)
+          .put(`https://lafka-back.liara.run/v1/users/ban/${id}`, {}, config)
           .then(() => {
             swal({
               text: "کاربر با موفقیت بن شد",
@@ -109,7 +109,7 @@ export default function Users() {
     }).then((role) => {
       if (role != null && role.trim()) {
         axios
-          .put("http://localhost:8000/v1/users/role", { role, id }, config)
+          .put("https://lafka-back.liara.run/v1/users/role", { role, id }, config)
           .then(() => {
             swal({
               text: `نقش کاربر به ${
@@ -187,7 +187,7 @@ export default function Users() {
 
   function changeUserHandler(values) {
     axios
-      .put(`http://localhost:8000/v1/users/${selectUser._id}`, values, config)
+      .put(`https://lafka-back.liara.run/v1/users/${selectUser._id}`, values, config)
       .then((res) => {
         swal({
           text: "ویرایش کاربر با موفقیت انجام شد",

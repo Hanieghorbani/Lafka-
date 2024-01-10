@@ -19,7 +19,7 @@ import BlogInfo from "./pages/Main/BlogInfo/BlogInfo"
 import Branches from "./pages/Main/Branches/Branches"
 import Cart from "./pages/Main/Cart/Cart"
 import Contact from "./pages/Main/Contacts/Contacts"
-import Favorites from "./pages/Main/Favorites/Favorites"
+import Favourites from './pages/Main/Favorites/Favorites'
 import Login from "./pages/Main/Login/Login"
 import Shop from "./pages/Main/Shop/Shop"
 import ProductCategory from "./pages/Main/Product-category/Product-category"
@@ -36,6 +36,7 @@ import Orders from "./pages/UserPanel/Orders/Orders"
 import ViewOrder from "./pages/UserPanel/ViewOrder/ViewOrder"
 import EditAccount from "./pages/UserPanel/EditAccount/EditAccount"
 
+import NotFound from "./pages/404/404"
 const routes = [
   { path: "/", element: <Index /> },
   { path: "/about", element: <About /> },
@@ -44,7 +45,7 @@ const routes = [
   { path: "/locations", element: <Branches /> },
   { path: "/cart", element: <Cart /> },
   { path: "/contact", element: <Contact /> },
-  { path: "/favorites", element: <Favorites /> },
+  { path: "/favourites", element: <Favourites /> },
   { path: "/login", element: <Login /> },
   { path: "/shop/:page", element: <Shop /> },
   { path: "/productCategory/:shortName", element: <ProductCategory /> },
@@ -88,6 +89,7 @@ const routes = [
       { path: "edit-account", element: <EditAccount /> },
     ],
   },
+  { path: "*", element: <NotFound /> },
 ]
 
 export default routes

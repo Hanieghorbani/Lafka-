@@ -35,7 +35,7 @@ export default function Cart() {
             )}
           </div>
           <div className="mt-7">
-            <div className="grid grid-cols-3 items-center gap-2 my-10 px-3 border-y-2 py-5">
+            <div className="flex justify-between items-center my-10 md:px-3 border-y-2 py-5">
               <div className="space-y-5 col-span-1 text-sm">
                 <h5 className="">جمع کل سبد خرید:</h5>
               </div>

@@ -25,7 +25,7 @@ function App() {
   const [products, setProducts] = useState([])
   const [infos, setInfos] = useState([])
   const [cart, setCart] = useState([])
-  const [favorites, setFavorites] = useState([])
+  const [favourites, setFavourites] = useState([])
   const [articles, setArticles] = useState([])
 
   const [token, setToken] = useState("")
@@ -87,7 +87,7 @@ function App() {
 
   function getAllCategorys() {
     axios
-      .get("http://localhost:8000/v1/category")
+      .get("https://lafka-back.liara.run/v1/category")
       .then((res) => {
         setCategorys(res.data)
       })
@@ -95,15 +95,16 @@ function App() {
   }
 
   function getAllProducts() {
-    axios.get("http://localhost:8000/v1/courses").then((res) => {
+    axios.get("https://lafka-back.liara.run/v1/courses").then((res) => {
       setProducts(res.data)
-    })
+      console.log(res);
+    }).catch(err=>console.log(err))
   }
 
   function getAllArticles() {
     axios
-      .get("http://localhost:8000/v1/articles")
-      .then((res) => setArticles(res.data))
+      .get("https://lafka-back.liara.run/v1/articles")
+      .then((res) => setArticles(res.data)).catch(err=>console.log(err))
   }
 
   function addToCart(prodInfos, newPrice) {
@@ -161,22 +162,22 @@ function App() {
   }
 
   function getInfos() {
-    axios.get("http://localhost:8000/v1/infos/index").then((res) => {
+    axios.get("https://lafka-back.liara.run/v1/infos/index").then((res) => {
       setInfos(res.data)
-    })
+    }).catch(err=>console.log(err))
   }
 
-  function addFavoriteHandler(prodInfos) {
-    const existingItem = favorites.find((prod) => prod._id === prodInfos._id)
+  function addfavouriteHandler(prodInfos) {
+    const existingItem = favourites.find((prod) => prod._id === prodInfos._id)
     if (existingItem) {
       toast.error("این محصول در سبد خرید شما وجود دارد", {
         position: toast.POSITION.TOP_LEFT,
       })
     } else {
-      setFavorites((prev) => [...prev, prodInfos])
+      setFavourites((prev) => [...prev, prodInfos])
       localStorage.setItem(
-        "favorites",
-        JSON.stringify([...favorites, prodInfos])
+        "favourites",
+        JSON.stringify([...favourites, prodInfos])
       )
       toast.success("محصول به لیست علاقه مندی ها اضافه شد", {
         position: toast.POSITION.TOP_LEFT,
@@ -184,10 +185,10 @@ function App() {
     }
   }
 
-  function removeFavorite(prodInfos) {
-    const filterdItems = favorites.filter((prod) => prod._id !== prodInfos._id)
-    setFavorites(filterdItems)
-    localStorage.setItem("favorites", JSON.stringify(filterdItems))
+  function removefavourite(prodInfos) {
+    const filterdItems = favourites.filter((prod) => prod._id !== prodInfos._id)
+    setFavourites(filterdItems)
+    localStorage.setItem("favourites", JSON.stringify(filterdItems))
     toast.success("محصول با موفقیت از لیست علاقه مندی ها خارج شد", {
       position: toast.POSITION.TOP_LEFT,
     })
@@ -197,7 +198,7 @@ function App() {
   useEffect(() => {
     if (localStorageToken) {
       axios
-        .get("http://localhost:8000/v1/auth/me", config)
+        .get("https://lafka-back.liara.run/v1/auth/me", config)
         .then((userDatas) => {
           setIsLoggedIn(true)
           setUserInfos(userDatas.data)
@@ -208,18 +209,18 @@ function App() {
 
   useEffect(() => {
     const cartInLoacalStorage = JSON.parse(localStorage.getItem("cart"))
-    const favoritesInLoacalStorage = JSON.parse(
-      localStorage.getItem("favorites")
+    const favouritesInLoacalStorage = JSON.parse(
+      localStorage.getItem("favourites")
     )
     if (cartInLoacalStorage) {
       setCart(cartInLoacalStorage)
     } else {
       setCart([])
     }
-    if (favoritesInLoacalStorage) {
-      setFavorites(favoritesInLoacalStorage)
+    if (favouritesInLoacalStorage) {
+      setFavourites(favouritesInLoacalStorage)
     } else {
-      setFavorites([])
+      setFavourites([])
     }
     getAllCategorys()
     getAllProducts()
@@ -247,9 +248,9 @@ function App() {
           setReLoading,
           setUserPanelSubMenu,
           setIsOpenSidebarMenuPAdmin,
-          setFavorites,
-          addFavoriteHandler,
-          removeFavorite,
+          setFavourites,
+          addfavouriteHandler,
+          removefavourite,
           getAllArticles,
           userInfos,
           categorys,
@@ -265,7 +266,7 @@ function App() {
           reLoading,
           userPanelSubMenu,
           config,
-          favorites,
+          favourites,
           formDataConfig,
           articles,
         }}

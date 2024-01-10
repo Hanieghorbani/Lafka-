@@ -10,7 +10,7 @@ export default function Categorya() {
   const [products, setProducts] = useState([])
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/v1/courses/category/${shortName}`)
+      .get(`https://lafka-back.liara.run/v1/courses/category/${shortName}`)
       .then((res) => {
         setProducts(res.data)
       })

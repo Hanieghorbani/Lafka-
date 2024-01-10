@@ -17,7 +17,7 @@ export default function DiscountG() {
   }
   function addDiscount(value, { resetForm }) {
     const data = { discount: value.percent }
-    axios.post("http://localhost:8000/v1/offs/all", data, config).then(() => {
+    axios.post("https://lafka-back.liara.run/v1/offs/all", data, config).then(() => {
       swal({
         title: "کمپین با موفقیت ایجاد شد",
         icon: "success",

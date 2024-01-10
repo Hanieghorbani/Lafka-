@@ -9,7 +9,7 @@ export default function ProductCartBox(prodInfos) {
     <div className="flex items-center justify-between bg-zinc-300 p-4 rounded-2xl relative">
       <div className="flex items-center sm:gap-1 md:gap-5">
         <img
-          src={`http://localhost:8000/courses/covers/${cover}`}
+          src={`https://lafka-back.liara.run/courses/covers/${cover}`}
           alt="food"
           className="sm:w-16 md:w-[4.5rem] p-2 rounded-xl cursor-pointer"
         />
@@ -28,7 +28,7 @@ export default function ProductCartBox(prodInfos) {
       </div>
 
       <BsFillTrashFill className="text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:hidden md:block" onClick={()=>contextDatas.minesCart(prodInfos,true)}/>
-      <IoCloseOutline className="absolute top-0 right-1 text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden" onClick={()=>contextDatas.minesCart(prodInfos,true)}/>
+      <IoCloseOutline className="absolute top-1 right-2 text-xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden" onClick={()=>contextDatas.minesCart(prodInfos,true)}/>
     </div>
   )
 }

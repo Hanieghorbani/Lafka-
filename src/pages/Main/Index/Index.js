@@ -45,13 +45,13 @@ export default function Index() {
         <div className="flex sm:flex-col md:flex-row gap-10 items-center justify-between mt-16">
           <div className="flex flex-col items-center justify-center">
             <img src="/imgs/foods/chicken-beef-600x386.png" alt="" />
-            <Link to={"/productCategory/برگرها"} className="btn bg-primary">
+            <Link to={"/productCategory/برگرها"} className="btn-primary">
               سفارش مرغ
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center">
             <img src="/imgs/foods/beef-chicken-600x386.png" alt="" />
-            <Link to={"/productCategory/برگرها"} className="btn bg-primary">
+            <Link to={"/productCategory/برگرها"} className="btn-primary">
               سفارش گوشت
             </Link>
           </div>
@@ -61,7 +61,7 @@ export default function Index() {
       {/* section 2  */}
       <div className="bg-secondary bg-img-cheese bg-cover py-20 container-primary">
         <HeaderSection
-          title={"یک برگر سالم دوست دارید؟ … بفرمایید!"}
+          title={"یک برگر سالم دوست دارید؟  بفرمایید!"}
           desc={"          اما به هر حال ، هر روز آنها را می خوریم"}
           textWhite={true}
         />
@@ -73,7 +73,7 @@ export default function Index() {
           </div>
           <div className="flex flex-col items-center justify-between">
             <img src="/imgs/foods/burger-healthy.png" alt="" />
-            <p className="text-xl text-gray-700 text-center">
+            <p className="sm:text-base md:text-xl text-gray-700 text-center">
               اوه ، پسر … آنها طعم تخم مرغ را فرا می گیرند!
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function Index() {
           to={"/productCategory/برگرها"}
           className="text-center mx-auto block"
         >
-          <button className="btn bg-primary mt-10">سفارش</button>
+          <button className="btn-primary mt-10">سفارش</button>
         </Link>
       </div>
 

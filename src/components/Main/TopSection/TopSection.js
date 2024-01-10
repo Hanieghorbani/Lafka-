@@ -16,7 +16,7 @@ export default function TopSection({
   const {categorys} = useContext(ContextData)
   return (
     <div
-      className={`bg-cover overflow-hidden sm:min-h-[75vh] md:h-[100vh] ${bg}`}
+      className={`bg-cover overflow-hidden sm:min-h-[75vh] md:min-h-[100vh] ${bg}`}
     >
       <div className={bgHead}>
         <Header />
@@ -26,13 +26,13 @@ export default function TopSection({
       )}
       {/* section 1  */}
       <div
-        className={` text-center space-y-16 ${
+        className={`mx-auto sm:px-10 text-center space-y-16 ${
           showCategory ? "mt-10" : "mt-60"
         } ${textColor ? textColor : "text-white"}`}
       >
         <p className="text-xl"><Link to={'/'}>خانه</Link> / {subTitle}</p>
-        <h1 className="font-[delbar] sm:text-5xl md:text-7xl">{subTitle}</h1>
-        <p className="text-xl md:w-2/3 mx-auto leading-9 pb-10 container-primary">
+        <h1 className="font-[delbar] sm:text-4xl md:text-7xl">{subTitle}</h1>
+        <p className="md:text-xl md:w-2/3 leading-9 pb-10 mx-auto">
           {desc}
         </p>
       </div>

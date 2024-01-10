@@ -36,8 +36,8 @@ export default function Articles() {
 
   function getAllArticles() {
     axios
-      .get("http://localhost:8000/v1/articles")
-      .then((res) => setArticles(res.data))
+      .get("https://lafka-back.liara.run/v1/articles")
+      .then((res) => setArticles(res.data || [])).catch(err=>console.log(err))
   }
 
   function removeArticle(id) {
@@ -48,7 +48,7 @@ export default function Articles() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/articles/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/articles/${id}`, config)
           .then(() => {
             swal({
               text: "مقاله با موفقیت حذف شد",
@@ -85,7 +85,7 @@ export default function Articles() {
       formData.append("cover", articleCover)
       console.log(formData)
       axios
-        .post("http://localhost:8000/v1/articles", formData, formDataConfig)
+        .post("https://lafka-back.liara.run/v1/articles", formData, formDataConfig)
         .then((res) => {
           swal({
             title: "مقاله جدید با موفقیت ایجاد شد",
@@ -188,7 +188,7 @@ export default function Articles() {
           </Form>
         </Formik>
       </div>
-      <DataTable title={"لیست مقاله ها"}>
+      {articles.length ? (<DataTable title={"لیست مقاله ها"}>
         <table className="dataTable w-full text-center border-collapse mt-10">
           <thead>
             <tr>
@@ -238,7 +238,8 @@ export default function Articles() {
             ))}
           </tbody>
         </table>
-      </DataTable>
+      </DataTable>) : (<p className="text-xl mt-20 text-center">هنوز مقاله ای ثبت نشده!</p>)}
+      
     </div>
   )
 }

@@ -11,7 +11,7 @@ import { AiOutlineSearch } from "react-icons/ai"
 import { IoIosLogOut } from "react-icons/io"
 // end of icons
 
-import { Dialog} from "@headlessui/react"
+import { Dialog } from "@headlessui/react"
 import { Link } from "react-router-dom"
 
 export default function Header() {
@@ -26,7 +26,7 @@ export default function Header() {
     isOpenSidebarCart,
     isLoggedIn,
     cart,
-    favorites,
+    favourites,
     userInfos,
     infos,
   } = useContext(ContextData)
@@ -99,7 +99,11 @@ export default function Header() {
 
         {/* sm  */}
         <div className="md:hidden flex items-center justify-center bg-lime-500 rounded-full h-12 w-12 shadow-xl">
-          <FaPhoneAlt className="" />
+          <FaPhoneAlt
+            onClick={() => {
+              window.location.href = `tel:${infos.phone}`
+            }}
+          />
         </div>
 
         {/* left section */}
@@ -116,8 +120,8 @@ export default function Header() {
             </Link>
           )}
 
-          <Link to={"/favorites"} className="relative">
-            <span className="badge-header text-white">{favorites.length}</span>
+          <Link to={"/favourites"} className="relative">
+            <span className="badge-header text-white">{favourites.length}</span>
             <CiHeart className="li-header" />
           </Link>
           <div className="relative" onClick={() => setIsOpenSidebarCart(true)}>
@@ -147,9 +151,9 @@ export default function Header() {
         <div className="flex h-full flex-col py-6 shadow-xl bg-dark text-white">
           {/* top section  */}
           <div className="px-4 sm:px-6 py-5 bg-black/20">
-            <Dialog.Title className="text-lg flex justify-between items-center">
+            <Dialog.Title className="text-2xl flex justify-between items-center">
               منو
-              <div className="flex text-2xl gap-3">
+              <div className="flex text-4xl gap-3">
                 <div
                   className="relative"
                   onClick={() => {
@@ -157,21 +161,29 @@ export default function Header() {
                     setIsOpenSidebarCart(true)
                   }}
                 >
-                  <span className="badge-header">{cart.reduce((total, product) => total + product.count, 0)}</span>
+                  <span className="badge-header">
+                    {cart.reduce((total, product) => total + product.count, 0)}
+                  </span>
                   <CiShoppingCart className="li-header" />
                 </div>
 
-                <div className="relative">
-                  <span className="badge-header">{favorites.length}</span>
+                <Link
+                  to={"/favourites"}
+                  className="relative"
+                  onClick={() => setIsOpenSidebarMenu(false)}
+                >
+                  <span className="badge-header text-white">
+                    {favourites.length}
+                  </span>
                   <CiHeart className="li-header" />
-                </div>
+                </Link>
               </div>
             </Dialog.Title>
           </div>
 
           <div className="relative mt-6 flex-1 px-4 sm:px-6">
             {/* content section  */}
-            <ul className="flex flex-col space-y-5 text-white">
+            <ul className="flex flex-col space-y-5 text-white text-xl">
               <Link
                 to={"/"}
                 className="li-sidebar"
@@ -241,77 +253,88 @@ export default function Header() {
 
       {/* sidebar cart  */}
       <Sidebar isOpen={isOpenSidebarCart} setIsOpen={setIsOpenSidebarCart}>
-        <div className="flex h-full flex-col py-6 shadow-xl bg-dark text-white">
+        <div className="flex h-full flex-col py-6 shadow-xl bg-dark text-white ">
           {/* top section  */}
           <div className="px-4 sm:px-6 py-5 bg-black/20">
-            <Dialog.Title className="text-lg flex justify-between items-center">
+            <Dialog.Title className="text-xl flex justify-between items-center">
               سبد خرید
-              <div className="flex text-2xl gap-3">
-                <Link to={"/my-account"}  onClick={()=>setIsOpenSidebarCart(false)}>
+              <div className="flex text-3xl gap-3">
+                <Link
+                  to={"/my-account"}
+                  onClick={() => setIsOpenSidebarCart(false)}
+                >
                   <CiUser className="li-header" />
                 </Link>
 
-                <Link to={"/favorites"} className="relative" onClick={()=>setIsOpenSidebarCart(false)}>
-                  <span className="badge-header text-white">{favorites.length}</span>
+                <Link
+                  to={"/favourites"}
+                  className="relative"
+                  onClick={() => setIsOpenSidebarCart(false)}
+                >
+                  <span className="badge-header text-white">
+                    {favourites.length}
+                  </span>
                   <CiHeart className="li-header" />
                 </Link>
               </div>
             </Dialog.Title>
           </div>
 
-          <div className="relative mt-6 px-4 sm:px-6">
-            {/* content section  */}
-            <ul className="flex flex-col space-y-5 text-white">
-              {cart.length ? (
-                <>
-                  {cart.map((item) => (
-                    <ProductCartBox key={item._id} {...item} />
-                  ))}
-                </>
-              ) : (
-                <>
-                  <span className="text-lg text-zinc-200">
-                    هنوز هیچ محصولی به سبد خرید خود اضافه نکردید!
-                  </span>
-                </>
-              )}
-            </ul>
-          </div>
-
-          <div className="flex items-center justify-between py-2 px-4 sm:px-6 mt-10 bg-black/20">
-            <p>جمع کل:</p>
-            <p>
-              {" "}
-              <span className="font-[faNum]">
-                {new Intl.NumberFormat().format(
-                  cart.reduce(
-                    (total, product) => total + product.price * product.count,
-                    0
-                  )
+          <div className="overflow-y-scroll pb-10">
+            <div className="relative mt-6 px-4 sm:px-6 ">
+              {/* content section  */}
+              <ul className="flex flex-col space-y-5 text-white">
+                {cart.length ? (
+                  <>
+                    {cart.map((item) => (
+                      <ProductCartBox key={item._id} {...item} />
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <span className="text-lg text-zinc-200">
+                      هنوز هیچ محصولی به سبد خرید خود اضافه نکردید!
+                    </span>
+                  </>
                 )}
-              </span>{" "}
-              تومان
-            </p>
-          </div>
+              </ul>
+            </div>
 
-          <div className="flex sm:flex-col md:flex-row sm:gap-5 md:gap-0 md:items-center justify-between px-4 sm:px-6 mt-8">
-            <Link
-              to={"/cart"}
-              className="bg-zinc-300 shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
-              onClick={() => setIsOpenSidebarCart(false)}
-            >
-              {" "}
-              <CiShoppingCart className="text-xl font-bold" />
-              مشاهده سبد خرید{" "}
-            </Link>
-            <Link
-              to={"/checkout"}
-              className="bg-zinc-300  shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
-              onClick={() => setIsOpenSidebarCart(false)}
-            >
-              <FaCreditCard />
-              تصویه حساب
-            </Link>
+            <div className="flex items-center justify-between py-2 px-4 sm:px-6 mt-10 bg-black/20">
+              <p>جمع کل:</p>
+              <p>
+                {" "}
+                <span className="font-[faNum]">
+                  {new Intl.NumberFormat().format(
+                    cart.reduce(
+                      (total, product) => total + product.price * product.count,
+                      0
+                    )
+                  )}
+                </span>{" "}
+                تومان
+              </p>
+            </div>
+
+            <div className="flex sm:flex-col md:flex-row sm:gap-5 md:gap-0 md:items-center justify-between px-4 sm:px-6 mt-8">
+              <Link
+                to={"/cart"}
+                className="bg-zinc-300 shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
+                onClick={() => setIsOpenSidebarCart(false)}
+              >
+                {" "}
+                <CiShoppingCart className="text-xl font-bold" />
+                مشاهده سبد خرید{" "}
+              </Link>
+              <Link
+                to={"/checkout"}
+                className="bg-zinc-300  shadow-inner text-black rounded-[2.5rem] py-3 px-5 hover:text-info transition-all duration-500 flex gap-1 items-center"
+                onClick={() => setIsOpenSidebarCart(false)}
+              >
+                <FaCreditCard />
+                تصویه حساب
+              </Link>
+            </div>
           </div>
         </div>
       </Sidebar>
@@ -321,14 +344,14 @@ export default function Header() {
         <div className="flex h-full flex-col py-6 shadow-xl bg-dark text-white">
           {/* top section  */}
           <div className="px-4 sm:px-6 py-5 bg-black/20">
-            <Dialog.Title className="text-lg flex justify-between items-center">
+            <Dialog.Title className="text-xl flex justify-between items-center">
               جستجو
-              <div className="flex text-2xl gap-3">
+              <div className="flex text-3xl gap-3">
                 <Link to={"/login"}>
                   <CiUser className="li-header" />
                 </Link>
 
-                <Link to={"/favorites"} className="relative">
+                <Link to={"/favourites"} className="relative">
                   <span className="badge-header text-white">0</span>
                   <CiHeart className="li-header" />
                 </Link>

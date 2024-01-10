@@ -44,13 +44,13 @@ export default function BurgerBox(prodInfos) {
         </div>
         <Link to={`/productInfo/${shortName}`}>
           <img
-            src={`http://localhost:8000/courses/covers/${cover}`}
+            src={`https://lafka-back.liara.run/courses/covers/${cover}`}
             className=" cursor-pointer w-full"
           />
         </Link>
         <FaRegHeart
           className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary"
-          onClick={() => contextDatas.addFavoriteHandler(prodInfos)}
+          onClick={() => contextDatas.addfavouriteHandler(prodInfos)}
         />
       </div>
 
@@ -101,10 +101,6 @@ export default function BurgerBox(prodInfos) {
             </p>
             {/*end of energy info  */}
 
-            <div className="flex gap-3 items-center text-sm">
-              <FaHeartbeat className="text-info text-xl" />
-              <p>آلرژی زا: شیر ، تخم مرغ ، سویا ، گلوتن</p>
-            </div>
             <div className="flex sm:flex-col lg:flex-row items-center justify-between sm:gap-5 lg:gap-0">
               <h3 className="text-2xl">
                 <span className="font-[faNum]">
@@ -124,7 +120,7 @@ export default function BurgerBox(prodInfos) {
                 </button>
                 <CiHeart
                   className="text-5xl cursor-pointer hover:text-info"
-                  onClick={() => contextDatas.addFavoriteHandler(prodInfos)}
+                  onClick={() => contextDatas.addfavouriteHandler(prodInfos)}
                 />
               </div>
             </div>

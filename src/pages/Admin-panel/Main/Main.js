@@ -9,7 +9,7 @@ export default function Main() {
   const [isLoading, setIsLoading] = useState(false)
   const [infos, setInfos] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:8000/v1/infos/p-admin", config).then((res) => {
+    axios.get("https://lafka-back.liara.run/v1/infos/p-admin", config).then((res) => {
       setInfos(res.data)
       setIsLoading(true)
     })

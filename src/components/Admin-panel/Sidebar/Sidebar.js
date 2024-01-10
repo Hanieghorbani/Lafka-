@@ -71,10 +71,6 @@ export default function Sidebar({ setIsShowNotifs }) {
             <BiSolidOffer />
             <p>تخفیف همگانی</p>
           </Link>
-          <Link to={"tickets"}>
-            <BsTicketDetailed />
-            <p>تیکت ها</p>
-          </Link>
           <Link to={"category"}>
             <TbCategory />
             <p>دسته بندی ها</p>
@@ -109,7 +105,7 @@ export default function Sidebar({ setIsShowNotifs }) {
 
           {/* content section  */}
           <div className="relative mt-6 flex-1 px-4 sm:px-6">
-            <div className="pAdmin-links-sidebar space-y-10 text-lg font-bold mt-10 overflow-y-auto h-[80vh] pb-10">
+            <div className="pAdmin-links-sidebar space-y-10 text-lg font-bold mt-10 overflow-y-scroll h-[80vh] pb-28">
               <Link
                 to={"/p-admin"}
                 onClick={() => setIsOpenSidebarMenuPAdmin(false)}

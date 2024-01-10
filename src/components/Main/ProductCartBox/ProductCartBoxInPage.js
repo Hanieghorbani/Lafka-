@@ -16,16 +16,16 @@ export default function ProductCartBoxInPage(prodInfos) {
         onClick={() => contextDatas.minesCart(prodInfos, true)}
       />
       <IoCloseOutline
-        className="absolute top-0 right-1 text-3xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden"
+        className="absolute top-2 right-2 text-3xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden"
         onClick={() => contextDatas.minesCart(prodInfos, true)}
       />
       <img
-        src={`http://localhost:8000/courses/covers/${cover}`}
+        src={`https://lafka-back.liara.run/courses/covers/${cover}`}
         alt="food"
-        className="sm:w-32 md:w-[4.5rem] md:-mr-10 lg:-mr-20 p-2 rounded-xl cursor-pointer"
+        className="sm:w-40 md:w-[4.5rem] md:-mr-10 lg:-mr-20 p-2 rounded-xl cursor-pointer"
       />
-      <p className="text-zinc-500 cursor-pointer hover:text-primary">{name}</p>
-      <p className="font-[faNum]">
+      <p className="text-zinc-500 cursor-pointer hover:text-primary sm:text-xl md:text-base">{name}</p>
+      <p className="font-[faNum]  sm:text-lg md:text-base">
         {new Intl.NumberFormat().format(price)} تومان
       </p>
 
@@ -40,7 +40,7 @@ export default function ProductCartBoxInPage(prodInfos) {
             }
           }}
         />
-        <p className="text-dark font-[faNum]">{mainCount}</p>
+        <p className="text-dark font-[faNum] sm:text-2xl md:text-base">{mainCount}</p>
 
         <FaCirclePlus
           className="hover:bg-white rounded-full cursor-pointer"
@@ -50,7 +50,7 @@ export default function ProductCartBoxInPage(prodInfos) {
           }}
         />
       </div>
-      <p className="font-[faNum]">
+      <p className="font-[faNum] sm:text-xl md:text-base">
         {new Intl.NumberFormat().format(price * mainCount)} تومان
       </p>
     </div>

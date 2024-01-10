@@ -9,7 +9,7 @@ export default function Search() {
   const [allResultProducts, setAllResultProducts] = useState([])
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/v1/search/${searchValue}`)
+      .get(`https://lafka-back.liara.run/v1/search/${searchValue}`)
       .then((res) => {
         setAllResultProducts(res.data.allResultCourses)
       })

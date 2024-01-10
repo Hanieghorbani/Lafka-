@@ -8,13 +8,13 @@ import axios from "axios"
 
 export default function Orders() {
   const [products, setProducts] = useState([])
-  const [shownItems,setShownItems] = useState([])
+  const [shownItems, setShownItems] = useState([])
   useEffect(() => {
     getAllProducts()
   }, [])
 
   function getAllProducts() {
-    axios.get("http://localhost:8000/v1/courses").then((res) => {
+    axios.get("https://lafka-back.liara.run/v1/courses").then((res) => {
       setProducts(res.data)
     })
   }
@@ -28,9 +28,17 @@ export default function Orders() {
 
       {/* products  */}
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 container-primary my-20">
-        {shownItems.map((prod) => (
-          <BurgerBox key={prod._id} {...prod} />
-        ))}
+        {shownItems.length ? (
+          <>
+            {shownItems.map((prod) => (
+              <BurgerBox key={prod._id} {...prod} />
+            ))}
+          </>
+        ) : (
+          <p className="text-xl text-center sm:col-span-1 md:col-span-2 lg:col-span-3">
+            هنوز محصولی ثبت نشده است!
+          </p>
+        )}
       </div>
 
       <Pagination

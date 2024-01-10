@@ -16,7 +16,7 @@ export default function Comments() {
 
   function getAllComments() {
     axios
-      .get("http://localhost:8000/v1/comments")
+      .get("https://lafka-back.liara.run/v1/comments")
       .then((res) => {
         setComments(res.data)
       })
@@ -31,7 +31,7 @@ export default function Comments() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/comments/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/comments/${id}`, config)
           .then(() => {
             swal({
               text: "کامنت با موفقیت حذف شد",
@@ -62,7 +62,7 @@ export default function Comments() {
     }).then((res) => {
       if (res) {
         axios
-          .put(`http://localhost:8000/v1/users/ban/${id}`, {}, config)
+          .put(`https://lafka-back.liara.run/v1/users/ban/${id}`, {}, config)
           .then(() => {
             swal({
               text: "کاربر با موفقیت بن شد",
@@ -89,7 +89,11 @@ export default function Comments() {
           body: value,
         }
         axios
-          .post(`http://localhost:8000/v1/comments/answer/${id}`, body, config)
+          .post(
+            `https://lafka-back.liara.run/v1/comments/answer/${id}`,
+            body,
+            config
+          )
           .then(() => {
             swal({
               text: "پیغام شما ارسال شد",
@@ -120,7 +124,11 @@ export default function Comments() {
     }).then((res) => {
       if (res) {
         axios
-          .put(`http://localhost:8000/v1/comments/accept/${id}`, {}, config)
+          .put(
+            `https://lafka-back.liara.run/v1/comments/accept/${id}`,
+            {},
+            config
+          )
           .then(() => {
             swal({
               text: "کامنت با موفقیت تایید شد",
@@ -149,7 +157,11 @@ export default function Comments() {
     }).then((res) => {
       if (res) {
         axios
-          .put(`http://localhost:8000/v1/comments/reject/${id}`, {}, config)
+          .put(
+            `https://lafka-back.liara.run/v1/comments/reject/${id}`,
+            {},
+            config
+          )
           .then(() => {
             swal({
               text: "کامنت با موفقیت رد شد",
@@ -166,98 +178,104 @@ export default function Comments() {
   }
   return (
     <div className="container-primary">
-      <DataTable title={"لیست کامنت ها"}>
-        <table className="dataTable w-full text-center border-collapse mt-10">
-          <thead>
-            <tr>
-              <th>کاربر</th>
-              <th>امتیاز</th>
-              <th>محصول</th>
-              <th>مشاهده</th>
-              <th>پاسخ</th>
-              <th>ویرایش</th>
-              <th>تایید/رد</th>
-              <th>حذف</th>
-              <th>بن</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shownItems.map((comment, index) => (
-              <tr key={comment._id}>
-                <td>{comment.creator.name}</td>
-                <td>{comment.score}</td>
-                <td>{comment.course}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-blue-400"
-                    onClick={() =>
-                      showCommentBody(comment.creator.name, comment.body)
-                    }
-                  >
-                    مشاهده
-                  </button>
-                </td>
-                {comment.answer ? (
+      {shownItems.length ? (
+        <DataTable title={"لیست کامنت ها"}>
+          <table className="dataTable w-full text-center border-collapse mt-10">
+            <thead>
+              <tr>
+                <th>کاربر</th>
+                <th>امتیاز</th>
+                <th>محصول</th>
+                <th>مشاهده</th>
+                <th>پاسخ</th>
+                <th>ویرایش</th>
+                <th>تایید/رد</th>
+                <th>حذف</th>
+                <th>بن</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shownItems.map((comment, index) => (
+                <tr key={comment._id}>
+                  <td>{comment.creator.name}</td>
+                  <td>{comment.score}</td>
+                  <td>{comment.course}</td>
                   <td>
                     <button
                       type="button"
-                      className="btn bg-green-400 "
-                      onClick={() => rejectComment(comment._id)}
+                      className="btn bg-blue-400"
+                      onClick={() =>
+                        showCommentBody(comment.creator.name, comment.body)
+                      }
                     >
-                      رد
+                      مشاهده
                     </button>
                   </td>
-                ) : (
+                  {comment.answer ? (
+                    <td>
+                      <button
+                        type="button"
+                        className="btn bg-green-400 "
+                        onClick={() => rejectComment(comment._id)}
+                      >
+                        رد
+                      </button>
+                    </td>
+                  ) : (
+                    <td>
+                      <button
+                        type="button"
+                        className="btn bg-info"
+                        onClick={() => acceptComment(comment._id)}
+                      >
+                        تایید
+                      </button>
+                    </td>
+                  )}
+
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-blue-400 "
+                      onClick={() => answerComment(comment._id)}
+                    >
+                      پاسخ
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" className="btn bg-gray-400 ">
+                      ویرایش
+                    </button>
+                  </td>
+
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-gray-400"
+                      onClick={() => banUser(comment.creator._id)}
+                    >
+                      بن
+                    </button>
+                  </td>
                   <td>
                     <button
                       type="button"
                       className="btn bg-info"
-                      onClick={() => acceptComment(comment._id)}
+                      onClick={() => remvoeComment(comment._id)}
                     >
-                      تایید
+                      حذف
                     </button>
                   </td>
-                )}
-
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-blue-400 "
-                    onClick={() => answerComment(comment._id)}
-                  >
-                    پاسخ
-                  </button>
-                </td>
-                <td>
-                  <button type="button" className="btn bg-gray-400 ">
-                    ویرایش
-                  </button>
-                </td>
-
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-gray-400"
-                    onClick={() => banUser(comment.creator._id)}
-                  >
-                    بن
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-info"
-                    onClick={() => remvoeComment(comment._id)}
-                  >
-                    حذف
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </DataTable>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTable>
+      ) : (
+        <p className="text-xl text-center mt-20">
+          هنوز کامنتی ثبت نشده است!
+        </p>
+      )}
 
       <Pagination
         items={comments}

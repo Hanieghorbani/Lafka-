@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
-import FavoriteBox from "../../../components/Main/FavoriteBox/FavoriteBox"
+import FavouriteBox from "../../../components/Main/FavoriteBox/FavoriteBox"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 import ContextData from "../../../ContextData/ContextData"
-export default function Favorites() {
-  const { favorites } = useContext(ContextData)
+export default function Favourites() {
+  const { favourites } = useContext(ContextData)
   return (
     <div>
       <TopSection
@@ -14,10 +14,10 @@ export default function Favorites() {
         textColor="text-black"
       />
       <div className="container-primary md:w-2/3 my-20 space-y-10">
-        {favorites ? (
+        {favourites ? (
           <>
-            {favorites.map((item) => (
-              <FavoriteBox key={item._id} {...item} />
+            {favourites.map((item) => (
+              <FavouriteBox key={item._id} {...item} />
             ))}
           </>
         ) : (

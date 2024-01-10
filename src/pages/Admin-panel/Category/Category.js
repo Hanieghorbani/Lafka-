@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react"
+import React, { useContext, useEffect } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import Input from "../../../components/Fields/Input/Input"
@@ -32,7 +32,7 @@ export default function Category() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/category/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/category/${id}`, config)
           .then(() => {
             swal({
               text: "دسته بندی با موفقیت حذف شد",
@@ -66,7 +66,7 @@ export default function Category() {
           const newInfosCate = { title: newTitle, name: newShortName }
           axios
             .put(
-              `http://localhost:8000/v1/category/${id}`,
+              `https://lafka-back.liara.run/v1/category/${id}`,
               newInfosCate,
               config
             )
@@ -80,7 +80,7 @@ export default function Category() {
 
   function addNewCategoryHandler(values, { resetForm }) {
     axios
-      .post("http://localhost:8000/v1/category", values, config)
+      .post("https://lafka-back.liara.run/v1/category", values, config)
       .then((res) => {
         swal({
           title: "دسته بندی مورد نظر با موفقیت اضافه شد",
@@ -127,44 +127,50 @@ export default function Category() {
           </Form>
         </Formik>
       </div>
-      <DataTable title={"دسته بندی ها"}>
-        <table className="dataTable w-full text-center border-collapse mt-10">
-          <thead>
-            <tr>
-              <th>شناسه</th>
-              <th>عنوان</th>
-              <th>ویرایش</th>
-              <th>حذف</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categorys.map((category, index) => (
-              <tr key={category._id}>
-                <td>{index + 1}</td>
-                <td>{category.title}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-green-400"
-                    onClick={() => updateCategory(category._id)}
-                  >
-                    ویرایش
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-info"
-                    onClick={() => removeCategoryHandler(category._id)}
-                  >
-                    حذف
-                  </button>
-                </td>
+      {categorys.length ? (
+        <DataTable title={"دسته بندی ها"}>
+          <table className="dataTable w-full text-center border-collapse mt-10">
+            <thead>
+              <tr>
+                <th>شناسه</th>
+                <th>عنوان</th>
+                <th>ویرایش</th>
+                <th>حذف</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </DataTable>
+            </thead>
+            <tbody>
+              {categorys.map((category, index) => (
+                <tr key={category._id}>
+                  <td>{index + 1}</td>
+                  <td>{category.title}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-green-400"
+                      onClick={() => updateCategory(category._id)}
+                    >
+                      ویرایش
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-info"
+                      onClick={() => removeCategoryHandler(category._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTable>
+      ) : (
+        <p className="text-xl text-center mt-20">
+          هنوز دسته بندی ثبت نشده است!
+        </p>
+      )}
     </div>
   )
 }

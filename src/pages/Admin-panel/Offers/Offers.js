@@ -4,14 +4,14 @@ import DataTable from "../../../components/Admin-panel/DataTable/DataTable"
 import Input from "../../../components/Fields/Input/Input"
 import Select from "../../../components/Fields/Select/Select"
 
-import { Formik, Form} from "formik"
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
 import jalaliMoment from "jalali-moment"
 
 export default function Offers() {
-  const { config,products } = useContext(ContextData)
+  const { config, products } = useContext(ContextData)
   const [offCodes, setOfCodes] = useState([])
   const [productName, setProductName] = useState({})
   const initialValues = {
@@ -28,7 +28,7 @@ export default function Offers() {
   })
   useEffect(() => {
     getAllOffs()
-    axios.get("http://localhost:8000/v1/courses").then((res) => {
+    axios.get("https://lafka-back.liara.run/v1/courses").then((res) => {
       const objProducts = {}
       res.data.forEach((course) => {
         objProducts[course._id] = course.name
@@ -39,7 +39,7 @@ export default function Offers() {
 
   function getAllOffs() {
     axios
-      .get(`http://localhost:8000/v1/offs/`, config)
+      .get(`https://lafka-back.liara.run/v1/offs/`, config)
       .then((res) => {
         setOfCodes(res.data)
       })
@@ -54,7 +54,7 @@ export default function Offers() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/offs/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/offs/${id}`, config)
           .then((res) => {
             swal({
               text: "کد تخفیف حذف شد",
@@ -72,7 +72,7 @@ export default function Offers() {
 
   function addNewOffCode(values, { resetForm }) {
     axios
-      .post("http://localhost:8000/v1/offs/", values, config)
+      .post("https://lafka-back.liara.run/v1/offs/", values, config)
       .then((res) => {
         swal({
           text: "کد تخفیف اضافه شد",
@@ -118,8 +118,8 @@ export default function Offers() {
             />
 
             {/* product  */}
-            <Select label={"محصول مورد نظر"} id={'course'} items={products}/>
-           
+            <Select label={"محصول مورد نظر"} id={"course"} items={products} />
+
             {/* login btn  */}
             <div className="flex items-center justify-center lg:col-span-2">
               <button type="submit" className="btn bg-green-400 text-sm w-1/2">
@@ -129,49 +129,51 @@ export default function Offers() {
           </Form>
         </Formik>
       </div>
-      <DataTable title={"لیست تخفیفات"}>
-        <table className="dataTable w-full text-center border-collapse mt-10">
-          <thead>
-            <tr>
-              <th>شناسه</th>
-              <th>کد</th>
-              <th>درصد</th>
-              <th>سازنده</th>
-              <th>دوره</th>
-              <th>حداکثر استفاده</th>
-              <th>دفعات استفاده</th>
-              <th>تاریخ ساخت</th>
-              <th>حذف</th>
-            </tr>
-          </thead>
-          <tbody>
-            {offCodes.map((off, index) => (
-              <tr key={off._id}>
-                <td>{index + 1}</td>
-                <td>{off.code}</td>
-                <td>{off.percent}</td>
-                <td>{off.creator}</td>
-                <td>{productName[off.course]}</td>
-                <td>{off.max}</td>
-                <td>{off.uses}</td>
-
-                <td>
-                  {jalaliMoment(off.createdAt).format("jYYYY/jM/jD")}
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-info"
-                    onClick={() => removeOff(off._id)}
-                  >
-                    حذف
-                  </button>
-                </td>
+      {offCodes.length ? (
+        <DataTable title={"لیست تخفیفات"}>
+          <table className="dataTable w-full text-center border-collapse mt-10">
+            <thead>
+              <tr>
+                <th>شناسه</th>
+                <th>کد</th>
+                <th>درصد</th>
+                <th>سازنده</th>
+                <th>دوره</th>
+                <th>حداکثر استفاده</th>
+                <th>دفعات استفاده</th>
+                <th>تاریخ ساخت</th>
+                <th>حذف</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </DataTable>
+            </thead>
+            <tbody>
+              {offCodes.map((off, index) => (
+                <tr key={off._id}>
+                  <td>{index + 1}</td>
+                  <td>{off.code}</td>
+                  <td>{off.percent}</td>
+                  <td>{off.creator}</td>
+                  <td>{productName[off.course]}</td>
+                  <td>{off.max}</td>
+                  <td>{off.uses}</td>
+
+                  <td>{jalaliMoment(off.createdAt).format("jYYYY/jM/jD")}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-info"
+                      onClick={() => removeOff(off._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTable>
+      ) : (
+        <p className="text-xl text-center mt-20">هنوز کد تخفیفی ثبت نشده است!</p>
+      )}
     </div>
   )
 }

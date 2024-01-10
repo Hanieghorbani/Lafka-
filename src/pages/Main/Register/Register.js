@@ -50,7 +50,7 @@ export default function Register() {
   })
   function userLogin(values) {
     axios
-      .post("http://localhost:8000/v1/auth/register", values, config)
+      .post("https://lafka-back.liara.run/v1/auth/register", values, config)
       .then((res) => {
         login([], res.data.accessToken)
 

@@ -14,7 +14,7 @@ export default function BlogBox({
     <div className="space-y-4">
       <Link to={`/blogInfo/${shortName}`}>
         <img
-          src={`http://localhost:8000/courses/covers/${cover}`}
+          src={`https://lafka-back.liara.run/courses/covers/${cover}`}
           alt=""
           className="rounded-3xl mb-5"
         />

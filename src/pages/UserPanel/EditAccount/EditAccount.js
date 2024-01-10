@@ -46,7 +46,7 @@ export default function EditAccount() {
 
   function userEditInfos(values) {
     axios
-      .put(`http://localhost:8000/v1/users`, values, config)
+      .put(`https://lafka-back.liara.run/v1/users`, values, config)
       .then((res) => {
         swal({
           text: "اطلاعات شما بروزرسانی شد",

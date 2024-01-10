@@ -17,7 +17,7 @@ export default function BlogInfo() {
   const [article, setArticle] = useState({})
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/v1/articles/${shortName}`, config)
+      .get(`https://lafka-back.liara.run/v1/articles/${shortName}`, config)
       .then((res) => {
         setArticle(res.data)
         console.log(res.data)
@@ -35,7 +35,7 @@ export default function BlogInfo() {
       />
       <div className="container-primary my-20 text-justify">
         <img
-          src={`http://localhost:8000/courses/covers/${cover}`}
+          src={`https://lafka-back.liara.run/courses/covers/${cover}`}
           alt={title}
           className="w-1/2 mx-auto mb-10 rounded-3xl"
         />

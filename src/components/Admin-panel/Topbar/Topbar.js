@@ -18,7 +18,7 @@ export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
 
   function getAllNotifs() {
     axios
-      .get("http://localhost:8000/v1/auth/me", config)
+      .get("https://lafka-back.liara.run/v1/auth/me", config)
       .then((userDatas) => {
         setNotifs(userDatas.data.notifications)
       })
@@ -27,7 +27,7 @@ export default function Topbar({ isShowNotifs, setIsShowNotifs }) {
 
   function seeNotif(id) {
     axios
-      .put(`http://localhost:8000/v1/notifications/see/${id}`, {}, config)
+      .put(`https://lafka-back.liara.run/v1/notifications/see/${id}`, {}, config)
       .then(() => getAllNotifs())
   }
 

@@ -27,6 +27,9 @@ export default function Index() {
             <MainBox title="سفارشات" href="orders" />
             <MainBox title="محصولات خریداری شده" href="#" />
             <MainBox title="جزئیات حساب کاربری" href="edit-account" />
+            {authContext.userInfos.role == "ADMIN" && (
+              <MainBox title="پنل ادمین" href="/p-admin" />
+            )}
           </div>
         </div>
       </div>

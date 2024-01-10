@@ -3,13 +3,12 @@ import CommentBox from "../../../components/Main/CommentBox/CommentBox"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 
-// Import Swiper 
+// Import Swiper
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/pagination"
 import "./About.css"
-
 
 import axios from "axios"
 export default function About() {
@@ -18,7 +17,7 @@ export default function About() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/v1/comments")
+      .get("https://lafka-back.liara.run/v1/comments")
       .then((res) => {
         setComments(res.data)
       })
@@ -145,31 +144,35 @@ export default function About() {
           <h3 className="font-[delbar] sm:text-[1.9rem] sm:text-center md:text-5xl lg:text-5xl sm:mb-10 md:mb-16">
             نگاهی به نظرات کاربران
           </h3>
-          <Swiper
-            pagination={{
-              clickable: true,
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            modules={[Pagination, Autoplay]}
-            className="swiperNews mb-10"
-            loop={true}
-            data-aos="fade-up"
-            data-aos-duration="2000"
-            data-aos-delay="100"
-          >
-          {comments.map(comment=>(
-             <SwiperSlide>
-              <CommentBox
-                content={comment.body}
-                name={comment.creator.name}
-                score={comment.score}
-              />
-            </SwiperSlide>
-          ))}
-          </Swiper>
+          {comments.length ? (
+            <Swiper
+              pagination={{
+                clickable: true,
+              }}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              modules={[Pagination, Autoplay]}
+              className="swiperNews mb-10"
+              loop={true}
+              data-aos="fade-up"
+              data-aos-duration="2000"
+              data-aos-delay="100"
+            >
+              {comments.map((comment) => (
+                <SwiperSlide>
+                  <CommentBox
+                    content={comment.body}
+                    name={comment.creator.name}
+                    score={comment.score}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <p className="text-lg text-center text-zinc-600">هنوز دیدگاهی ثبت نشده!</p>
+          )}
         </div>
       </div>
       {/*end of comments section  */}

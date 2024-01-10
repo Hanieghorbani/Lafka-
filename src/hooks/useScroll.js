@@ -4,7 +4,7 @@ export default function useScroll(init) {
   const [isVisible, setIsVisible] = useState(false)
 
   function handleShowScroll() {
-    if (window.pageYOffset > init) {
+    if (window.pageYOffset > init || 0) {
       setIsVisible(true)
     } else {
       setIsVisible(false)

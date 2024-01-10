@@ -56,7 +56,7 @@ export default function Products() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/courses/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/courses/${id}`, config)
           .then(() => {
             swal({
               text: "محصول با موفقیت حذف شد",
@@ -93,7 +93,11 @@ export default function Products() {
     formData.append("cover", coverFile)
 
     axios
-      .post("http://localhost:8000/v1/courses/", formData, formDataConfig)
+      .post(
+        "https://lafka-back.liara.run/v1/courses/",
+        formData,
+        formDataConfig
+      )
       .then((res) => {
         swal({
           title: "محصول جدید با موفقیت اضافه شد",
@@ -146,7 +150,7 @@ export default function Products() {
           formData.append("cover", values.file)
           axios
             .put(
-              `http://localhost:8000/v1/courses/${prodInfos._id}`,
+              `https://lafka-back.liara.run/v1/courses/${prodInfos._id}`,
               formData,
               formDataConfig
             )
@@ -339,63 +343,67 @@ export default function Products() {
           </Form>
         </Formik>
       </div>
-      <DataTable title={"لیست محصولات"}>
-        <table className="dataTable w-full text-center border-collapse mt-10">
-          <thead>
-            <tr>
-              <th>عنوان</th>
-              <th>مبلغ</th>
-              <th>موجودی</th>
-              <th>لینک</th>
-              <th>دسته بندی</th>
-              <th>ویرایش</th>
-              <th>حذف</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shownItems.map((product, index) => (
-              <tr key={product._id}>
-                <td>{product.name}</td>
-                <td>
-                  {product.price === 0
-                    ? "رایگان"
-                    : product.price.toLocaleString()}
-                </td>
-                <td>
-                  {product.stock > 0 ? `${product.stock} عدد` : "تمام شده"}
-                </td>
-                <td>{product.shortName}</td>
-                <td>{product.categoryID.title}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-green-400"
-                    onClick={() => updateProduct(product)}
-                  >
-                    ویرایش
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-info"
-                    onClick={() => removeProductHandler(product._id)}
-                  >
-                    حذف
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
 
-        <Pagination
-          items={products}
-          itemsCount={5}
-          pathname="/p-admin/products"
-          setShownItems={setShownItems}
-        />
-      </DataTable>
+      {products.length ? (
+        <DataTable title={"لیست محصولات"}>
+          <table className="dataTable w-full text-center border-collapse mt-10">
+            <thead>
+              <tr>
+                <th>عنوان</th>
+                <th>مبلغ</th>
+                <th>موجودی</th>
+                <th>لینک</th>
+                <th>دسته بندی</th>
+                <th>ویرایش</th>
+                <th>حذف</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shownItems.map((product, index) => (
+                <tr key={product._id}>
+                  <td>{product.name}</td>
+                  <td>
+                    {product.price === 0
+                      ? "رایگان"
+                      : product.price.toLocaleString()}
+                  </td>
+                  <td>
+                    {product.stock > 0 ? `${product.stock} عدد` : "تمام شده"}
+                  </td>
+                  <td>{product.shortName}</td>
+                  <td>{product.categoryID.title}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-green-400"
+                      onClick={() => updateProduct(product)}
+                    >
+                      ویرایش
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-info"
+                      onClick={() => removeProductHandler(product._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTable>
+      ) : (
+        <p className="text-xl text-center mt-20">هنوز محصولی ثبت نشده است!</p>
+      )}
+      <Pagination
+        items={products}
+        itemsCount={5}
+        pathname="/p-admin/products"
+        setShownItems={setShownItems}
+      />
     </div>
   )
 }

@@ -9,7 +9,7 @@ export default function ViewOrder() {
   const [orderInfos, setOrderInfos] = useState([])
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/v1/orders/${orderID}`, config)
+      .get(`https://lafka-back.liara.run/v1/orders/${orderID}`, config)
       .then((res) => {
         setOrderInfos(res.data[0])
         setIsLoading(true)

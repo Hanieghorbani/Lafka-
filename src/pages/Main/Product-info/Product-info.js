@@ -15,8 +15,8 @@ import { FaHeartbeat, FaRegUserCircle, FaStar, FaRegStar } from "react-icons/fa"
 
 import { useParams } from "react-router-dom"
 
-// packages 
-import { Formik, Form} from "formik"
+// packages
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import axios from "axios"
 import swal from "sweetalert"
@@ -31,7 +31,7 @@ export default function ProductInfo() {
   const [isClickStar, setIsClickStar] = useState(false)
   const [haveOff, setHaveOff] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  
+
   const [score, setScore] = useState(null)
   const [codeOff, setCodeOff] = useState("")
   const [showCommOrDesc, setShowCommOrDesc] = useState("desc")
@@ -42,7 +42,7 @@ export default function ProductInfo() {
     categorys,
     setIsOpenSidebarCart,
     addToCart,
-    addFavoriteHandler,
+    addfavouriteHandler,
   } = useContext(ContextData)
 
   function setOffHandler() {
@@ -64,9 +64,8 @@ export default function ProductInfo() {
     } else {
       const data = { course: productInfo._id }
       axios
-        .post(`http://localhost:8000/v1/offs/${codeOff}`, data, config)
+        .post(`https://lafka-back.liara.run/v1/offs/${codeOff}`, data, config)
         .then((res) => {
-          setHaveOff(true)
           setNewPrice(
             productInfo.price - (productInfo.price * res.data.percent) / 100
           )
@@ -76,17 +75,18 @@ export default function ProductInfo() {
             dangerMode: false,
             buttons: "تایید",
           })
+          setHaveOff(true)
         })
         .catch((err) => {
           console.log(err)
-          if (err.status === 404) {
+          if (err.response.status == 404) {
             swal({
               title: "کد تخفیف نامعتبر است!",
               icon: "error",
               dangerMode: true,
               buttons: "تایید",
             })
-          } else if (err.status == 409) {
+          } else if (err.response.status == 409) {
             swal({
               title: "این کد تخفیف قبلا استفاده شده",
               icon: "error",
@@ -99,7 +99,7 @@ export default function ProductInfo() {
   }
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/v1/courses/${shortName}`, config)
+      .get(`https://lafka-back.liara.run/v1/courses/${shortName}`, config)
       .then((res) => {
         const isProdInCart = cart.find((prod) => prod._id === res.data._id)
         if (isProdInCart) {
@@ -112,7 +112,7 @@ export default function ProductInfo() {
       .catch((err) => console.log(err))
 
     axios
-      .get(`http://localhost:8000/v1/courses/related/${shortName}`)
+      .get(`https://lafka-back.liara.run/v1/courses/related/${shortName}`)
       .then((res) => {
         setRelated(res.data)
       })
@@ -158,7 +158,7 @@ export default function ProductInfo() {
       score,
     }
     axios
-      .post("http://localhost:8000/v1/comments", commentInfo, config)
+      .post("https://lafka-back.liara.run/v1/comments", commentInfo, config)
       .then((res) => {
         console.log(res)
         swal({
@@ -186,7 +186,7 @@ export default function ProductInfo() {
             {/* main info  */}
             <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10 items-center container-primary">
               <img
-                src={`http://localhost:8000/courses/covers/${productInfo.cover}`}
+                src={`https://lafka-back.liara.run/courses/covers/${productInfo.cover}`}
                 className="w-full"
               />
               <div className="relative space-y-8 contentBurgerBox">
@@ -229,7 +229,10 @@ export default function ProductInfo() {
                         value={codeOff}
                         onChange={(e) => setCodeOff(e.target.value)}
                       />
-                      <button className="btn bg-info text-sm" onClick={setOffHandler}>
+                      <button
+                        className="btn bg-info text-sm"
+                        onClick={setOffHandler}
+                      >
                         اعمال کد
                       </button>
                     </div>
@@ -254,16 +257,15 @@ export default function ProductInfo() {
                       </button>
                       <CiHeart
                         className="sm:text-2xl lg:text-5xl cursor-pointer hover:text-info"
-                        onClick={() => addFavoriteHandler(productInfo)}
+                        onClick={() => addfavouriteHandler(productInfo)}
                       />
                     </div>
                     {/* price  */}
                     <div>
                       <h3
                         className={`text-2xl ${
-                          haveOff ||
-                          (productInfo.discount != 0 &&
-                            "line-through text-zinc-400 text-base")
+                          (haveOff == true || productInfo.discount != 0) &&
+                          "line-through text-zinc-400 text-base"
                         }`}
                       >
                         <span className="font-[faNum]">
@@ -271,22 +273,21 @@ export default function ProductInfo() {
                         </span>{" "}
                         تومان
                       </h3>
-                      {haveOff ||
-                        (productInfo.discount != 0 && (
-                          <h3 className="sm:text-lg md:text-2xl">
-                            <span className="font-[faNum]">
-                              {newPrice != 0 &&
-                                new Intl.NumberFormat().format(newPrice)}
-                              {productInfo.discount != 0 &&
-                                new Intl.NumberFormat().format(
-                                  productInfo.price -
-                                    (productInfo.price * productInfo.discount) /
-                                      100
-                                )}
-                            </span>{" "}
-                            تومان
-                          </h3>
-                        ))}
+                      {(haveOff == true || productInfo.discount != 0) && (
+                        <h3 className="sm:text-lg md:text-2xl">
+                          <span className="font-[faNum]">
+                            {newPrice != 0 &&
+                              new Intl.NumberFormat().format(newPrice)}
+                            {productInfo.discount != 0 &&
+                              new Intl.NumberFormat().format(
+                                productInfo.price -
+                                  (productInfo.price * productInfo.discount) /
+                                    100
+                              )}
+                          </span>{" "}
+                          تومان
+                        </h3>
+                      )}
                     </div>
                     {/* end of price  */}
                   </div>

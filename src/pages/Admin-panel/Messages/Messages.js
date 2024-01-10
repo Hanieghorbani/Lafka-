@@ -7,14 +7,14 @@ import swal from "sweetalert"
 
 export default function Messages() {
   const [contacts, setContacts] = useState([])
-  const {config} = useContext(ContextData)
+  const { config } = useContext(ContextData)
 
   useEffect(() => {
     getAllContacts()
   }, [])
 
   function getAllContacts() {
-    axios.get(`http://localhost:8000/v1/contact`).then((res) => {
+    axios.get(`https://lafka-back.liara.run/v1/contact`).then((res) => {
       setContacts(res.data)
     })
   }
@@ -37,7 +37,7 @@ export default function Messages() {
           answer: value,
         }
         axios
-          .post("http://localhost:8000/v1/contact/answer", data, config)
+          .post("https://lafka-back.liara.run/v1/contact/answer", data, config)
           .then((res) => {
             swal({
               text: "پیغام شما ارسال شد",
@@ -67,7 +67,7 @@ export default function Messages() {
     }).then((res) => {
       if (res) {
         axios
-          .delete(`http://localhost:8000/v1/contact/${id}`, config)
+          .delete(`https://lafka-back.liara.run/v1/contact/${id}`, config)
           .then(() => {
             swal({
               text: "پیغام با موفقیت حذف شد",
@@ -92,66 +92,74 @@ export default function Messages() {
   }
   return (
     <div className="mx-auto sm:px-10">
-      <DataTable title={"پیغام کاربران"}>
-        <table className="dataTable w-full text-center border-collapse mt-10">
-          <thead>
-            <tr>
-              <th>شناسه</th>
-              <th>نام و نام خانوادگی</th>
-              <th>ایمیل</th>
-              <th>شماره تماس</th>
-              <th>مشاهده</th>
-              <th>حذف</th>
-              <th>پاسخ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((contact, index) => (
-              <tr key={contact._id}>
-                <td
-                  className={
-                    contact.answer
-                      ? "bg-green-400 text-white"
-                      : "bg-info text-white"
-                  }
-                >
-                  {index + 1}
-                </td>
-                <td>{contact.name}</td>
-                <td>{contact.email}</td>
-                <td>{contact.phone}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-blue-400 "
-                    onClick={() => showContactBody(contact.name, contact.body)}
-                  >
-                    مشاهده پیغام
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-green-400"
-                    onClick={() => answerContactHandler(contact.email)}
-                  >
-                    پاسخ
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn bg-info "
-                    onClick={() => removeContact(contact._id)}
-                  >
-                    حذف
-                  </button>
-                </td>
+      {contacts.length ? (
+        <DataTable title={"پیغام کاربران"}>
+          <table className="dataTable w-full text-center border-collapse mt-10">
+            <thead>
+              <tr>
+                <th>شناسه</th>
+                <th>نام و نام خانوادگی</th>
+                <th>ایمیل</th>
+                <th>شماره تماس</th>
+                <th>مشاهده</th>
+                <th>حذف</th>
+                <th>پاسخ</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </DataTable>
+            </thead>
+            <tbody>
+              {contacts.map((contact, index) => (
+                <tr key={contact._id}>
+                  <td
+                    className={
+                      contact.answer
+                        ? "bg-green-400 text-white"
+                        : "bg-info text-white"
+                    }
+                  >
+                    {index + 1}
+                  </td>
+                  <td>{contact.name}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.phone}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-blue-400 "
+                      onClick={() =>
+                        showContactBody(contact.name, contact.body)
+                      }
+                    >
+                      مشاهده پیغام
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-green-400"
+                      onClick={() => answerContactHandler(contact.email)}
+                    >
+                      پاسخ
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn bg-info "
+                      onClick={() => removeContact(contact._id)}
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTable>
+      ) : (
+        <p className="text-xl text-center mt-20">
+          هنوز پیغامی ثبت نشده است!
+        </p>
+      )}
     </div>
   )
 }

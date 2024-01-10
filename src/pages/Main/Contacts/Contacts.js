@@ -66,7 +66,7 @@ export default function Contacts() {
   function sendMsgHandler(values) {
     delete values.captcha
     axios
-      .post("http://localhost:8000/v1/contact", values, config)
+      .post("https://lafka-back.liara.run/v1/contact", values, config)
       .then((res) => {
         swal({
           title: "پیام شده ارسال شد",

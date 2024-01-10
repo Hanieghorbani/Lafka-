@@ -72,7 +72,7 @@ export default function Checkout() {
         const data = { price: product.price }
         axios
           .post(
-            `http://localhost:8000/v1/courses/${product._id}/register`,
+            `https://lafka-back.liara.run/v1/courses/${product._id}/register`,
             data,
             config
           )
@@ -93,8 +93,8 @@ export default function Checkout() {
         showCategory={true}
         textColor={"text-black"}
       />
-      <div className="grid grid-cols-3 my-20 gap-10 container-primary">
-        <div className="col-span-2">
+      <div className="grid md:grid-cols-3 my-20 gap-10 container-primary">
+        <div className="md:col-span-2">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -102,7 +102,7 @@ export default function Checkout() {
           >
             <Form
               id="formCheckout"
-              className="bg-white space-y-7 p-10 rounded-2xl"
+              className="bg-white space-y-7 md:p-10 rounded-2xl"
             >
               <h1 className="text-3xl">جزئیات صورتحساب</h1>
 
@@ -123,7 +123,7 @@ export default function Checkout() {
             </Form>
           </Formik>
         </div>
-        <div className=" col-span-1 border p-5">
+        <div className=" md:col-span-1 border md:p-5">
           {/* info */}
           <table className="w-full">
             <thead>
@@ -135,11 +135,11 @@ export default function Checkout() {
             <tbody>
               {cart.map((item) => (
                 <tr className="text-sm border-b">
-                  <td className="flex items-center text-start p-5 text-zinc-600">
+                  <td className="flex items-center text-start sm:px-2 sm:py-5 md:p-5 text-zinc-600">
                     {item.name} <IoCloseOutline className="text-zinc-800" />{" "}
                     {item.count}
                   </td>
-                  <td className="font-[faNum] text-start p-5 text-zinc-500">
+                  <td className="font-[faNum] text-start sm:p-2 md:p-5 text-zinc-500">
                     {new Intl.NumberFormat().format(item.price)}تومان
                   </td>
                 </tr>
@@ -226,11 +226,9 @@ export default function Checkout() {
               را خوانده ام و آن را می پذیرم. *{" "}
             </label>
             <button
-              className="btn bg-info mt-5"
+              className="btn bg-info mt-5 block"
               disabled={!readPolicy}
-              //   type="submit"
               form="formCheckout"
-              // onClick={paymentHandler}
             >
               ثبت سفارش
             </button>

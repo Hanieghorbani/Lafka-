@@ -21,7 +21,7 @@ export default function Login() {
 
   function userLogin(values) {
     axios
-      .post("http://localhost:8000/v1/auth/login", values, config)
+      .post("https://lafka-back.liara.run/v1/auth/login", values, config)
       .then((res) => {
         login([], res.data.accessToken)
 
@@ -31,7 +31,7 @@ export default function Login() {
           dangerMode: false,
           buttons: "ورود به پنل",
         }).then(() => {
-          navigate("/")
+          navigate("/my-account")
         })
       })
       .catch((err) =>
