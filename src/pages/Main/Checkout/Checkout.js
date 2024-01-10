@@ -1,14 +1,13 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 import Input from "../../../components/Fields/Input/Input"
 import TextArea from "../../../components/Fields/TextArea/TextArea"
 
-
 import { IoCloseOutline } from "react-icons/io5"
 
-import { Formik, Form} from "formik"
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import { useNavigate } from "react-router-dom"
 import swal from "sweetalert"
@@ -19,6 +18,8 @@ export default function Checkout() {
   const [readPolicy, setReadPolicy] = useState(false)
   const navigate = useNavigate()
   const { config, cart, setCart } = useContext(ContextData)
+
+  useEffect(() => window.scrollTo(0, 0), [])
   const initialValues = {
     state: "",
     city: "",
@@ -50,13 +51,13 @@ export default function Checkout() {
           }
         })
       }
-    }else{
+    } else {
       swal({
         text: "هنوز هیچ محصولی در سبد خرید شما وجود ندارد",
         icon: "error",
-        buttons: 'خرید محصول',
-      }).then(()=>{
-         navigate('/shop/1')
+        buttons: "خرید محصول",
+      }).then(() => {
+        navigate("/shop/1")
       })
     }
   }

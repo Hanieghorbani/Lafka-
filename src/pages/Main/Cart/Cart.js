@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
@@ -8,7 +8,7 @@ import ProductCartBoxInPage from "../../../components/Main/ProductCartBox/Produc
 import { Link } from "react-router-dom"
 export default function Cart() {
   const contextDatas = useContext(ContextData)
-  
+  useEffect(()=>window.scrollTo(0, 0),[])
   return (
     <div>
       <TopSection

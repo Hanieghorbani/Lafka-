@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import Header from "../../../components/Main/Header/Header"
 import Footer from "../../../components/Main/Footer/Footer"
 import Input from "../../../components/Fields/Input/Input"
@@ -15,6 +15,8 @@ export default function Register() {
   const [isVisiblePassConfirm, setIsVisiblePassConfirm] = useState(false)
   const { config, login } = useContext(ContextData)
   const navigate = useNavigate()
+
+  useEffect(()=>window.scrollTo(0, 0),[])
   const initialValues = {
     name: "",
     username: "",

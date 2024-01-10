@@ -8,6 +8,7 @@ export default function Orders() {
   const [isLoading, setIsLoading] = useState(false)
   const { config } = useContext(ContextData)
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios.get(`https://lafka-back.liara.run/v1/orders`, config).then((res) => {
       setOrders(res.data)
       setIsLoading(true)

@@ -1,10 +1,11 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import FavouriteBox from "../../../components/Main/FavoriteBox/FavoriteBox"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import Footer from "../../../components/Main/Footer/Footer"
 import ContextData from "../../../ContextData/ContextData"
 export default function Favourites() {
   const { favourites } = useContext(ContextData)
+  useEffect(()=>window.scrollTo(0, 0),[])
   return (
     <div>
       <TopSection
@@ -13,7 +14,7 @@ export default function Favourites() {
         bgHead={"bg-primary"}
         textColor="text-black"
       />
-      <div className="container-primary md:w-2/3 my-20 space-y-10">
+      <div className="container-primary grid sm:grid-cols-2 lg:grid-cols-1 lg:w-2/3 my-20 gap-10">
         {favourites ? (
           <>
             {favourites.map((item) => (

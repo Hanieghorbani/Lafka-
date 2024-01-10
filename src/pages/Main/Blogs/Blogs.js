@@ -9,6 +9,7 @@ export default function Blogs() {
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get("https://lafka-back.liara.run/v1/articles")
       .then((res) => setArticles(res.data)).catch(err=>{

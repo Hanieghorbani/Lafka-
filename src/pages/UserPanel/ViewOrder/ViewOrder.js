@@ -8,6 +8,7 @@ export default function ViewOrder() {
   const { config } = useContext(ContextData)
   const [orderInfos, setOrderInfos] = useState([])
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`https://lafka-back.liara.run/v1/orders/${orderID}`, config)
       .then((res) => {

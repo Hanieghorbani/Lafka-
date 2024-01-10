@@ -18,6 +18,8 @@ export default function Contacts() {
   const { config } = useContext(ContextData)
   const [captcha, setCaptcha] = useState("")
   const [answer, setAnswer] = useState("")
+
+  useEffect(()=>window.scrollTo(0, 0),[])
   const initialValues = {
     name: "",
     email: "",

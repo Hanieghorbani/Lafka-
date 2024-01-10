@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import Input from "../../../components/Fields/Input/Input"
 
@@ -14,6 +14,7 @@ export default function EditAccount() {
   const { name, username, email, phone } = userInfos
   const [isVisiblePass, setIsVisiblePass] = useState(false)
 
+  useEffect(()=>window.scrollTo(0, 0),[])
   const initialValues = {
     name,
     username,

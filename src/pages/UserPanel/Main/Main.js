@@ -1,10 +1,10 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import MainBox from "../../../components/UserPanel/MainBox/MainBox"
 import ContextData from "../../../ContextData/ContextData"
 
 export default function Index() {
   const authContext = useContext(ContextData)
-
+useEffect(()=>window.scrollTo(0, 0),[])
   return (
     <div className="w-full">
       <div className=" space-y-10 ">
@@ -23,9 +23,8 @@ export default function Index() {
           کاربری و کلمه عبور خود را ویرایش کنید.
         </p>
         <div className="main__links">
-          <div className="grid sm:grid-cols-1  md:grid-cols-3 gap-10">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10">
             <MainBox title="سفارشات" href="orders" />
-            <MainBox title="محصولات خریداری شده" href="#" />
             <MainBox title="جزئیات حساب کاربری" href="edit-account" />
             {authContext.userInfos.role == "ADMIN" && (
               <MainBox title="پنل ادمین" href="/p-admin" />

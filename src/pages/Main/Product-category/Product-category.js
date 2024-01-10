@@ -8,13 +8,17 @@ import axios from "axios"
 export default function Categorya() {
   const { shortName } = useParams()
   const [products, setProducts] = useState([])
+
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`https://lafka-back.liara.run/v1/courses/category/${shortName}`)
       .then((res) => {
         setProducts(res.data)
       })
   }, [shortName])
+  
   return (
     <div>
       <TopSection

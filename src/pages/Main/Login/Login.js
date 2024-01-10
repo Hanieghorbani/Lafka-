@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import Input from "../../../components/Fields/Input/Input"
 import Header from "../../../components/Main/Header/Header"
@@ -14,6 +14,8 @@ export default function Login() {
   const {config,login} = useContext(ContextData)
   const [isVisiblePass, setIsVisiblePass] = useState(false)
   const navigate = useNavigate()
+
+  useEffect(()=>window.scrollTo(0, 0),[])
   const initialValues = {
     identifier: "",
     password: "",
@@ -90,9 +92,6 @@ export default function Login() {
                 <input type="checkBox" />
                 <p>مرا به خاطر بسپار</p>
               </div>
-              <p className="cursor-pointer text-info text-sm hover:text-primary">
-                گذرواژه خود را فراموش کرده اید؟
-              </p>
             </div>
 
             {/* login btn  */}

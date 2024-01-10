@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import HeaderSection from "../../../components/Main/HeaderSection/HeaderSection"
 import InfosBox from "../../../components/Main/InfoBoxInSec2/InfosBox"
 import BurgerBox from "../../../components/Main/BurgerBox/BurgerBox"
@@ -8,12 +8,13 @@ import ContextData from "../../../ContextData/ContextData"
 import { Link } from "react-router-dom"
 export default function Index() {
   const contextDatas = useContext(ContextData)
+  useEffect(()=>window.scrollTo(0, 0),[])
   return (
     <div className="relative overflow-hidden">
       <div className=" bg-primary ">
         <Header />
         <div
-          className={`bg-primary container-primary flex flex-col items-center relative mt-40`}
+          className={`bg-primary container-primary flex flex-col items-center relative sm:mt-28 lg:mt-40`}
         >
           <img
             src="/imgs/bg/blur-tomato.png"
@@ -28,7 +29,7 @@ export default function Index() {
             <p className="sm:text-lg lg:text-xl sm:text-center">
               درمان همه ی گرسنگی ها و هوس های غذا با برگر های ما ..
             </p>
-            <img src="/imgs/foods/mighty-meaty.png" alt="" className="mb-24" />
+            <img src="/imgs/foods/mighty-meaty.png" alt="" className="mb-24 sm:w-[80%] lg:w-full" />
             <Link to={"/productCategory/برگرها"} className="btn-primary z-10 -mt-20">سفارش برگر ویژه</Link>
           </div>
         </div>
@@ -44,14 +45,14 @@ export default function Index() {
 
         <div className="flex sm:flex-col md:flex-row gap-10 items-center justify-between mt-16">
           <div className="flex flex-col items-center justify-center">
-            <img src="/imgs/foods/chicken-beef-600x386.png" alt="" />
-            <Link to={"/productCategory/برگرها"} className="btn-primary">
+            <img src="/imgs/foods/chicken-beef-600x386.png" alt="" className="sm:w-[80%] lg:w-full"/>
+            <Link to={"/productCategory/برگرها"} className="btn-primary text-sm">
               سفارش مرغ
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <img src="/imgs/foods/beef-chicken-600x386.png" alt="" />
-            <Link to={"/productCategory/برگرها"} className="btn-primary">
+            <img src="/imgs/foods/beef-chicken-600x386.png" alt="" className="sm:w-[80%] lg:w-full"/>
+            <Link to={"/productCategory/برگرها"} className="btn-primary text-sm">
               سفارش گوشت
             </Link>
           </div>
@@ -72,7 +73,7 @@ export default function Index() {
             <InfosBox title="تخم مرغ" icon="BsEggFried" calories="142" />
           </div>
           <div className="flex flex-col items-center justify-between">
-            <img src="/imgs/foods/burger-healthy.png" alt="" />
+            <img src="/imgs/foods/burger-healthy.png" alt="" className="sm:w-[80%] lg:w-full"/>
             <p className="sm:text-base md:text-xl text-gray-700 text-center">
               اوه ، پسر … آنها طعم تخم مرغ را فرا می گیرند!
             </p>
@@ -103,17 +104,7 @@ export default function Index() {
           ))}
         </div>
       </div>
-
-      {/* Custome Burger */}
-      <div className="bg-gray-100 py-20 container-primary flex flex-col items-center justify-center">
-        <HeaderSection
-          title={"خودتان برگرتان را بسازید"}
-          desc={"فقط عناصر مورد علاقه خود را اضافه کنید"}
-        />
-        <img src="/imgs/foods/burger-layers.png" alt="" className="" />
-        <button className="btn-primary mt-16">ساخت برگر</button>
-      </div>
-
+  
       {/* Best Service  */}
       <div className=" bg-secondary py-20 bg-img-fries bg-cover flex items-center justify-center flex-col container-primary">
         <HeaderSection
@@ -122,8 +113,8 @@ export default function Index() {
           topDesc={"بهترین خدمت با"}
           textWhite={true}
         />
-        <img src="/imgs/foods/fries-healthy.png" alt="" />
-        <Link to={"/shop/1"} className="btn-primary mt-16">
+        <img src="/imgs/foods/fries-healthy.png" alt="" className="sm:w-[80%] lg:w-1/2"/>
+        <Link to={"/shop/1"} className="btn-primary mt-16 text-sm">
           نمایش همه
         </Link>
       </div>

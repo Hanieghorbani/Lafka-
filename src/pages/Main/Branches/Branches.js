@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import TopSection from "../../../components/Main/TopSection/TopSection"
 import LocationBox from "../../../components/Main/LocationBox/LocationBox"
 import Footer from '../../../components/Main/Footer/Footer'
 import { FaLocationDot } from "react-icons/fa6"
 export default function Branches() {
+  useEffect(()=>{window.scrollTo(0, 0)},[])
   return (
     <div className="">
       <TopSection subTitle={"شعبه ها"} bg={"bg-img-location"} />

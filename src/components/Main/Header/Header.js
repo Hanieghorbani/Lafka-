@@ -8,7 +8,7 @@ import { FaPhoneAlt } from "react-icons/fa"
 import { FaBars, FaCreditCard, FaAngleDown } from "react-icons/fa6"
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci"
 import { AiOutlineSearch } from "react-icons/ai"
-import { IoIosLogOut } from "react-icons/io"
+import { IoIosLogOut, IoIosLogIn } from "react-icons/io"
 // end of icons
 
 import { Dialog } from "@headlessui/react"
@@ -33,7 +33,7 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState("")
   return (
     <div
-      className={`w-full  z-50 text-white container-primary transition-all duration-500 py-5 fixed top-0 ${
+      className={`w-full  z-50 text-white container-primary transition-all duration-500 sm:pb-4 sm:pt-2 lg:py-2 fixed top-0 ${
         isFixed ? " bg-primary" : "bg-inherit"
       }`}
     >
@@ -41,7 +41,7 @@ export default function Header() {
       {userInfos.role == "ADMIN" && (
         <Link
           to={"/p-admin"}
-          className=" absolute -top-10 right-10 bg-secondary p-4 pb-2 rounded-b-3xl cursor-pointer sm:hidden md:flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark "
+          className=" absolute -top-10 right-10 bg-secondary pt-3 p-2 rounded-b-3xl cursor-pointer sm:hidden md:flex gap-1  flex-col items-center group hover:top-0 hover:pb-4 transition-all duration-500 text-dark "
         >
           <p>پنل ادمین</p>
           <FaAngleDown className="group-hover:rotate-180 transition-all duration-500" />
@@ -50,9 +50,9 @@ export default function Header() {
       {/*end of show admin panel for admins  */}
 
       {/* top header  */}
-      <div className="flex items-center sm:justify-center xl:justify-between w-1/2  mx-auto relative">
+      <div className="flex items-center justify-between sm:w-full lg:w-1/2  mx-auto relative">
         {/* xl */}
-        <div className="gap-5 sm:hidden xl:flex text-sm">
+        <div className="gap-5 sm:hidden xl:flex">
           <Link to={"/"} className="li-header">
             خانه
           </Link>
@@ -64,6 +64,15 @@ export default function Header() {
           </Link>
         </div>
 
+        {/* sm  */}
+        <div className="lg:hidden flex items-center justify-center bg-lime-500 rounded-full h-9 w-9 shadow-xl">
+          <FaPhoneAlt
+            onClick={() => {
+              window.location.href = `tel:${infos.phone}`
+            }}
+          />
+        </div>
+
         <img
           className={`w-100 transition-all duration-500 ${
             isFixed ? "h-20" : "h-[6.5rem]"
@@ -72,7 +81,7 @@ export default function Header() {
           alt="logo"
         />
 
-        <div className="gap-5 sm:hidden xl:flex text-sm">
+        <div className="gap-5 sm:hidden xl:flex">
           <Link to={"/shop/1"} className="li-header">
             سفارش آنلاین
           </Link>
@@ -83,27 +92,26 @@ export default function Header() {
             تماس با ما
           </Link>
         </div>
+
+        {/* sm  */}
+        <div
+          className="xl:hidden flex items-center justify-center bg-red-500 rounded-full h-9 w-9 shadow-xl"
+          onClick={() => setIsOpenSidebarMenu(true)}
+        >
+          <FaBars />
+        </div>
       </div>
 
       {/* bottom header  */}
       <div className="flex justify-between items-center -mt-7">
         {/* right section */}
         {/* md */}
-        <div className="shadow-xl p-2 rounded-3xl sm:hidden md:flex flex-col items-center">
+        <div className="shadow-xl p-2 rounded-3xl sm:hidden lg:flex flex-col items-center">
           <p className=" text-gray-300">برای سفارش آنلاین تماس بگیرید</p>
           <p className="flex gap-2 items-center mt-1">
             <FaPhoneAlt />
             <span className="font-[faNum]">{infos.phone}</span>
           </p>
-        </div>
-
-        {/* sm  */}
-        <div className="md:hidden flex items-center justify-center bg-lime-500 rounded-full h-12 w-12 shadow-xl">
-          <FaPhoneAlt
-            onClick={() => {
-              window.location.href = `tel:${infos.phone}`
-            }}
-          />
         </div>
 
         {/* left section */}
@@ -116,7 +124,7 @@ export default function Header() {
             </Link>
           ) : (
             <Link to={"/login"}>
-              <IoIosLogOut className="li-header" />
+              <IoIosLogIn className="li-header" />
             </Link>
           )}
 
@@ -138,12 +146,6 @@ export default function Header() {
         </div>
 
         {/* sm */}
-        <div
-          className="xl:hidden flex items-center justify-center bg-red-500 rounded-full h-12 w-12 shadow-xl"
-          onClick={() => setIsOpenSidebarMenu(true)}
-        >
-          <FaBars />
-        </div>
       </div>
 
       {/* sidebar menu */}
@@ -280,7 +282,7 @@ export default function Header() {
             </Dialog.Title>
           </div>
 
-          <div className="overflow-y-scroll pb-10">
+          <div className="overflow-y-auto pb-10">
             <div className="relative mt-6 px-4 sm:px-6 ">
               {/* content section  */}
               <ul className="flex flex-col space-y-5 text-white">

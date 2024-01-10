@@ -16,6 +16,7 @@ export default function BlogInfo() {
   const { config } = useContext(ContextData)
   const [article, setArticle] = useState({})
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`https://lafka-back.liara.run/v1/articles/${shortName}`, config)
       .then((res) => {

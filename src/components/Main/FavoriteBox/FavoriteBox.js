@@ -7,13 +7,13 @@ export default function FavouriteBox(prodInfos) {
   const { addToCart, removefavourite } = useContext(ContextData)
   const { cover, name, price } = prodInfos
   return (
-    <div className="flex sm:flex-col md:flex-row justify-between items-center border p-3 rounded-2xl text-sm relative gap-5">
+    <div className="flex sm:flex-col lg:flex-row justify-between items-center  border p-3 rounded-2xl text-sm relative gap-5">
       <BsFillTrashFill
-        className="text-xl text-zinc-700 cursor-pointer hover:text-zinc-500 transition-all duration-300 sm:hidden md:block"
+        className="text-xl text-zinc-700 cursor-pointer hover:text-zinc-500 transition-all duration-300 sm:hidden lg:block"
         onClick={() => removefavourite(prodInfos)}
       />
       <IoCloseOutline
-        className="absolute top-2 right-2 text-2xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block md:hidden"
+        className="absolute top-2 right-2 text-2xl text-zinc-800 cursor-pointer hover:text-info transition-all duration-300 sm:block lg:hidden"
         onClick={() => removefavourite(prodInfos)}
       />
       <img
@@ -27,7 +27,7 @@ export default function FavouriteBox(prodInfos) {
       </p>
       <p className="text-zinc-500">موجود</p>
       <button
-        className="btn-yearStorySelect"
+        className="btn-yearStorySelect text-sm "
         onClick={() => addToCart(prodInfos)}
       >
         افزودن به سبد خرید

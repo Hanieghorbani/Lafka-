@@ -10,6 +10,7 @@ export default function Orders() {
   const [products, setProducts] = useState([])
   const [shownItems, setShownItems] = useState([])
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllProducts()
   }, [])
 

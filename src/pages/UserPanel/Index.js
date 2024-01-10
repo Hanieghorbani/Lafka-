@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Sidebar from "../../components/UserPanel/Sidebar/Sidebar"
 import Header from "../../components/Main/Header/Header"
 import Footer from "../../components/Main/Footer/Footer"
@@ -8,18 +8,19 @@ import ContextData from "../../ContextData/ContextData"
 import { FaBars } from "react-icons/fa6"
 
 import { Dialog } from "@headlessui/react"
-import { Link,Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 
 export default function Index() {
   const contextDatas = useContext(ContextData)
   const [isOpenSidebarMenu, setIsOpenSidebarMenu] = useState(false)
+  useEffect(() => window.scrollTo(0, 0), [])
   return (
     <div>
       <div className="bg-primary">
         <Header />
       </div>
 
-      <section className="mt-60">
+      <section className="sm:mt-40 lg:mt-60">
         <div className="py-7 border-y-2 border-primary ">
           <div className="container-primary flex justify-between items-center">
             <div>

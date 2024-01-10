@@ -80,26 +80,13 @@ export default function BurgerBox(prodInfos) {
             <p className="text-sm text-zinc-300">{description}</p>
 
             {/* scale  */}
-            <div className="flex gap-2 items-center bg-zinc-200 md:w-1/3 sm:w-1/2 rounded-2xl p-2 text-dark text-sm">
+            <div className="flex gap-2 items-center bg-zinc-200 w-2/3 rounded-2xl p-2 text-dark text-sm">
               <GiScales className="text-lg" />
               <p>
                 سایز: <span className="font-[faNum]">{scale}</span> گرم
               </p>
             </div>
             {/* end of  scale  */}
-
-            {/* energy info  */}
-            <div className="grid sm:grid-cols-3 lg:grid-cols-5 md:gap-5 sm:gap-2">
-              <EnergyBox title="انرژی" value=" 34 کال" di="29%" />
-              <EnergyBox title="پروتئین" value=" 34 گرم" di="64%" />
-              <EnergyBox title="چربی" value=" 34 گرم" di="17%" />
-              <EnergyBox title="حداکثر چربی" value=" 34 گرم" di="10%" />
-              <EnergyBox title="کربوهیدرات" value=" 34 گرم" di="7%" />
-            </div>
-            <p className="text-xs text-zinc-300">
-              *DI: مصرف روزانه را بر اساس رژیم 2000 کالری توصیه می شود
-            </p>
-            {/*end of energy info  */}
 
             <div className="flex sm:flex-col lg:flex-row items-center justify-between sm:gap-5 lg:gap-0">
               <h3 className="text-2xl">

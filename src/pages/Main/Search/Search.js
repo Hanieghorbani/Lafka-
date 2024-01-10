@@ -7,7 +7,9 @@ import { useParams } from "react-router-dom"
 export default function Search() {
   const { searchValue } = useParams()
   const [allResultProducts, setAllResultProducts] = useState([])
+  
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`https://lafka-back.liara.run/v1/search/${searchValue}`)
       .then((res) => {

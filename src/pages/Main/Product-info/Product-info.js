@@ -98,6 +98,7 @@ export default function ProductInfo() {
     }
   }
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`https://lafka-back.liara.run/v1/courses/${shortName}`, config)
       .then((res) => {

@@ -108,6 +108,9 @@ function App() {
   }
 
   function addToCart(prodInfos, newPrice) {
+    if (isLoggedIn) {
+      
+    
     const existingItem = cart.find((prod) => prod._id === prodInfos._id)
     if (existingItem) {
       if (newPrice) {
@@ -140,6 +143,16 @@ function App() {
     toast.success("محصول با موفقیت اضافه شد", {
       position: toast.POSITION.TOP_LEFT,
     })
+  }else{
+    swal({
+      text: "ابتدا وارد حساب کاربری خود شوید",
+      icon: "warning",
+      dangerMode: false,
+      buttons: "تایید",
+    }).then((val) => {
+      navigate("/login")
+    })
+  }
   }
 
   function minesCart(prodInfos, removeAll) {

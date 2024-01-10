@@ -16,6 +16,7 @@ export default function About() {
   const [comments, setComments] = useState([])
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get("https://lafka-back.liara.run/v1/comments")
       .then((res) => {
