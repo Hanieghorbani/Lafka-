@@ -86,6 +86,13 @@
         @apply text-sm rounded-xl relative text-white bg-red-200 border border-info text-info  py-1 px-3 mt-3 after:content-["▲"] after:absolute after:left-2 after:top-[-0.8rem] after:text-red-200;
     }
 
+    .content-blog h2{
+        @apply text-xl font-bold
+    }
+    .content-blog h3{
+        @apply text-lg font-bold
+    }
+
     /* admin panel  */
     .pAdmin-links-sidebar a {
         @apply flex gap-2 items-center;
@@ -123,5 +130,7 @@
     .ticket-boxes__custom {
         @apply relative before:content-[""] before:absolute before:top-8 before:right-20 before:w-4 before:h-4 before:rounded-full;
     }
+
+
     /*end of user panel  */
 }

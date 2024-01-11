@@ -16,7 +16,7 @@ export default function TopSection({
   const { categorys } = useContext(ContextData)
   return (
     <div
-      className={`bg-cover overflow-hidden sm:min-h-[75vh] md:min-h-[82vh] ${bg}`}
+      className={`bg-cover overflow-hidden sm:min-h-[60vh] md:min-h-[82vh] ${bg}`}
     >
       {bg && (
         <div className={bgHead}>
@@ -28,7 +28,7 @@ export default function TopSection({
       {/* section 1  */}
       <div
         className={`mx-auto sm:px-10 text-center space-y-16 ${
-          showCategory ? "mt-10" : "mt-60"
+          showCategory ? "mt-10" : "mt-40"
         } ${textColor ? textColor : "text-white"}`}
       >
         <p className="text-xl">

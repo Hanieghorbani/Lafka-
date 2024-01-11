@@ -38,12 +38,12 @@ export default function BlogInfo() {
         <img
           src={`https://lafka-back.liara.run/courses/covers/${cover}`}
           alt={title}
-          className="w-1/2 mx-auto mb-10 rounded-3xl"
+          className="md:w-1/2 mx-auto mb-10 rounded-3xl"
         />
         <h1 className="text-center text-3xl font-bold mb-20">{title}</h1>
 
         <div
-          className="w-2/3 mx-auto"
+          className="md:w-2/3 mx-auto content-blog"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(body),
           }}
