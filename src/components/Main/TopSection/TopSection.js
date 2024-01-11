@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import Category from "../Category/Category"
 import Header from "../Header/Header"
@@ -18,9 +18,12 @@ export default function TopSection({
     <div
       className={`bg-cover overflow-hidden sm:min-h-[75vh] md:min-h-[82vh] ${bg}`}
     >
-      <div className={bgHead}>
-        <Header />
-      </div>
+      {bg && (
+        <div className={bgHead}>
+          <Header />
+        </div>
+      )}
+
       {showCategory && <Category categorys={categorys} />}
       {/* section 1  */}
       <div

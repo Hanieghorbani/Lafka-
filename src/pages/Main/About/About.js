@@ -16,7 +16,7 @@ export default function About() {
   const [comments, setComments] = useState([])
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0)
     axios
       .get("https://lafka-back.liara.run/v1/comments")
       .then((res) => {
@@ -27,7 +27,11 @@ export default function About() {
 
   return (
     <div className="">
-      <TopSection subTitle={"درباره ما"} bg={"bg-img-about"} />
+      <TopSection
+        subTitle={"درباره ما"}
+        bg={"bg-img-about"}
+        bgHead={"bg-inherit"}
+      />
 
       {/* section 2  */}
       <div className="md:w-2/3 mx-auto py-20 container-primary">
@@ -172,7 +176,9 @@ export default function About() {
               ))}
             </Swiper>
           ) : (
-            <p className="text-lg text-center text-zinc-600">هنوز دیدگاهی ثبت نشده!</p>
+            <p className="text-lg text-center text-zinc-600">
+              هنوز دیدگاهی ثبت نشده!
+            </p>
           )}
         </div>
       </div>

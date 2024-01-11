@@ -7,7 +7,7 @@ export default function Branches() {
   useEffect(()=>{window.scrollTo(0, 0)},[])
   return (
     <div className="">
-      <TopSection subTitle={"شعبه ها"} bg={"bg-img-location"} />
+      <TopSection subTitle={"شعبه ها"} bg={"bg-img-location"} bgHead={"bg-inherit"}/>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 ">
         <div className="bg-secondary container-primary sm:py-9  md:p-12 sm:space-y-5 md:space-y-10">
           <h1 className="sm:text-xl md:text-3xl">ما را در نزدیکی خود پیدا کنید</h1>

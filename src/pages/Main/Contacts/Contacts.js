@@ -82,7 +82,7 @@ export default function Contacts() {
   }
   return (
     <div>
-      <TopSection subTitle={"تماس با ما"} bg={"bg-img-contact"} />
+      <TopSection subTitle={"تماس با ما"} bg={"bg-img-contact"} bgHead={"bg-inherit"}/>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 my-20 container-primary gap-16">
         <div className="md:col-span-1 space-y-5">
           <h1 className="text-2xl">درباره لافکا</h1>

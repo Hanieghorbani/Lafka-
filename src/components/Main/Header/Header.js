@@ -52,7 +52,7 @@ export default function Header() {
       {/* top header  */}
       <div className="flex items-center justify-between sm:w-full lg:w-1/2  mx-auto relative">
         {/* xl */}
-        <div className="gap-5 sm:hidden xl:flex">
+        <div className="gap-5 sm:hidden lg:flex">
           <Link to={"/"} className="li-header">
             خانه
           </Link>
@@ -81,7 +81,7 @@ export default function Header() {
           alt="logo"
         />
 
-        <div className="gap-5 sm:hidden xl:flex">
+        <div className="gap-5 sm:hidden lg:flex">
           <Link to={"/shop/1"} className="li-header">
             سفارش آنلاین
           </Link>
@@ -95,7 +95,7 @@ export default function Header() {
 
         {/* sm  */}
         <div
-          className="xl:hidden flex items-center justify-center bg-red-500 rounded-full h-9 w-9 shadow-xl"
+          className="lg:hidden flex items-center justify-center bg-red-500 rounded-full h-9 w-9 shadow-xl"
           onClick={() => setIsOpenSidebarMenu(true)}
         >
           <FaBars />
@@ -117,7 +117,7 @@ export default function Header() {
         {/* left section */}
 
         {/* lg */}
-        <div className="shadow-xl p-3 rounded-3xl text-3xl gap-4 sm:hidden xl:flex">
+        <div className="shadow-xl p-3 rounded-3xl text-3xl gap-4 sm:hidden lg:flex">
           {isLoggedIn ? (
             <Link to={"/my-account"}>
               <CiUser className="li-header" />
@@ -353,8 +353,14 @@ export default function Header() {
                   <CiUser className="li-header" />
                 </Link>
 
-                <Link to={"/favourites"} className="relative">
-                  <span className="badge-header text-white">0</span>
+                <Link
+                  to={"/favourites"}
+                  className="relative"
+                  onClick={() => setIsOpenSideSearch(false)}
+                >
+                  <span className="badge-header text-white">
+                    {favourites.length}
+                  </span>
                   <CiHeart className="li-header" />
                 </Link>
               </div>

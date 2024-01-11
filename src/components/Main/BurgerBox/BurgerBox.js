@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import ContextData from "../../../ContextData/ContextData"
 import Sidebar from "../../Sidebar/Sidebar"
 import EnergyBox from "../EnergyBox/EnergyBox"
@@ -6,16 +6,23 @@ import EnergyBox from "../EnergyBox/EnergyBox"
 import { Dialog } from "@headlessui/react"
 import { Link } from "react-router-dom"
 // icons
-import { CiHeart } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
-import { FaHeartbeat, FaRegHeart } from "react-icons/fa"
+import { FaRegHeart } from "react-icons/fa"
+import { VscHeartFilled, VscHeart } from "react-icons/vsc"
+
 // end of icons
 
 export default function BurgerBox(prodInfos) {
   const [isOpenSidebarOrder, setIsOpenSidebarOrder] = useState(false)
   const contextDatas = useContext(ContextData)
-  const { price, cover, name, shortName, description, scale, discount } =
+  const [isInFavourites, setIsInFavourites] = useState(false)
+  const { favourites, removefavourite, addfavouriteHandler } = contextDatas
+  const { price, cover, name, shortName, description, scale, discount, _id } =
     prodInfos
+
+  useEffect(() => {
+    setIsInFavourites(favourites.find((prod) => prod._id == _id))
+  })
 
   return (
     <div className="burgerBox">
@@ -48,10 +55,17 @@ export default function BurgerBox(prodInfos) {
             className=" cursor-pointer w-full"
           />
         </Link>
-        <FaRegHeart
-          className="text-xl absolute bottom-5 left-5 cursor-pointer hover:text-primary"
-          onClick={() => contextDatas.addfavouriteHandler(prodInfos)}
-        />
+        {isInFavourites ? (
+          <VscHeartFilled
+            className="absolute bottom-5 left-5 sm:text-2xl lg:text-3xl text-info cursor-pointer"
+            onClick={() => removefavourite(prodInfos)}
+          />
+        ) : (
+          <VscHeart
+            className="absolute bottom-5 left-5 sm:text-2xl lg:text-3xl cursor-pointer text-primary"
+            onClick={() => addfavouriteHandler(prodInfos)}
+          />
+        )}
       </div>
 
       <div className="flex flex-col items-center gap-3 mt-1 p-5">
@@ -103,12 +117,19 @@ export default function BurgerBox(prodInfos) {
                     setIsOpenSidebarOrder(false)
                   }}
                 >
-                  سفارش
+                  افزودن به سبد خرید
                 </button>
-                <CiHeart
-                  className="text-5xl cursor-pointer hover:text-info"
-                  onClick={() => contextDatas.addfavouriteHandler(prodInfos)}
-                />
+                {isInFavourites ? (
+                  <VscHeartFilled
+                    className="sm:text-2xl lg:text-3xl text-info cursor-pointer"
+                    onClick={() => removefavourite(prodInfos)}
+                  />
+                ) : (
+                  <VscHeart
+                    className="sm:text-2xl lg:text-3xl cursor-pointer text-info"
+                    onClick={() => addfavouriteHandler(prodInfos)}
+                  />
+                )}
               </div>
             </div>
           </div>

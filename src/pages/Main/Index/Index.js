@@ -14,7 +14,7 @@ export default function Index() {
       <div className=" bg-primary ">
         <Header />
         <div
-          className={`bg-primary container-primary flex flex-col items-center relative sm:mt-28 lg:mt-40`}
+          className={`bg-primary container-primary flex flex-col items-center relative sm:pt-28 lg:pt-36`}
         >
           <img
             src="/imgs/bg/blur-tomato.png"
@@ -29,7 +29,7 @@ export default function Index() {
             <p className="sm:text-lg lg:text-xl sm:text-center">
               درمان همه ی گرسنگی ها و هوس های غذا با برگر های ما ..
             </p>
-            <img src="/imgs/foods/mighty-meaty.png" alt="" className="mb-24 sm:w-[80%] lg:w-full" />
+            <img src="/imgs/foods/mighty-meaty.png" alt="" className="mb-24 sm:w-[80%]" />
             <Link to={"/productCategory/برگرها"} className="btn-primary z-10 -mt-20">سفارش برگر ویژه</Link>
           </div>
         </div>
@@ -45,13 +45,13 @@ export default function Index() {
 
         <div className="flex sm:flex-col md:flex-row gap-10 items-center justify-between mt-16">
           <div className="flex flex-col items-center justify-center">
-            <img src="/imgs/foods/chicken-beef-600x386.png" alt="" className="sm:w-[80%] lg:w-full"/>
+            <img src="/imgs/foods/chicken-beef-600x386.png" alt="" className="sm:w-[80%]"/>
             <Link to={"/productCategory/برگرها"} className="btn-primary text-sm">
               سفارش مرغ
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <img src="/imgs/foods/beef-chicken-600x386.png" alt="" className="sm:w-[80%] lg:w-full"/>
+            <img src="/imgs/foods/beef-chicken-600x386.png" alt="" className="sm:w-[80%]"/>
             <Link to={"/productCategory/برگرها"} className="btn-primary text-sm">
               سفارش گوشت
             </Link>
@@ -73,7 +73,7 @@ export default function Index() {
             <InfosBox title="تخم مرغ" icon="BsEggFried" calories="142" />
           </div>
           <div className="flex flex-col items-center justify-between">
-            <img src="/imgs/foods/burger-healthy.png" alt="" className="sm:w-[80%] lg:w-full"/>
+            <img src="/imgs/foods/burger-healthy.png" alt="" className="sm:w-[80%]"/>
             <p className="sm:text-base md:text-xl text-gray-700 text-center">
               اوه ، پسر … آنها طعم تخم مرغ را فرا می گیرند!
             </p>

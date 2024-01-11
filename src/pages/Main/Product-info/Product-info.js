@@ -8,9 +8,13 @@ import TextArea from "../../../components/Fields/TextArea/TextArea"
 import ContextData from "../../../ContextData/ContextData"
 
 // icons
-import { CiHeart } from "react-icons/ci"
 import { GiScales } from "react-icons/gi"
-import { FaHeartbeat, FaRegUserCircle, FaStar, FaRegStar } from "react-icons/fa"
+import {
+  FaRegUserCircle,
+  FaStar,
+  FaRegStar
+} from "react-icons/fa"
+import { VscHeartFilled,VscHeart  } from "react-icons/vsc";
 // end of icons
 
 import { useParams } from "react-router-dom"
@@ -31,6 +35,7 @@ export default function ProductInfo() {
   const [isClickStar, setIsClickStar] = useState(false)
   const [haveOff, setHaveOff] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isInFavourites, setIsInFavourites] = useState(false)
 
   const [score, setScore] = useState(null)
   const [codeOff, setCodeOff] = useState("")
@@ -43,7 +48,19 @@ export default function ProductInfo() {
     setIsOpenSidebarCart,
     addToCart,
     addfavouriteHandler,
+    favourites,
+    removefavourite
   } = useContext(ContextData)
+
+  const initialValues = {
+    contentText: "",
+  }
+
+  const validationSchema = Yup.object().shape({
+    contentText: Yup.string()
+      .required("متن پیام الزامی است")
+      .min(5, "پیام وارد شده نمی تواند کمتر از 5 حرف باشد"),
+  })
 
   function setOffHandler() {
     if (haveOff) {
@@ -97,8 +114,10 @@ export default function ProductInfo() {
         })
     }
   }
+
+  useEffect(()=>window.scrollTo(0, 0),[])
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // get product info
     axios
       .get(`https://lafka-back.liara.run/v1/courses/${shortName}`, config)
       .then((res) => {
@@ -109,24 +128,18 @@ export default function ProductInfo() {
           setProductInfo(res.data)
         }
         setIsLoading(true)
+
+        setIsInFavourites(favourites.find((prod) => prod._id == res.data._id))
       })
       .catch((err) => console.log(err))
 
+    // get related products
     axios
       .get(`https://lafka-back.liara.run/v1/courses/related/${shortName}`)
       .then((res) => {
         setRelated(res.data)
       })
-  }, [shortName])
-  const initialValues = {
-    contentText: "",
-  }
-
-  const validationSchema = Yup.object().shape({
-    contentText: Yup.string()
-      .required("متن پیام الزامی است")
-      .min(5, "پیام وارد شده نمی تواند کمتر از 5 حرف باشد"),
-  })
+  }, [shortName,favourites])
 
   // score handler in comment section
   function hoverStar(index, stars) {
@@ -240,7 +253,7 @@ export default function ProductInfo() {
                   </div>
 
                   <div className="flex items-center sm:justify-between  gap-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <button
                         className="btn bg-info text-sm"
                         onClick={() => {
@@ -254,12 +267,19 @@ export default function ProductInfo() {
                           )
                         }}
                       >
-                        سفارش
+                        افزودن به سبد خرید
                       </button>
-                      <CiHeart
-                        className="sm:text-2xl lg:text-5xl cursor-pointer hover:text-info"
-                        onClick={() => addfavouriteHandler(productInfo)}
-                      />
+                      {isInFavourites ? (
+                        <VscHeartFilled
+                          className="sm:text-2xl lg:text-3xl text-info cursor-pointer"
+                          onClick={() => removefavourite(productInfo)}
+                        />
+                      ) : (
+                        <VscHeart  
+                          className="sm:text-2xl lg:text-3xl cursor-pointer text-info"
+                          onClick={() => addfavouriteHandler(productInfo)}
+                        />
+                      )}
                     </div>
                     {/* price  */}
                     <div>
