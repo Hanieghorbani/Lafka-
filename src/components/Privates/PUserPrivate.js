@@ -6,7 +6,7 @@ export default function PUserPrivate({ children }) {
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const navigate = useNavigate()
   useEffect(() => {
-    if (!localStorageToken.token) {
+    if (!localStorageToken) {
       navigate("/login")
     }
   }, [isLoggedIn])

@@ -97,7 +97,6 @@ function App() {
   function getAllProducts() {
     axios.get("https://lafka-back.liara.run/v1/courses").then((res) => {
       setProducts(res.data)
-      console.log(res);
     }).catch(err=>console.log(err))
   }
 

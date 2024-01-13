@@ -92,7 +92,6 @@ export default function Articles() {
             icon: "success",
             buttons: "تایید",
           }).then(() => {
-            console.log(res.data)
             getAllArticles()
             resetForm()
             setArticleBody('')

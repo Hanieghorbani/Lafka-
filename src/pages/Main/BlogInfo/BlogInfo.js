@@ -21,7 +21,6 @@ export default function BlogInfo() {
       .get(`https://lafka-back.liara.run/v1/articles/${shortName}`, config)
       .then((res) => {
         setArticle(res.data)
-        console.log(res.data)
       })
   }, [shortName])
   const { cover, title, body, creator, createdAt } = article

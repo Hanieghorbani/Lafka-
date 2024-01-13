@@ -174,7 +174,6 @@ export default function ProductInfo() {
     axios
       .post("https://lafka-back.liara.run/v1/comments", commentInfo, config)
       .then((res) => {
-        console.log(res)
         swal({
           text: "دیدگاه شما پس از تایید مدیران سایت نمایش داده خواهد شد",
           icon: "success",
