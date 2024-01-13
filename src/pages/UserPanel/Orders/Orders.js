@@ -11,6 +11,7 @@ export default function Orders() {
     window.scrollTo(0, 0);
     axios.get(`https://lafka-back.liara.run/v1/orders`, config).then((res) => {
       setOrders(res.data)
+      console.log(res.data);
       setIsLoading(true)
     })
   }, [])
@@ -19,7 +20,7 @@ export default function Orders() {
     <div className="w-full">
       {isLoading && (
         <div className="">
-          {orders.length == true ? (
+          {orders.length ? (
             <table className=" w-full">
               <thead className="border-b-2 pb-5">
                 <tr className="sm:text-sm md:text-lg font-bold">
