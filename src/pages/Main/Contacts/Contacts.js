@@ -71,7 +71,7 @@ export default function Contacts() {
       .post("https://lafka-back.liara.run/v1/contact", values, config)
       .then((res) => {
         swal({
-          title: "پیام شده ارسال شد",
+          title: "پیام شما ارسال شد",
           icon: "success",
           dangerMode: false,
           buttons: "تایید",

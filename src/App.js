@@ -6,6 +6,7 @@ import routes from "./Routes"
 
 import { useNavigate, useRoutes } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
+
 import swal from "sweetalert"
 import axios from "axios"
 import AOS from "aos"
@@ -31,7 +32,7 @@ function App() {
   const [token, setToken] = useState("")
   const [userPanelSubMenu, setUserPanelSubMenu] = useState("پیشخوان")
   const [countProduct, setCountProduct] = useState(1)
-  const [isScrollBtnVisible] = useScroll(400)
+  const [isScrollBtnVisible, offset] = useScroll(400)
 
   const localStorageToken = JSON.parse(localStorage.getItem("user"))
   const config = {
@@ -95,63 +96,65 @@ function App() {
   }
 
   function getAllProducts() {
-    axios.get("https://lafka-back.liara.run/v1/courses").then((res) => {
-      setProducts(res.data)
-    }).catch(err=>console.log(err))
+    axios
+      .get("https://lafka-back.liara.run/v1/courses")
+      .then((res) => {
+        setProducts(res.data)
+      })
+      .catch((err) => console.log(err))
   }
 
   function getAllArticles() {
     axios
       .get("https://lafka-back.liara.run/v1/articles")
-      .then((res) => setArticles(res.data)).catch(err=>console.log(err))
+      .then((res) => setArticles(res.data))
+      .catch((err) => console.log(err))
   }
 
   function addToCart(prodInfos, newPrice) {
     if (isLoggedIn) {
-      
-    
-    const existingItem = cart.find((prod) => prod._id === prodInfos._id)
-    if (existingItem) {
-      if (newPrice) {
-        const addNewInfos = cart.map((prod) => {
-          return prod._id == prodInfos._id
-            ? { ...prod, count: prod.count + 1, price: newPrice }
-            : prod
-        })
-        setCart(addNewInfos)
-        localStorage.setItem("cart", JSON.stringify(addNewInfos))
+      const existingItem = cart.find((prod) => prod._id === prodInfos._id)
+      if (existingItem) {
+        if (newPrice) {
+          const addNewInfos = cart.map((prod) => {
+            return prod._id == prodInfos._id
+              ? { ...prod, count: prod.count + 1, price: newPrice }
+              : prod
+          })
+          setCart(addNewInfos)
+          localStorage.setItem("cart", JSON.stringify(addNewInfos))
+        } else {
+          const addCountProd = cart.map((prod) => {
+            return prod._id == prodInfos._id
+              ? { ...prod, count: prod.count + 1 }
+              : prod
+          })
+          setCart(addCountProd)
+          localStorage.setItem("cart", JSON.stringify(addCountProd))
+        }
       } else {
-        const addCountProd = cart.map((prod) => {
-          return prod._id == prodInfos._id
-            ? { ...prod, count: prod.count + 1 }
-            : prod
-        })
-        setCart(addCountProd)
-        localStorage.setItem("cart", JSON.stringify(addCountProd))
+        let updateCart
+        if (newPrice) {
+          updateCart = [...cart, { ...prodInfos, count: 1, price: newPrice }]
+        } else {
+          updateCart = [...cart, { ...prodInfos, count: 1 }]
+        }
+        setCart(updateCart)
+        localStorage.setItem("cart", JSON.stringify(updateCart))
       }
+      toast.success("محصول با موفقیت اضافه شد", {
+        position: toast.POSITION.TOP_LEFT,
+      })
     } else {
-      let updateCart
-      if (newPrice) {
-        updateCart = [...cart, { ...prodInfos, count: 1, price: newPrice }]
-      } else {
-        updateCart = [...cart, { ...prodInfos, count: 1 }]
-      }
-      setCart(updateCart)
-      localStorage.setItem("cart", JSON.stringify(updateCart))
+      swal({
+        text: "ابتدا وارد حساب کاربری خود شوید",
+        icon: "warning",
+        dangerMode: false,
+        buttons: "تایید",
+      }).then((val) => {
+        navigate("/login")
+      })
     }
-    toast.success("محصول با موفقیت اضافه شد", {
-      position: toast.POSITION.TOP_LEFT,
-    })
-  }else{
-    swal({
-      text: "ابتدا وارد حساب کاربری خود شوید",
-      icon: "warning",
-      dangerMode: false,
-      buttons: "تایید",
-    }).then((val) => {
-      navigate("/login")
-    })
-  }
   }
 
   function minesCart(prodInfos, removeAll) {
@@ -174,9 +177,12 @@ function App() {
   }
 
   function getInfos() {
-    axios.get("https://lafka-back.liara.run/v1/infos/index").then((res) => {
-      setInfos(res.data)
-    }).catch(err=>console.log(err))
+    axios
+      .get("https://lafka-back.liara.run/v1/infos/index")
+      .then((res) => {
+        setInfos(res.data)
+      })
+      .catch((err) => console.log(err))
   }
 
   function addfavouriteHandler(prodInfos) {
@@ -285,7 +291,7 @@ function App() {
       >
         {router}
         <ToastContainer autoClose={1000} rtl />
-        {isScrollBtnVisible && <ScrollToTop />}
+        {isScrollBtnVisible && offset > 400 && <ScrollToTop />}
       </ContextData.Provider>
     </div>
   )

@@ -18,7 +18,7 @@ export default function Orders() {
       setOrders(res.data)
       setIsLoading(true)
     }).catch(err=>console.log(err))
-  },[config])
+  },[])
 
   return (
     <div className="w-full">

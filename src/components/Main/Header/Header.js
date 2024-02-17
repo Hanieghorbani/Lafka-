@@ -15,7 +15,7 @@ import { Dialog } from "@headlessui/react"
 import { Link } from "react-router-dom"
 
 export default function Header() {
-  const [isFixed] = useScroll(67)
+  const [isFixed, offset] = useScroll(67)
   const {
     setUserPanelSubMenu,
     setIsOpenSidebarMenu,
@@ -33,8 +33,8 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState("")
   return (
     <div
-      className={`w-full  z-50 text-white container-primary transition-all duration-500 sm:pb-4 sm:pt-2 lg:py-2 fixed top-0 ${
-        isFixed ? " bg-primary" : "bg-inherit"
+      className={`w-full  z-50 text-white container-primary transition-all duration-500 sm:pb-4 sm:pt-2 lg:py-2 ${
+        offset == 0 ? 'fixed top-0 bg-inherit' : offset > 0 && isFixed ? 'fixed top-0 bg-primary' : 'hidden'
       }`}
     >
       {/* show admin panel for admins  */}
